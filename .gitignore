@@ -4,3 +4,11 @@
 *.jar
 *.war
 *.ear
+
+VocalyzeSIVOX
+
+# Hidden Files #
+.*
+
+# Binary files #
+Modele_de_jeu/bin

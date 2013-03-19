@@ -1,0 +1,8 @@
+Dans le répertoire doc, deux fichiers sont obligatoires pour que votre projet soit mis sur le CD DeViNT :
+
+- entete.txt est ajouté devant les fichiers .java pour fixer la modélité de distributions des source.
+- infos.xml contient les informations sur le jeu (les notes d'utilisation, les règles du jeu, comment on utilise le clavier, et le public visé). 
+Ce fichier est utilisé dans le menu d'aide des jeux, et aussi mors de l'installation.
+
+Le répertoire doc peut contenir aussi les javadocs et tous les renseignements, documents et suppléments que vous jugerez utiles, 
+règles et schémas à imprimer, cartes de jeu, ...
