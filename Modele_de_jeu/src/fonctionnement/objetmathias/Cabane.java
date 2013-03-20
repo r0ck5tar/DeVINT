@@ -11,7 +11,7 @@ public class Cabane {
 	public Cabane(Joueur joueur) {
 		this.joueur = joueur;
 		this.stock = new Stock();
-		this.bateau = null;
+		this.bateau = new Bateau(this);
 
 		this.toit = false;
 		this.tonneau = false;
@@ -56,13 +56,14 @@ public class Cabane {
 	public void construireToit() {
 		this.toit = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.stock.remove(TypeRessource.FILET,1);
+		this.stock.remove(TypeRessource.BOIS,2);
+		this.stock.remove(TypeRessource.LIANE,1);
 	}
 	
 	public void construireTonneau() {
 		this.tonneau = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.stock.remove(TypeRessource.FILET,1);
+		this.stock.remove(TypeRessource.BOIS,2);
 	}
 	
 	public void construireFilet() {
@@ -74,6 +75,15 @@ public class Cabane {
 	public void construireAtelier() {
 		this.atelier = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.stock.remove(TypeRessource.FILET,1);
+		this.stock.remove(TypeRessource.PIERRE,3);
+		this.stock.remove(TypeRessource.BOIS,2);
+		this.stock.remove(TypeRessource.LIANE,1);
+	}
+	
+	public void construireStock() {
+		this.atelier = true;
+		// this.stock.remove(enum de la ressource , quantite de cette ressource)
+		this.stock.remove(TypeRessource.PIERRE,1);
+		this.stock.remove(TypeRessource.BOIS,1);
 	}
 }
