@@ -1,3 +1,5 @@
+package fonctionnement.objetmathias;
+
 public enum TypeRessource
 {
     PIERRE("pierre"),

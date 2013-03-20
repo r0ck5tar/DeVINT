@@ -1,3 +1,5 @@
+package fonctionnement.objetmathias;
+
 public class Ressource extends Objet{
 	private TypeRessource type;
 

@@ -1,3 +1,5 @@
+package fonctionnement.objetmathias;
+
 public class Joueur {
 	private String nom;
 	private Sac sac;

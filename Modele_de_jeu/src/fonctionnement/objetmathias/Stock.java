@@ -1,3 +1,5 @@
+package fonctionnement.objetmathias;
+
 import java.util.ArrayList;
 
 public class Stock {

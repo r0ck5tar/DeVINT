@@ -1,3 +1,5 @@
+package fonctionnement.objetmathias;
+
 public class Cabane {
 	private Joueur joueur;
 	private Stock stock;

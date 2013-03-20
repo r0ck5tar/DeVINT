@@ -1,3 +1,5 @@
+package fonctionnement.objetmathias;
+
 public class Objet {
 	// 0 : Ressource / 1 : ObjetEffet
 	protected boolean typeObjet;

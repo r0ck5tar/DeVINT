@@ -11,24 +11,25 @@ import java.awt.event.*;
 
 /** Cette classe est un exemple d'interface de jeu.
  *  Elle étend DevintFrame pour avoir un Frame et réagir aux évênements claviers
- * Implémente ActionListener pour réagir au clic souris sur le bouton.
- * On surchage la méthode "keyPressed" pour associer une action à la touche F3
+ *  Implémente ActionListener pour réagir au clic souris sur le bouton.
+ *  On surchage la méthode "keyPressed" pour associer une action à la touche F3
  * 
- * @author helene
- *
+ *  @author helene
  */
 
 public class IHMPlateauPrincipal extends FenetreAbstraite implements ActionListener{
 
-	// le bouton pour la question
-	// est une variable d'instance car il doit être accessible 
-	// dans la méthode actionPerformed 
+	// le bouton pour la question est une variable d'instance
+	// car il doit être accessible dans la méthode actionPerformed 
 	private JButton question;
 	
-	// un label
-	// est une variable d'instance car il doit être accessible 
+	
+	// un label est une variable d'instance car il doit être accessible 
 	// dans la méthode changeColor, qui gère les préférences
 	private JTextArea lb1;
+
+	
+	private JLabel lblPlateau;
 	
 	// appel au constructeur de la classe mère
     public IHMPlateauPrincipal(String title) {
@@ -55,17 +56,18 @@ public class IHMPlateauPrincipal extends FenetreAbstraite implements ActionListe
     protected void init() {
     	// BorderLayout, voir http://java.sun.com/docs/books/tutorial/uiswing/layout/border.html
     	setLayout(new BorderLayout());
+    	
+    	ImageIcon plateau = new ImageIcon("../ressources/images/IHM/plateau_de_jeu_contraste.PNG");
  
+    	lblPlateau = new JLabel(plateau);
+    	lblPlateau.setVisible(true);
+    	
+    	this.add(lblPlateau, BorderLayout.CENTER);
+
+    	/*
     	// premier label
     	// ce label est géré par les préférences (cf méthode changeColor)
-    	String text = "L'interface de votre jeu est totalement libre mais vous devez suivre ";
-    	text += "les conventions d'utilisation des touches.\n";
-    	text += "En héritant de \"FenetreAbstraite\", la touche ESC vous permez de sortir,\n"; 
-    	text += "la touche F1 d'écouter la règle du jeu et la touche F2 d'écouter l'aide\n.";
-    	text += "La touche F3 permet de changer le jeu de couleurs, et la touche F4 la voix";
-    	text+= "de la synthèse vocale\n";
-    	text+= "\nESSAYEZ DE TAPER F1 puis F3\n";
-    	text += "\nOn a utilisé un BorderLayout pour placer les éléments. Ce texte est au nord.";
+    	String text = "Un peu de texte";
      	lb1 = new JTextArea (text); 
     	lb1.setLineWrap(true);
     	lb1.setEditable(false);
@@ -79,6 +81,7 @@ public class IHMPlateauPrincipal extends FenetreAbstraite implements ActionListe
     	
     	// on place le premier composant en haut
     	this.add(lb1,BorderLayout.NORTH);
+    	
 
     	// deuxième label, qui n'est pas géré par les préférences
        	text = "C'est rigolo les jeux DeViNT";
@@ -99,7 +102,9 @@ public class IHMPlateauPrincipal extends FenetreAbstraite implements ActionListe
        	lb2.setForeground(Color.WHITE);  	
        	// on place ce composant au centre
        	this.add(lb2,BorderLayout.CENTER);
+       	*/
 
+    	/*
     	// bouton pour poser une question
     	question = new JButton();
     	question.setText("Cliquez sur ce bouton pour écouter la question");
@@ -110,6 +115,7 @@ public class IHMPlateauPrincipal extends FenetreAbstraite implements ActionListe
        	question.addActionListener(this);
     	// on met le bouton à droite
      	this.add(question,BorderLayout.EAST);
+     	*/
    }
 
     // lire la question si clic sur le bouton 

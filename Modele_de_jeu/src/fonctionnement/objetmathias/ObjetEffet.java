@@ -1,3 +1,5 @@
+package fonctionnement.objetmathias;
+
 public class ObjetEffet extends Objet {
 	private TypeObjetEffet type;
 

@@ -1,3 +1,5 @@
+package fonctionnement.objetmathias;
+
 public enum TypeObjetEffet
 {
     LANCE("lance"),

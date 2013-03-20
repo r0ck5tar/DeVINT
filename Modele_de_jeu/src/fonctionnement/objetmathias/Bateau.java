@@ -1,3 +1,5 @@
+package fonctionnement.objetmathias;
+
 public class Bateau {
 	private Cabane cabane;
 	// Niveaux de constructions
