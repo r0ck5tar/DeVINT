@@ -1,5 +1,6 @@
 package fonctionnement.objet;
 
+import fonctionnement.environnement.Cabane;
 import fonctionnement.environnement.Case;
 
 public class Joueur {

@@ -1,4 +1,4 @@
-package jeu;
+package ihm;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -17,7 +17,13 @@ import java.awt.event.*;
  *  @author helene
  */
 
-public class IHMPlateauPrincipal extends FenetreAbstraite implements ActionListener{
+public class IHMGameView extends FenetreAbstraite implements ActionListener{
+	
+	//IHMInfoJoueur (arrayList)
+	//IHMM
+	
+	
+	
 
 	// le bouton pour la question est une variable d'instance
 	// car il doit être accessible dans la méthode actionPerformed 
@@ -32,7 +38,7 @@ public class IHMPlateauPrincipal extends FenetreAbstraite implements ActionListe
 	private JLabel lblPlateau;
 	
 	// appel au constructeur de la classe mère
-    public IHMPlateauPrincipal(String title) {
+    public IHMGameView(String title) {
     	super(title);
      }
     

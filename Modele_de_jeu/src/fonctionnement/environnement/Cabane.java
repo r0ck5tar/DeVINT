@@ -1,4 +1,9 @@
-package fonctionnement.objet;
+package fonctionnement.environnement;
+
+import fonctionnement.objet.Bateau;
+import fonctionnement.objet.Joueur;
+import fonctionnement.objet.Stock;
+import fonctionnement.objet.TypeRessource;
 
 public class Cabane {
 	private Joueur joueur;
