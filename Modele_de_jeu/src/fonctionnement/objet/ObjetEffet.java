@@ -1,5 +1,6 @@
 package fonctionnement.objet;
 
+
 public class ObjetEffet extends Objet {
 	private TypeObjetEffet type;
 

@@ -1,5 +1,9 @@
+<<<<<<< HEAD:Modele_de_jeu/src/fonctionnement/objetmathias/Stock.java
 package fonctionnement.objetmathias;
 
+=======
+package fonctionnement.objet;
+>>>>>>> bug des packages résolus:Modele_de_jeu/src/fonctionnement/objet/Stock.java
 import java.util.ArrayList;
 
 public class Stock {

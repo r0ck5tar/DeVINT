@@ -1,4 +1,5 @@
-package fonctionnement.objetmathias;
+package fonctionnement.objet;
+
 
 public class Bateau {
 	private Cabane cabane;
