@@ -12,3 +12,6 @@ VocalyzeSIVOX
 
 # Binary files #
 Modele_de_jeu/bin
+
+# Zip Files #
+*.zip
