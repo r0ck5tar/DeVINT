@@ -64,6 +64,8 @@ public class IHMPlateauPrincipal extends FenetreAbstraite implements ActionListe
     	
     	this.add(lblPlateau, BorderLayout.CENTER);
 
+
+    	
     	/*
     	// premier label
     	// ce label est géré par les préférences (cf méthode changeColor)
@@ -114,8 +116,12 @@ public class IHMPlateauPrincipal extends FenetreAbstraite implements ActionListe
      	// c'est l'objet Jeu lui-même qui réagit au clic souris
        	question.addActionListener(this);
     	// on met le bouton à droite
+
      	this.add(question,BorderLayout.EAST);
      	*/
+
+     	this.add(question,BorderLayout.EAST);    	
+
    }
 
     // lire la question si clic sur le bouton 
