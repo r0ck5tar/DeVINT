@@ -1,7 +1,6 @@
 package ihm;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,12 +15,12 @@ public class IHMPlateau extends JPanel{
 		GridBagConstraints casePos = new GridBagConstraints();
 		GridBagConstraints cabanePos = new GridBagConstraints();
 		
-		ArrayList<IHMCase> cases = new ArrayList<IHMCase>();
-		ArrayList<IHMCabane> cabanes = new ArrayList<IHMCabane>();
+		IHMCase[] cases = new IHMCase[57];
+		IHMCabane[] cabanes = new IHMCabane[4];
 		
 		
 		for(int i=0; i<4; i++) {
-			cabanes.add(new IHMCabane());
+			cabanes[i] = new IHMCabane();
 		}
 		
 		cabanePos.fill = GridBagConstraints.BOTH;
@@ -37,23 +36,23 @@ public class IHMPlateau extends JPanel{
 		cabanePos.gridx = 7;
 		cabanePos.gridy = 0;
 		
-		this.add(cabanes.get(0), cabanePos);
+		this.add(cabanes[0], cabanePos);
 		
 		//Right cabane
 		cabanePos.gridx = 14;
 		cabanePos.gridy = 7;
 		
-		this.add(cabanes.get(1), cabanePos);
+		this.add(cabanes[1], cabanePos);
 		
 		//Bottom cabane
 		cabanePos.gridx = 7;
 		cabanePos.gridy = 14;
-		this.add(cabanes.get(2), cabanePos);
+		this.add(cabanes[2], cabanePos);
 		
 		//Left cabane
 		cabanePos.gridx = 0;
 		cabanePos.gridy = 7;
-		this.add(cabanes.get(3), cabanePos);
+		this.add(cabanes[3], cabanePos);
 		
 		/*
 		 * Emplacement des cases
@@ -61,59 +60,59 @@ public class IHMPlateau extends JPanel{
 			
 		//Top row
 		for(int i=0; i<11; i++) {
-			cases.add(new IHMCase());
+			cases[i] = new IHMCase();
 			casePos.gridx = i+3;
 			casePos.gridy = 3;
-			this.add(cases.get(i), casePos);
+			this.add(cases[i], casePos);
 		}
 		
 		//Right Column
-		for(int i=0; i<9; i++) {
-			cases.add(new IHMCase());
+		for(int i=11; i<20; i++) {
+			cases[i] = new IHMCase();
 			casePos.gridx = 13;
-			casePos.gridy = i+4;
-			this.add(cases.get(i+11), casePos);
+			casePos.gridy = i-7;
+			this.add(cases[i], casePos);
 		}
 		
 		//Bottom Row
-		for(int i=0; i<11; i++) {
-			cases.add(new IHMCase());
+		for(int i=20; i<31; i++) {
+			cases[i] = new IHMCase();
 			casePos.fill = GridBagConstraints.HORIZONTAL;
-			casePos.gridx = i+3;
+			casePos.gridx = 33-i;
 			casePos.gridy = 13;
-			this.add(cases.get(i+20), casePos);
+			this.add(cases[i], casePos);
 		}
 		
 		//Left Column
-		for(int i=0; i<9; i++) {
-			cases.add(new IHMCase());
+		for(int i=31; i<40; i++) {
+			cases[i]= new IHMCase();
 			casePos.gridx = 3;
-			casePos.gridy = i+4;
-			this.add(cases.get(i+31), casePos);
+			casePos.gridy = 43-i;
+			this.add(cases[i], casePos);
 		}
 		
 		//Middle Column
-		for(int i=0; i<9; i++) {
-			cases.add(new IHMCase());
+		for(int i=40; i<49; i++) {
+			cases[i] = new IHMCase();
 			casePos.gridx = 8;
-			casePos.gridy = i+4;
-			this.add(cases.get(i+40), casePos);
+			casePos.gridy = i-36;
+			this.add(cases[i], casePos);
 		}
 		
 		//Middle Left-half Row
-		for(int i=0; i<4; i++) {
-			cases.add(new IHMCase());
-			casePos.gridx = i+4;
+		for(int i=49; i<53; i++) {
+			cases[i] = new IHMCase();
+			casePos.gridx = i-45;
 			casePos.gridy = 8;
-			this.add(cases.get(i+49), casePos);
+			this.add(cases[i], casePos);
 		}
 		
 		//Middle Right-half Row
-		for(int i=0; i<4; i++) {
-			cases.add(new IHMCase());
-			casePos.gridx = i+9;
+		for(int i=53; i<57; i++) {
+			cases[i] = new IHMCase();
+			casePos.gridx = i-44;
 			casePos.gridy = 8;
-			this.add(cases.get(i+53), casePos);
+			this.add(cases[i], casePos);
 		}
 	}
 }
