@@ -1,8 +1,8 @@
 package ihm;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
@@ -10,9 +10,10 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 public class IHMCase extends JButton{
 
-	IHMCase(int width, int height, int caseNumber) {
+	IHMCase() {
 		super("Case");
-		setBounds(40*caseNumber, 0, width, height);
+		setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(75, 75));
 		setBackground(Color.BLACK);
 		setForeground(Color.YELLOW);
 		setBorder(BorderFactory.createLineBorder(Color.YELLOW));

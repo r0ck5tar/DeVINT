@@ -35,7 +35,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
      * Initialisation du frame. 
      */
     protected void init() {
-    	setLayout(null);
+    	setLayout(new FlowLayout(FlowLayout.CENTER));
     	plateau = new IHMPlateau();
     	this.add(plateau);
    }

@@ -2,10 +2,7 @@ package ihm;
 
 import java.awt.*;
 import java.util.ArrayList;
-
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 
 
@@ -13,11 +10,11 @@ import javax.swing.JTextArea;
 public class IHMPlateau extends JPanel{
 	
 	IHMPlateau() {
-		setLayout(null);
+		setLayout(new FlowLayout());
 		
 		ArrayList<IHMCase> cases = new ArrayList<IHMCase>();
     	for(int i=0; i<10; i++){
-    		cases.add(new IHMCase(40, 40, i));
+    		cases.add(new IHMCase());
     	}
     	
     	for(int i=0; i<cases.size(); i++){
@@ -26,8 +23,13 @@ public class IHMPlateau extends JPanel{
     	
 		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 		int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+		Dimension maxSize = new Dimension (screenHeight, screenHeight); 
 		
 		this.setBounds((screenWidth-screenHeight)/2, 0, screenHeight, screenHeight);
+		
+		this.setMaximumSize(maxSize);
+		this.setPreferredSize(maxSize);
+		
 		this.setBackground(Color.BLUE);
 		this.setOpaque(true);
 	}
