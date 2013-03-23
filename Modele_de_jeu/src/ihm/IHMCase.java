@@ -1,14 +1,21 @@
 package ihm;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Dimension;
 
-//pions
-//ressource
-//case d'action?
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+
+
 @SuppressWarnings("serial")
-public class IHMCase extends JPanel{
+public class IHMCase extends JLabel{
 
-	IHMCase(int width, int height) {
-		setSize(width, height);
+	IHMCase(int width, int height, int caseNumber) {
+		super("Case");
+		setBounds(40*caseNumber, 0, width, height);
+		setBackground(Color.BLACK);
+		setForeground(Color.YELLOW);
+		setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+		setOpaque(true);
 	}
 }

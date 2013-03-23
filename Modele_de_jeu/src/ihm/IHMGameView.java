@@ -22,6 +22,8 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
 	private JButton question;
 	private ArrayList<IHMCase> cases;
+	private IHMCase case1;
+
 	
 	/*
 	 * Constructeur
@@ -35,7 +37,15 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
      * Initialisation du frame. 
      */
     protected void init() {
-    	setLayout(new BorderLayout());  	
+    	setLayout(null);
+    	cases = new ArrayList<IHMCase>();
+    	for(int i=0; i<10; i++){
+    		cases.add(new IHMCase(40, 40, i));
+    	}
+    	
+    	for(int i=0; i<cases.size(); i++){
+    		this.add(cases.get(i));
+    	}
    }
 
     
@@ -102,8 +112,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	protected  String wavAide() {			        // renvoie le fichier wave contenant la règle du jeu
 		return "../ressources/sons/aide.wav";
 	}
-
-
 }
 
 // Quelques exemples de code:
