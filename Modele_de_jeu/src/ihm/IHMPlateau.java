@@ -21,15 +21,17 @@ public class IHMPlateau extends JPanel{
 		for(int i=0; i<4; i++){
 			cabanes.add(new IHMCabane());
 			bords.add(new JPanel());
+			
 			bords.get(i).setLayout(new FlowLayout(FlowLayout.CENTER));
 			bords.get(i).add(cabanes.get(i));
+			bords.get(i).setBackground(Color.GREEN);
+			bords.get(i).setOpaque(true);
 		}
 		
-		
-		chemins.setLayout(new FlowLayout());
+		chemins.setLayout(new GridLayout(0, 11));
 		
 		ArrayList<IHMCase> cases = new ArrayList<IHMCase>();
-    	for(int i=0; i<11; i++){
+    	for(int i=0; i<55; i++){
     		cases.add(new IHMCase());
     	}
     	
