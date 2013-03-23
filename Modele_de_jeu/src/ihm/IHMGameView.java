@@ -37,7 +37,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
      */
     protected void init() {
     	setLayout(new FlowLayout(FlowLayout.CENTER));
-    	plateau = new IHMPlateau();
+    	plateau = new IHMPlateau(this);
     	this.add(plateau);
    }
 
@@ -56,7 +56,18 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		String text = "les questions sont longues et ont un contenu variable."
     		             +"Il ne faut pas générer un fichier wave mais lire directement les textes";
     		voix.playText(text);          // le contenu des questions est variable donc on les lit avec SI_VOX
-    	}	
+    	}
+    	
+    	if(source.getClass().getSimpleName().equals("IHMCase")) {
+    		for(int i=0; i<57; i++) {
+    			if (plateau.getCase(i).equals(source)){
+    				unFocusedButton(currentButton);
+    				currentButton = i;
+    				setFocusedButton(currentButton);
+    				break;
+    			}
+    		}
+    	}
     	
     	this.requestFocus();  // on redonne le focus au JFrame principal  (après un clic, le focus est sur le bouton) 
     }
@@ -116,16 +127,17 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	public  void changeColor() {
     	// on récupère les couleurs de base dans la classe Preferences 
 		Preferences pref = Preferences.getData();
-		/*
-		on change les couleurs des éléments qu'on veut. Exemple:
-		lb1.setBackground(pref.getCurrentBackgroundColor());
-		lb1.setForeground(pref.getCurrentForegroundColor());
 		
-		où lb1 est un composant Swing (JComponent) tel que JPanel, JButton, JScrollPane, etc.
-		*/
+		//on change les couleurs des éléments qu'on veut.
+		
+		for(int i=0; i<57; i++) {
+			JButton button = plateau.getCase(i);
+			button.setBackground(pref.getCurrentBackgroundColor());
+			button.setForeground(pref.getCurrentForegroundColor());
+		}		
 	}
 	
-	// mettre le focus sur une option
+	// mettre le focus sur un bouton
 	private void setFocusedButton(int i) {
 		JButton button = plateau.getCase(i);
 		voix.playShortText(button.getText());
@@ -134,7 +146,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		button.setForeground(oldBackground);
 	}
 
-	// enlever le focus d'une option
+	// enlever le focus d'un bouton
 	private void unFocusedButton(int i) {
 		JButton button = plateau.getCase(i);
 		Color oldBackground = button.getBackground();
