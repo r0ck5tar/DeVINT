@@ -9,24 +9,39 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class IHMPlateau extends JPanel{
+	private IHMCase[] cases;
+	private IHMCabane[] cabanes;
 	
 	IHMPlateau() {
 		setLayout(new GridBagLayout());
 		GridBagConstraints casePos = new GridBagConstraints();
 		GridBagConstraints cabanePos = new GridBagConstraints();
 		
-		IHMCase[] cases = new IHMCase[57];
-		IHMCabane[] cabanes = new IHMCabane[4];
-		
-		
-		for(int i=0; i<4; i++) {
-			cabanes[i] = new IHMCabane();
-		}
-		
 		cabanePos.fill = GridBagConstraints.BOTH;
 		cabanePos.gridwidth = 3;
 		cabanePos.gridheight = 3;
 		casePos.fill = GridBagConstraints.BOTH;
+		
+		cases = new IHMCase[57];
+		cabanes = new IHMCabane[4];
+		
+		initialiseCabanes(cabanePos);
+		initialiseCases(casePos);
+	}
+	
+	public IHMCase getCase(int i) {
+		return cases[i];
+	}
+	
+	public IHMCabane getCabane(int i) {
+		return cabanes[i];
+	}
+	
+	private void initialiseCabanes(GridBagConstraints cabanePos) {
+		
+		for(int i=0; i<4; i++) {
+			cabanes[i] = new IHMCabane();
+		}
 		
 		/*
 		 * Emplacement des cabanes
@@ -53,7 +68,9 @@ public class IHMPlateau extends JPanel{
 		cabanePos.gridx = 0;
 		cabanePos.gridy = 7;
 		this.add(cabanes[3], cabanePos);
-		
+	}
+	
+	private void initialiseCases(GridBagConstraints casePos){
 		/*
 		 * Emplacement des cases
 		 */
