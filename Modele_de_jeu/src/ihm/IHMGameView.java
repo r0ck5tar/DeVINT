@@ -21,10 +21,8 @@ import java.util.ArrayList;
 public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
 	private JButton question;
-	private ArrayList<IHMCase> cases;
-	private IHMCase case1;
+	private IHMPlateau plateau;
 
-	
 	/*
 	 * Constructeur
 	 */
@@ -38,14 +36,8 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
      */
     protected void init() {
     	setLayout(null);
-    	cases = new ArrayList<IHMCase>();
-    	for(int i=0; i<10; i++){
-    		cases.add(new IHMCase(40, 40, i));
-    	}
-    	
-    	for(int i=0; i<cases.size(); i++){
-    		this.add(cases.get(i));
-    	}
+    	plateau = new IHMPlateau();
+    	this.add(plateau);
    }
 
     

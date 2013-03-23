@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
+import javax.swing.JButton;
 
 
 @SuppressWarnings("serial")
-public class IHMCase extends JLabel{
+public class IHMCase extends JButton{
 
 	IHMCase(int width, int height, int caseNumber) {
 		super("Case");
