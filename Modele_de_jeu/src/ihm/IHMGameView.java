@@ -22,6 +22,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
 	private JButton question;
 	private IHMPlateau plateau;
+	private int currentButton;
 
 	/*
 	 * Constructeur
@@ -65,9 +66,45 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     @Override
     public void keyPressed(KeyEvent e) {
     	super.keyPressed(e);		     // appel à la méthode mère qui gère les évènements ESC, F1, F3, F4
-    	if (e.getKeyCode()==KeyEvent.VK_F5){                  // cas particulier pour ce jeu : la touche F5
-    	   	voix.playText("Vous venez d'appuyer sur EFFE 5");
-    	}
+    	switch(e.getKeyCode()){
+    	case KeyEvent.VK_UP:
+    		unFocusedButton(currentButton);
+    		if((currentButton >10 && currentButton <=20) || (currentButton >=30 && currentButton <39)
+    	     ||(currentButton >40 && currentButton <=48)){
+    			currentButton--;
+    		}
+    		
+    		else if(currentButton == 25){
+    			currentButton=48;
+    		}
+    		else if(currentButton == 39){
+    			currentButton = 0;
+    		}
+    		setFocusedButton(currentButton);
+    		break;
+    		
+    	case KeyEvent.VK_DOWN:
+    		if((currentButton >=10 && currentButton <20) || (currentButton >30 && currentButton <=39)
+    				||(currentButton >=40 && currentButton <48)){
+    			unFocusedButton(currentButton);
+    			currentButton++;
+    			setFocusedButton(currentButton);
+    		}
+
+    		else if(currentButton == 48){
+    			unFocusedButton(currentButton);
+    			currentButton=25;
+    			setFocusedButton(currentButton);
+    		}
+    		break;
+    		
+    	case KeyEvent.VK_LEFT:
+    		break;
+    	case KeyEvent.VK_RIGHT:
+    		break; 
+    	case KeyEvent.VK_F5:
+    		currentButton = 20;
+    	} 	
     }
     
 	/**
@@ -86,6 +123,23 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		
 		où lb1 est un composant Swing (JComponent) tel que JPanel, JButton, JScrollPane, etc.
 		*/
+	}
+	
+	// mettre le focus sur une option
+	private void setFocusedButton(int i) {
+		JButton button = plateau.getCase(i);
+		voix.playShortText(button.getText());
+		Color oldBackground = button.getBackground();
+		button.setBackground(button.getForeground());
+		button.setForeground(oldBackground);
+	}
+
+	// enlever le focus d'une option
+	private void unFocusedButton(int i) {
+		JButton button = plateau.getCase(i);
+		Color oldBackground = button.getBackground();
+		button.setBackground(button.getForeground());
+		button.setForeground(oldBackground);
 	}
 	
 	 /*
