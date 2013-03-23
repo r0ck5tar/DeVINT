@@ -23,70 +23,27 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	private JButton question;
 	private ArrayList<IHMCase> cases;
 	
-	private JLabel lblPlateau;
-	
+	/*
+	 * Constructeur
+	 */
     public IHMGameView(String title) {
     	super(title);
      }
     
-	protected  String wavAccueil() {			    // renvoie le fichier wave contenant le message d'accueil
-		return "../ressources/sons/accueilJeu.wav";
-	}
-
-	protected  String wavRegleJeu() {			    // renvoie le fichier wave contenant la règle du jeu
-		return "../ressources/sons/aideF1.wav";
-	}
-	
-	protected  String wavAide() {			        // renvoie le fichier wave contenant la règle du jeu
-		return "../ressources/sons/aide.wav";
-	}
-
-    // initialise le frame 
+   
+    /* 
+     * Initialisation du frame. 
+     */
     protected void init() {
-    	setLayout(new BorderLayout());
-    	  	
-    	// on récupère les couleurs de base dans la classe Preferences 
-		Preferences pref = Preferences.getData();
-		Color foregroundColor = pref.getCurrentForegroundColor();
-		Color backgroundColor = pref.getCurrentBackgroundColor();  	
-    	
-    	
-    	
-    	// deuxième label, qui n'est pas géré par les préférences
-		String text = "";
-       	text = "C'est rigolo les jeux DeViNT";
-       	text += "\nIci c'est un JLabel avec un bord gris.\n";
-       	text += "Il est placé au centre.";
-       	text += "\n\nExemple d'utilisation d'une touche : essayez de taper F5";
-    	JTextArea lb2 = new JTextArea (text);
-    	lb2.setLineWrap(true);
-    	lb2.setEditable(false);
-    	lb2.setFont(new Font("Georgia",1,30));
-    	// on met un contour gris foncé
-       	lb2.setBorder(new LineBorder(Color.GRAY,5));
-       	// on met un fond noir
-    	lb2.setBackground(Color.BLACK);
-    	// le composant doit être opaque pour qu'on voit le fond
-       	lb2.setOpaque(true);
-    	// on écrit en blanc
-       	lb2.setForeground(Color.WHITE);  	
-       	// on place ce composant au centre
-       	this.add(lb2,BorderLayout.CENTER);
-       	
-
-    	
-    	// Exemple de création d'un bouton
-    	question = new JButton();
-    	question.setText("Cliquez sur ce bouton pour écouter la question");
-    	question.setBackground(new Color(50,50,255));
-    	question.setBorder(new LineBorder(Color.BLACK,10));
-     	question.setFont(new Font("Georgia",1,40));
-       	question.addActionListener(this);          // c'est l'objet Jeu lui-même qui réagit au clic souris
-    	
-    	this.add(question,BorderLayout.EAST);      // on met le bouton à droite
+    	setLayout(new BorderLayout());  	
    }
 
-    //Action performed: Défini les actions à effectuer lors de détection  des évènements 
+    
+    /*
+     * Fonctions permettant de gérer les évènements et les actions 
+     */
+    
+    //Action performed: Défini les actions à effectuer lors de détection des évènements 
     public void actionPerformed(ActionEvent ae){
     	voix.stop();			    	  // toujours stopper la voix avant de parler
     	
@@ -116,7 +73,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	 * Cette fonction est appelée par la fonction "changeColor" de la classe "Preferences"
 	 * à chaque fois que l'on presse F3 
 	 * 
-	 * on change la couleur du texte principal
 	 **/
 	public  void changeColor() {
     	// on récupère les couleurs de base dans la classe Preferences 
@@ -129,5 +85,38 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		où lb1 est un composant Swing (JComponent) tel que JPanel, JButton, JScrollPane, etc.
 		*/
 	}
+	
+	 /*
+     * Fonctions qui renvoient les sons d'accueil et d'aide.
+     * Pour plus d'informations, regarder la classe DevintFrameListener (dans le package devintAPI)
+     */
+	
+	protected  String wavAccueil() {			    // renvoie le fichier wave contenant le message d'accueil
+		return "../ressources/sons/accueilJeu.wav";
+	}
+
+	protected  String wavRegleJeu() {			    // renvoie le fichier wave contenant la règle du jeu
+		return "../ressources/sons/aideF1.wav";
+	}
+	
+	protected  String wavAide() {			        // renvoie le fichier wave contenant la règle du jeu
+		return "../ressources/sons/aide.wav";
+	}
+
 
 }
+
+// Quelques exemples de code:
+
+/*
+ *  Exemple de création d'un bouton
+ 
+question = new JButton();
+question.setText("Cliquez sur ce bouton pour écouter la question");
+question.setBackground(new Color(50,50,255));
+question.setBorder(new LineBorder(Color.BLACK,10));
+	question.setFont(new Font("Georgia",1,40));
+	question.addActionListener(this);          // c'est l'objet Jeu lui-même qui réagit au clic souris
+
+this.add(question,BorderLayout.EAST);      // on met le bouton à droite
+*/
