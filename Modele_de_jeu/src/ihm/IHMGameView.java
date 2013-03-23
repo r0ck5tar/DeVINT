@@ -8,6 +8,7 @@ import devintAPI.Preferences;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /** Cette classe est un exemple d'interface de jeu.
  *  Elle étend DevintFrame pour avoir un Frame et réagir aux évênements claviers
@@ -20,7 +21,7 @@ import java.awt.event.*;
 public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
 	private JButton question;
-	private JTextArea lb1;
+	private ArrayList<IHMCase> cases;
 	
 	private JLabel lblPlateau;
 	
@@ -28,57 +29,31 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     	super(title);
      }
     
-	// renvoie le fichier wave contenant le message d'accueil
-	protected  String wavAccueil() {
+	protected  String wavAccueil() {			    // renvoie le fichier wave contenant le message d'accueil
 		return "../ressources/sons/accueilJeu.wav";
 	}
-	
-	// renvoie le fichier wave contenant la règle du jeu
-	protected  String wavRegleJeu() {
+
+	protected  String wavRegleJeu() {			    // renvoie le fichier wave contenant la règle du jeu
 		return "../ressources/sons/aideF1.wav";
 	}
 	
-	// renvoie le fichier wave contenant la règle du jeu
-	protected  String wavAide() {
+	protected  String wavAide() {			        // renvoie le fichier wave contenant la règle du jeu
 		return "../ressources/sons/aide.wav";
 	}
 
     // initialise le frame 
     protected void init() {
     	setLayout(new BorderLayout());
-    	
-    	ImageIcon plateau = new ImageIcon("../ressources/images/IHM/plateau_de_jeu_contraste.PNG");
- 
-    	lblPlateau = new JLabel(plateau);
-    	lblPlateau.setVisible(true);
-    	
-    	this.add(lblPlateau, BorderLayout.CENTER);
-
-
-    	
-    	
-    	// premier label
-    	// ce label est géré par les préférences (cf méthode changeColor)
-    	String text = "Un peu de texte";
-     	lb1 = new JTextArea (text); 
-    	lb1.setLineWrap(true);
-    	lb1.setEditable(false);
-    	lb1.setFont(new Font("Georgia",1,30));
+    	  	
     	// on récupère les couleurs de base dans la classe Preferences 
 		Preferences pref = Preferences.getData();
 		Color foregroundColor = pref.getCurrentForegroundColor();
-		Color backgroundColor = pref.getCurrentBackgroundColor();
-		lb1.setBackground(backgroundColor);
-		lb1.setForeground(foregroundColor);
-    	
-    	// on place le premier composant en haut
-    	this.add(lb1,BorderLayout.NORTH);
-    	
-    	
+		Color backgroundColor = pref.getCurrentBackgroundColor();  	
     	
     	
     	
     	// deuxième label, qui n'est pas géré par les préférences
+		String text = "";
        	text = "C'est rigolo les jeux DeViNT";
        	text += "\nIci c'est un JLabel avec un bord gris.\n";
        	text += "Il est placé au centre.";
@@ -100,53 +75,44 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
        	
 
     	
-    	// bouton pour poser une question
+    	// Exemple de création d'un bouton
     	question = new JButton();
     	question.setText("Cliquez sur ce bouton pour écouter la question");
     	question.setBackground(new Color(50,50,255));
     	question.setBorder(new LineBorder(Color.BLACK,10));
      	question.setFont(new Font("Georgia",1,40));
-     	// c'est l'objet Jeu lui-même qui réagit au clic souris
-       	question.addActionListener(this);
-    	// on met le bouton à droite
-
-     	this.add(question,BorderLayout.EAST);
-     	
-
-     	this.add(question,BorderLayout.EAST);    	
-
+       	question.addActionListener(this);          // c'est l'objet Jeu lui-même qui réagit au clic souris
+    	
+    	this.add(question,BorderLayout.EAST);      // on met le bouton à droite
    }
 
-    // lire la question si clic sur le bouton 
+    //Action performed: Défini les actions à effectuer lors de détection  des évènements 
     public void actionPerformed(ActionEvent ae){
-       	// toujours stopper la voix avant de parler
-    	voix.stop();
-    	// on récupère la source de l'évènement
-     	Object source = ae.getSource();
-     	// si c'est le bouton "question" on lit la question
-     	// le contenu des questions est variable donc on les lit avec SI_VOX
-    	if (source.equals(question)) {
-    		String text = "les questions sont longues et ont un contenu variable.";
-    		text += "Il ne faut pas générer un fichier wave mais lire directement les textes";
-    		voix.playText(text);
+    	voix.stop();			    	  // toujours stopper la voix avant de parler
+    	
+     	Object source = ae.getSource();   // on récupère la source de l'évènement
+     	
+    	if (source.equals(question)) {    // si c'est le bouton "question" on lit la question
+    		String text = "les questions sont longues et ont un contenu variable."
+    		             +"Il ne faut pas générer un fichier wave mais lire directement les textes";
+    		voix.playText(text);          // le contenu des questions est variable donc on les lit avec SI_VOX
     	}	
-    	// on redonne le focus au JFrame principal 
-    	// (après un clic, le focus est sur le bouton)
-    	this.requestFocus();
+    	
+    	this.requestFocus();  // on redonne le focus au JFrame principal  (après un clic, le focus est sur le bouton) 
     }
  
-    // évènements clavier
+    
+    //Keyboard event listener: détecte les éléments clavier. 
+    @Override
     public void keyPressed(KeyEvent e) {
-    	// appel à la méthode mère qui gère les évènements ESC, F1, F3, F4
-    	super.keyPressed(e);
-    	// cas particulier pour ce jeu : la touche F5
-    	if (e.getKeyCode()==KeyEvent.VK_F5){
+    	super.keyPressed(e);		     // appel à la méthode mère qui gère les évènements ESC, F1, F3, F4
+    	if (e.getKeyCode()==KeyEvent.VK_F5){                  // cas particulier pour ce jeu : la touche F5
     	   	voix.playText("Vous venez d'appuyer sur EFFE 5");
     	}
     }
     
 	/**
-	 * Pour modifier les couleurs de fond et de premier plan de la fenêtre
+	 * Pour modifier les couleurs de fond et de premier plan de la fenêtre.
 	 * Cette fonction est appelée par la fonction "changeColor" de la classe "Preferences"
 	 * à chaque fois que l'on presse F3 
 	 * 
@@ -155,8 +121,13 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	public  void changeColor() {
     	// on récupère les couleurs de base dans la classe Preferences 
 		Preferences pref = Preferences.getData();
+		/*
+		on change les couleurs des éléments qu'on veut. Exemple:
 		lb1.setBackground(pref.getCurrentBackgroundColor());
 		lb1.setForeground(pref.getCurrentForegroundColor());
+		
+		où lb1 est un composant Swing (JComponent) tel que JPanel, JButton, JScrollPane, etc.
+		*/
 	}
 
 }
