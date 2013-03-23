@@ -22,7 +22,11 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
 	private JButton question;
 	private IHMPlateau plateau;
+<<<<<<< HEAD
 	private int currentButton = -1;
+=======
+	private IHMInfoJoueur infoJoueur;
+>>>>>>> Modfication plateau de jeu
 
 	/*
 	 * Constructeur
@@ -37,7 +41,12 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
      */
     protected void init() {
     	setLayout(new FlowLayout(FlowLayout.CENTER));
+<<<<<<< HEAD
     	plateau = new IHMPlateau(this);
+=======
+    	plateau = new IHMPlateau();
+    	this.infoJoueur= new IHMInfoJoueur(); 
+>>>>>>> Modfication plateau de jeu
     	this.add(plateau);
    }
 
