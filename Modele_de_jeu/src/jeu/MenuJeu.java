@@ -24,7 +24,7 @@ public class MenuJeu extends MenuAbstrait {
      * vous pouvez définir autant d'options que vous voulez
      **/
 	protected String[] nomOptions() {
-		String[] noms = {"Jouer","Image","Options","Fichiers","Quitter"};
+		String[] noms = {"Jouer","Histoire","Options", "Scores", "Quitter"};
 		return noms;
 	}
 
@@ -34,7 +34,7 @@ public class MenuJeu extends MenuAbstrait {
 	protected void lancerOption(int i) {
 		switch (i){  
 		case 0 : new IHMGameView(nomJeu);break;
-		case 1 : new UneImage(nomJeu + ": exemple d'images");break;
+		case 1 : new Histoire(nomJeu + ": Histoire");break;
 		case 2 : new Option(nomJeu + ": gestion des options");break;
 		case 3 : new Fichier(nomJeu + ": pour écrire dans un fichier");break;
 		case 4 : System.exit(0);
@@ -50,7 +50,7 @@ public class MenuJeu extends MenuAbstrait {
 
 	// renvoie le fichier wave contenant la règle du jeu
 	protected  String wavRegleJeu() {
-		return "../ressources/sons/accueil.wav";
+		return "../ressources/sons/histoire.wav";
 	}
 	
 }
