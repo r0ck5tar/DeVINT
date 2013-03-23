@@ -80,9 +80,12 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     	switch(e.getKeyCode()){
     	case KeyEvent.VK_UP:
     		unFocusedButton(currentButton);
-    		if((currentButton >10 && currentButton <=20) || (currentButton >=30 && currentButton <39)
-    	     ||(currentButton >40 && currentButton <=48)){
+    		if((currentButton >10 && currentButton <=20) || (currentButton >40 && currentButton <=48)){
     			currentButton--;
+    		}
+    		
+    		else if(currentButton >=30 && currentButton <39){
+    			currentButton++;
     		}
     		
     		else if(currentButton == 25){
@@ -91,22 +94,29 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		else if(currentButton == 39){
     			currentButton = 0;
     		}
+    		else if(currentButton == 40){
+    			currentButton = 5;
+    		}
     		setFocusedButton(currentButton);
     		break;
     		
     	case KeyEvent.VK_DOWN:
-    		if((currentButton >=10 && currentButton <20) || (currentButton >30 && currentButton <=39)
-    				||(currentButton >=40 && currentButton <48)){
-    			unFocusedButton(currentButton);
+    		unFocusedButton(currentButton);
+    		if((currentButton >=10 && currentButton <20) || (currentButton >=40 && currentButton <48)){
     			currentButton++;
-    			setFocusedButton(currentButton);
+    		}
+    		
+    		else if (currentButton >30 && currentButton <=39) {
+    			currentButton--;
     		}
 
     		else if(currentButton == 48){
-    			unFocusedButton(currentButton);
     			currentButton=25;
-    			setFocusedButton(currentButton);
     		}
+    		else if(currentButton == 5) {
+    			currentButton = 40;
+    		}
+    		setFocusedButton(currentButton);
     		break;
     		
     	case KeyEvent.VK_LEFT:
