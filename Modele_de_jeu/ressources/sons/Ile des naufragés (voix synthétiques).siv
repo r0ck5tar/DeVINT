@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProjetSiVox>
+  <Proprietes>
+    <NomProjet>Ile des naufragés</NomProjet>
+    <AuteurProjet>Hakim Luqman &amp; Rémi Pourtier</AuteurProjet>
+    <Commentaire>Génère les voix à`utiliser dans le jeu Île des naufragés</Commentaire>
+  </Proprietes>
+  <Text>
+    <Locked>false</Locked>
+    <Data>Ile des naufragés</Data>
+  </Text>
+  <ListeProsodie>
+    <Prosodie>
+      <NomProsodie>nouvelle prosodie</NomProsodie>
+      <NumeroProsodie>2</NumeroProsodie>
+      <Synchronise>true</Synchronise>
+      <ChantOrImport>false</ChantOrImport>
+      <ListePhoneme>
+        <Phoneme>
+          <Data>i</Data>
+          <Longueur>160</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage>0</Pourcentage>
+              <Frequence>91</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage>50</Pourcentage>
+              <Frequence>87</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+        <Phoneme>
+          <Data>l</Data>
+          <Longueur>160</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage>0</Pourcentage>
+              <Frequence>85</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage>50</Pourcentage>
+              <Frequence>85</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+        <Phoneme>
+          <Data>d</Data>
+          <Longueur>160</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage>0</Pourcentage>
+              <Frequence>86</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage>50</Pourcentage>
+              <Frequence>89</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+        <Phoneme>
+          <Data>E</Data>
+          <Longueur>160</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage>0</Pourcentage>
+              <Frequence>94</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage>50</Pourcentage>
+              <Frequence>99</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+        <Phoneme>
+          <Data>n</Data>
+          <Longueur>68</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage>0</Pourcentage>
+              <Frequence>104</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage>50</Pourcentage>
+              <Frequence>109</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+        <Phoneme>
+          <Data>o</Data>
+          <Longueur>91</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage>0</Pourcentage>
+              <Frequence>112</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage>50</Pourcentage>
+              <Frequence>114</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+        <Phoneme>
+          <Data>f</Data>
+          <Longueur>69</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage>0</Pourcentage>
+              <Frequence>114</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage>50</Pourcentage>
+              <Frequence>113</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+        <Phoneme>
+          <Data>R</Data>
+          <Longueur>69</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage>0</Pourcentage>
+              <Frequence>109</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage>50</Pourcentage>
+              <Frequence>105</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+        <Phoneme>
+          <Data>a</Data>
+          <Longueur>117</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage>0</Pourcentage>
+              <Frequence>99</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage>50</Pourcentage>
+              <Frequence>94</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+        <Phoneme>
+          <Data>Z</Data>
+          <Longueur>71</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage>0</Pourcentage>
+              <Frequence>89</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage>50</Pourcentage>
+              <Frequence>84</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+        <Phoneme>
+          <Data>e</Data>
+          <Longueur>116</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage>0</Pourcentage>
+              <Frequence>79</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage>50</Pourcentage>
+              <Frequence>74</Frequence>
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+        <Phoneme>
+          <Data>_</Data>
+          <Longueur>400</Longueur>
+          <ListeCouple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+            <Couple>
+              <Pourcentage />
+              <Frequence />
+            </Couple>
+          </ListeCouple>
+        </Phoneme>
+      </ListePhoneme>
+    </Prosodie>
+  </ListeProsodie>
+</ProjetSiVox>
+

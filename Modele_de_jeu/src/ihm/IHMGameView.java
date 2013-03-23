@@ -19,32 +19,18 @@ import java.awt.event.*;
 
 public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
-	//IHMInfoJoueur (arrayList)
-	//IHMM
-	
-	
-	
-
-	// le bouton pour la question est une variable d'instance
-	// car il doit être accessible dans la méthode actionPerformed 
 	private JButton question;
-	
-	
-	// un label est une variable d'instance car il doit être accessible 
-	// dans la méthode changeColor, qui gère les préférences
 	private JTextArea lb1;
-
 	
 	private JLabel lblPlateau;
 	
-	// appel au constructeur de la classe mère
     public IHMGameView(String title) {
     	super(title);
      }
     
 	// renvoie le fichier wave contenant le message d'accueil
 	protected  String wavAccueil() {
-		return "../ressources/sons/accueil.wav";
+		return "../ressources/sons/accueilJeu.wav";
 	}
 	
 	// renvoie le fichier wave contenant la règle du jeu
@@ -57,10 +43,8 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		return "../ressources/sons/aide.wav";
 	}
 
-    // définition de la méthode abstraite "init()"
     // initialise le frame 
     protected void init() {
-    	// BorderLayout, voir http://java.sun.com/docs/books/tutorial/uiswing/layout/border.html
     	setLayout(new BorderLayout());
     	
     	ImageIcon plateau = new ImageIcon("../ressources/images/IHM/plateau_de_jeu_contraste.PNG");
@@ -72,7 +56,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 
     	
-    	/*
+    	
     	// premier label
     	// ce label est géré par les préférences (cf méthode changeColor)
     	String text = "Un peu de texte";
@@ -90,7 +74,10 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     	// on place le premier composant en haut
     	this.add(lb1,BorderLayout.NORTH);
     	
-
+    	
+    	
+    	
+    	
     	// deuxième label, qui n'est pas géré par les préférences
        	text = "C'est rigolo les jeux DeViNT";
        	text += "\nIci c'est un JLabel avec un bord gris.\n";
@@ -110,9 +97,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
        	lb2.setForeground(Color.WHITE);  	
        	// on place ce composant au centre
        	this.add(lb2,BorderLayout.CENTER);
-       	*/
+       	
 
-    	/*
+    	
     	// bouton pour poser une question
     	question = new JButton();
     	question.setText("Cliquez sur ce bouton pour écouter la question");
@@ -124,7 +111,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     	// on met le bouton à droite
 
      	this.add(question,BorderLayout.EAST);
-     	*/
+     	
 
      	this.add(question,BorderLayout.EAST);    	
 
