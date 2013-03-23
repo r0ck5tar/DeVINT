@@ -22,7 +22,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
 	private JButton question;
 	private IHMPlateau plateau;
-	private int currentButton;
+	private int currentButton = -1;
 
 	/*
 	 * Constructeur
@@ -116,6 +116,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		else if(currentButton == 5) {
     			currentButton = 40;
     		}
+    		else if(currentButton == 0) {
+    			currentButton = 39;
+    		}
     		setFocusedButton(currentButton);
     		break;
     		
@@ -138,13 +141,19 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     	// on récupère les couleurs de base dans la classe Preferences 
 		Preferences pref = Preferences.getData();
 		
-		//on change les couleurs des éléments qu'on veut.
+		//on change les couleurs de tous les éléments
 		
 		for(int i=0; i<57; i++) {
 			JButton button = plateau.getCase(i);
 			button.setBackground(pref.getCurrentBackgroundColor());
 			button.setForeground(pref.getCurrentForegroundColor());
-		}		
+		}	
+		
+		for(int i=0; i<4; i++) {
+			JButton button = plateau.getCabane(i);
+			button.setBackground(pref.getCurrentBackgroundColor());
+			button.setForeground(pref.getCurrentForegroundColor());
+		}
 	}
 	
 	// mettre le focus sur un bouton
@@ -158,10 +167,12 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 	// enlever le focus d'un bouton
 	private void unFocusedButton(int i) {
-		JButton button = plateau.getCase(i);
-		Color oldBackground = button.getBackground();
-		button.setBackground(button.getForeground());
-		button.setForeground(oldBackground);
+		if(i>0){
+			JButton button = plateau.getCase(i);
+			Color oldBackground = button.getBackground();
+			button.setBackground(button.getForeground());
+			button.setForeground(oldBackground);
+		}
 	}
 	
 	 /*
@@ -181,18 +192,3 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		return "../ressources/sons/aide.wav";
 	}
 }
-
-// Quelques exemples de code:
-
-/*
- *  Exemple de création d'un bouton
- 
-question = new JButton();
-question.setText("Cliquez sur ce bouton pour écouter la question");
-question.setBackground(new Color(50,50,255));
-question.setBorder(new LineBorder(Color.BLACK,10));
-	question.setFont(new Font("Georgia",1,40));
-	question.addActionListener(this);          // c'est l'objet Jeu lui-même qui réagit au clic souris
-
-this.add(question,BorderLayout.EAST);      // on met le bouton à droite
-*/
