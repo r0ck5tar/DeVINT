@@ -1,5 +1,6 @@
-
 package fonctionnement.objet;
+import fonctionnement.environnement.*;
+
 
 import java.util.ArrayList;
 
@@ -20,6 +21,10 @@ public class Sac {
 	
 	public ArrayList<Objet> getStock(){
 		return stock;
+	}
+	
+	public boolean isFull() {
+		return this.stock.size() >= this.limite;
 	}	
 	
 	public void ajouterObjet(Objet r){
@@ -27,8 +32,7 @@ public class Sac {
 			stock.add(r);
 	}
 	
-	public void viderSac(){stock.clear();
-	}
+	public void viderSac(){ this.stock.clear();}
 	
 	public void utiliserObjet(int index) {
 		if (this.stock.get(index).isSpecial()) {

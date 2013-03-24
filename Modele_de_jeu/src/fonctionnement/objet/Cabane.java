@@ -1,5 +1,4 @@
-package fonctionnement.environnement;
-import fonctionnement.objet.*;
+package fonctionnement.objet;
 
 public class Cabane {
 	private Joueur joueur;

@@ -1,4 +1,5 @@
 package ihm;
+import fonctionnement.environnement.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -27,7 +28,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 	/*
 	 * Constructeur
-	 * 
 	 */
 	
     public IHMGameView(String title) {
@@ -39,13 +39,14 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
      * Initialisation du frame. 
      */
     protected void init() {
-    	setLayout(new GridBagLayout());
-    	plateau = new IHMPlateau(this);
+    	//setLayout(new GridBagLayout());
+    	setLayout(new FlowLayout(FlowLayout.CENTER));
+    	plateau = new IHMPlateau(this, new Plateau());
     	this.add(plateau);
-    	setLayout(new FlowLayout(FlowLayout.RIGHT)); 
+    	/*setLayout(new FlowLayout(FlowLayout.RIGHT)); 
     	Joueur joueur= new Joueur("Pierre"); 
     	IHMInfoJoueur infosJoueur1= new IHMInfoJoueur(joueur);
-    	this.add(infosJoueur1); 
+    	this.add(infosJoueur1); */
    }
 
     
@@ -76,6 +77,16 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		}
     	}
     	
+    	if(source.getClass().getSimpleName().equals("IHMCabane")) {
+    		for(int i=0; i<4; i++) {
+    			if (plateau.getCabane(i).equals(source)){
+    				unFocusedButton(currentButton);
+    				currentButton = 57+i;
+    				setFocusedButton(currentButton);
+    				break;
+    			}
+    		}
+    	}
     	this.requestFocus();  // on redonne le focus au JFrame principal  (après un clic, le focus est sur le bouton) 
     }
  
@@ -104,6 +115,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		else if(currentButton == 40){
     			currentButton = 5;
     		}
+    		/*else if(currentButton==5){
+    			currentButton =57;
+    		}*/
     		setFocusedButton(currentButton);
     		break;
     		
@@ -126,6 +140,10 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		else if(currentButton == 0) {
     			currentButton = 39;
     		}
+    		else if(currentButton==25){
+    			currentButton =57;
+    		}
+    		
     		setFocusedButton(currentButton);
     		break;
     		
@@ -153,7 +171,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		else if(currentButton == 49) {
     			currentButton = 35;
     		}
- 
+    		/*else if(currentButton==35){
+    			currentButton =57;
+    		}*/
     		setFocusedButton(currentButton);
     		break;
     		
@@ -180,6 +200,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		else if(currentButton == 35) {
     			currentButton = 49;
     		}
+    		/*else if(currentButton==15){
+    			currentButton =57;
+    		}*/
     		setFocusedButton(currentButton);
     		break; 
     	case KeyEvent.VK_F5:

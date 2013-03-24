@@ -1,7 +1,11 @@
 package fonctionnement.environnement;
 
 import java.util.ArrayList;
+
+import fonctionnement.Tool.Tool;
 import fonctionnement.objet.Objet;
+import fonctionnement.objet.ObjetEffet;
+import fonctionnement.objet.Ressource;
 
 public class Case {
 	private ArrayList<Objet> content;
@@ -41,7 +45,16 @@ public class Case {
 	public void setEst(Case c){
 		this.est = c;
 	}
+
+	public Case getNord() { return this.nord;}
+	public Case getSud() { return this.sud;}
+	public Case getOuest() { return this.ouest;}
+	public Case getEst() { return this.est;}
 	
+	
+	public Objet getRessource(int positionDansArray){
+		return this.content.get(positionDansArray);
+	}
 	
 	public void setPosX(int x){
 		this.posX = x;
@@ -83,6 +96,20 @@ public class Case {
 			
 			
 		}
+	}
+	
+	public Objet recupererObjet() {
+		Objet o = this.content.get(Tool.lancerDe(this.content.size()));
+		if(o instanceof Ressource) {
+			o = ((Ressource)o).copy();
+		}
+		else o = ((ObjetEffet)o).copy();
+		return o;
+	}
+
+	public ArrayList<Case> getChoixCase(int de) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
