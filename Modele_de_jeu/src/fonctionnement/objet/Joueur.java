@@ -15,4 +15,8 @@ public class Joueur {
 		this.cabane = new Cabane(this);
 		this.position = null;
 	}
+	
+	public String getNom(){
+		return this.nom;
+	}
 }

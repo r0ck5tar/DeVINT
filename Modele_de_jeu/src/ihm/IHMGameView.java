@@ -5,6 +5,7 @@ import javax.swing.border.LineBorder;
 
 import devintAPI.FenetreAbstraite;
 import devintAPI.Preferences;
+import fonctionnement.objet.Joueur;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -22,15 +23,13 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
 	private JButton question;
 	private IHMPlateau plateau;
-<<<<<<< HEAD
 	private int currentButton = -1;
-=======
-	private IHMInfoJoueur infoJoueur;
->>>>>>> Modfication plateau de jeu
 
 	/*
 	 * Constructeur
+	 * 
 	 */
+	
     public IHMGameView(String title) {
     	super(title);
      }
@@ -40,14 +39,13 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
      * Initialisation du frame. 
      */
     protected void init() {
-    	setLayout(new FlowLayout(FlowLayout.CENTER));
-<<<<<<< HEAD
+    	setLayout(new GridBagLayout());
     	plateau = new IHMPlateau(this);
-=======
-    	plateau = new IHMPlateau();
-    	this.infoJoueur= new IHMInfoJoueur(); 
->>>>>>> Modfication plateau de jeu
     	this.add(plateau);
+    	setLayout(new FlowLayout(FlowLayout.RIGHT)); 
+    	Joueur joueur= new Joueur("Pierre"); 
+    	IHMInfoJoueur infosJoueur1= new IHMInfoJoueur(joueur);
+    	this.add(infosJoueur1); 
    }
 
     
@@ -132,8 +130,57 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		break;
     		
     	case KeyEvent.VK_LEFT:
+    		unFocusedButton(currentButton);
+    		if((currentButton >53 && currentButton <=56) || (currentButton>49 && currentButton<53)|| currentButton <=10 && currentButton >0){
+    			currentButton--;
+    		}
+    		
+    		else if((currentButton >=20 && currentButton <30)){
+    			currentButton++;
+    		}
+    		
+    		else if(currentButton == 53){
+    			currentButton=44;
+    		}
+    		
+    		else if(currentButton == 44){
+    			currentButton = 52;
+    		}
+    		
+    		else if(currentButton == 15){
+    			currentButton=56;
+    		}
+    		else if(currentButton == 49) {
+    			currentButton = 35;
+    		}
+ 
+    		setFocusedButton(currentButton);
     		break;
+    		
     	case KeyEvent.VK_RIGHT:
+    		unFocusedButton(currentButton);
+    		if((currentButton >=0 && currentButton <10) || (currentButton >=49 && currentButton <52) || (currentButton >=53 && currentButton <56)){
+    			currentButton++;
+    		}
+    		
+    		else if (currentButton <31 && currentButton >20) {
+    			currentButton--;
+    		}
+
+    		else if(currentButton == 52){
+    			currentButton=44;
+    		}
+    		
+    		else if(currentButton ==44){
+    			currentButton=53;
+    		}
+    		else if(currentButton == 56) {
+    			currentButton = 15;
+    		}
+    		else if(currentButton == 35) {
+    			currentButton = 49;
+    		}
+    		setFocusedButton(currentButton);
     		break; 
     	case KeyEvent.VK_F5:
     		currentButton = 20;

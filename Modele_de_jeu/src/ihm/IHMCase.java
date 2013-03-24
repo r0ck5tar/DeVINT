@@ -9,28 +9,23 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
+import devintAPI.Preferences;
+
 
 @SuppressWarnings("serial")
 public class IHMCase extends JButton{
 
-<<<<<<< HEAD
 	IHMCase(ActionListener parent) {
-=======
-	IHMCase() {
-		
->>>>>>> Modfication plateau de jeu
 		super("Case");
+		Preferences pref = Preferences.getData();
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(61, 61));
-		setBackground(Color.BLACK);
-		setForeground(Color.YELLOW);
+		setBackground(pref.getCurrentBackgroundColor());
+		setForeground(pref.getCurrentForegroundColor());
 		setBorder(BorderFactory.createLineBorder(Color.YELLOW));
 		setOpaque(true);
-<<<<<<< HEAD
 		this.addActionListener((ActionListener) parent);
-=======
-		
->>>>>>> Modfication plateau de jeu
 	}
+	
 	
 }
