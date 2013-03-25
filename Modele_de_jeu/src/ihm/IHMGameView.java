@@ -22,6 +22,11 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
 	private JButton question;
 	private IHMPlateau plateau;
+	JPanel infoJoueurGauche;
+	JPanel infoJoueurDroite;
+	ArrayList<IHMInfoJoueur> infoJoueurs;
+	
+	private int currentButton = -1;
 
 	/*
 	 * Constructeur
@@ -36,8 +41,35 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
      */
     protected void init() {
     	setLayout(new FlowLayout(FlowLayout.CENTER));
-    	plateau = new IHMPlateau();
+    	plateau = new IHMPlateau(this);
+    	
+    	infoJoueurs = new ArrayList<IHMInfoJoueur>();
+    	for(int i=0; i<4; i++) {
+    		infoJoueurs.add(new IHMInfoJoueur(this));
+    	}
+    	
+    	infoJoueurGauche = new JPanel();
+    	infoJoueurDroite = new JPanel();
+    	
+    	infoJoueurDroite.setLayout(new BorderLayout());
+    	infoJoueurDroite.setBackground(Color.GREEN);
+    	infoJoueurDroite.setOpaque(true);
+    	infoJoueurDroite.add(infoJoueurs.get(0), BorderLayout.NORTH);
+    	infoJoueurDroite.add(infoJoueurs.get(1), BorderLayout.SOUTH);
+    	
+    	
+    	infoJoueurGauche.setLayout(new BorderLayout());
+    	infoJoueurGauche.setBackground(Color.GREEN);
+    	infoJoueurGauche.setOpaque(true);
+    	infoJoueurGauche.add(infoJoueurs.get(2), BorderLayout.NORTH);
+    	infoJoueurGauche.add(infoJoueurs.get(3), BorderLayout.SOUTH);
+    	
+    	 	    	
+    	
+    	this.add(infoJoueurDroite);
     	this.add(plateau);
+    	this.add(infoJoueurGauche);
+    	
    }
 
     
@@ -55,7 +87,18 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		String text = "les questions sont longues et ont un contenu variable."
     		             +"Il ne faut pas générer un fichier wave mais lire directement les textes";
     		voix.playText(text);          // le contenu des questions est variable donc on les lit avec SI_VOX
-    	}	
+    	}
+    	
+    	if(source.getClass().getSimpleName().equals("IHMCase")) {
+    		for(int i=0; i<57; i++) {
+    			if (plateau.getCase(i).equals(source)){
+    				unFocusedButton(currentButton);
+    				currentButton = i;
+    				setFocusedButton(currentButton);
+    				break;
+    			}
+    		}
+    	}
     	
     	this.requestFocus();  // on redonne le focus au JFrame principal  (après un clic, le focus est sur le bouton) 
     }
@@ -65,9 +108,58 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     @Override
     public void keyPressed(KeyEvent e) {
     	super.keyPressed(e);		     // appel à la méthode mère qui gère les évènements ESC, F1, F3, F4
-    	if (e.getKeyCode()==KeyEvent.VK_F5){                  // cas particulier pour ce jeu : la touche F5
-    	   	voix.playText("Vous venez d'appuyer sur EFFE 5");
-    	}
+    	switch(e.getKeyCode()){
+    	case KeyEvent.VK_UP:
+    		unFocusedButton(currentButton);
+    		if((currentButton >10 && currentButton <=20) || (currentButton >40 && currentButton <=48)){
+    			currentButton--;
+    		}
+    		
+    		else if(currentButton >=30 && currentButton <39){
+    			currentButton++;
+    		}
+    		
+    		else if(currentButton == 25){
+    			currentButton=48;
+    		}
+    		else if(currentButton == 39){
+    			currentButton = 0;
+    		}
+    		else if(currentButton == 40){
+    			currentButton = 5;
+    		}
+    		setFocusedButton(currentButton);
+    		break;
+    		
+    	case KeyEvent.VK_DOWN:
+    		unFocusedButton(currentButton);
+    		if((currentButton >=10 && currentButton <20) || (currentButton >=40 && currentButton <48)){
+    			currentButton++;
+    		}
+    		
+    		else if (currentButton >30 && currentButton <=39) {
+    			currentButton--;
+    		}
+
+    		else if(currentButton == 48){
+    			currentButton=25;
+    		}
+    		else if(currentButton == 5) {
+    			currentButton = 40;
+    		}
+    		else if(currentButton == 0) {
+    			currentButton = 39;
+    		}
+    		setFocusedButton(currentButton);
+    		break;
+    		
+    	case KeyEvent.VK_LEFT:
+    		break;
+    	case KeyEvent.VK_RIGHT:
+    		break; 
+    	case KeyEvent.VK_F5:
+    		currentButton = 20;
+    	} 	
     }
     
 	/**
@@ -79,13 +171,39 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	public  void changeColor() {
     	// on récupère les couleurs de base dans la classe Preferences 
 		Preferences pref = Preferences.getData();
-		/*
-		on change les couleurs des éléments qu'on veut. Exemple:
-		lb1.setBackground(pref.getCurrentBackgroundColor());
-		lb1.setForeground(pref.getCurrentForegroundColor());
 		
-		où lb1 est un composant Swing (JComponent) tel que JPanel, JButton, JScrollPane, etc.
-		*/
+		//on change les couleurs de tous les éléments
+		
+		for(int i=0; i<57; i++) {
+			JButton button = plateau.getCase(i);
+			button.setBackground(pref.getCurrentBackgroundColor());
+			button.setForeground(pref.getCurrentForegroundColor());
+		}	
+		
+		for(int i=0; i<4; i++) {
+			JButton button = plateau.getCabane(i);
+			button.setBackground(pref.getCurrentBackgroundColor());
+			button.setForeground(pref.getCurrentForegroundColor());
+		}
+	}
+	
+	// mettre le focus sur un bouton
+	private void setFocusedButton(int i) {
+		JButton button = plateau.getCase(i);
+		voix.playShortText(button.getText());
+		Color oldBackground = button.getBackground();
+		button.setBackground(button.getForeground());
+		button.setForeground(oldBackground);
+	}
+
+	// enlever le focus d'un bouton
+	private void unFocusedButton(int i) {
+		if(i>=0){
+			JButton button = plateau.getCase(i);
+			Color oldBackground = button.getBackground();
+			button.setBackground(button.getForeground());
+			button.setForeground(oldBackground);
+		}
 	}
 	
 	 /*
@@ -105,18 +223,3 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		return "../ressources/sons/aide.wav";
 	}
 }
-
-// Quelques exemples de code:
-
-/*
- *  Exemple de création d'un bouton
- 
-question = new JButton();
-question.setText("Cliquez sur ce bouton pour écouter la question");
-question.setBackground(new Color(50,50,255));
-question.setBorder(new LineBorder(Color.BLACK,10));
-	question.setFont(new Font("Georgia",1,40));
-	question.addActionListener(this);          // c'est l'objet Jeu lui-même qui réagit au clic souris
-
-this.add(question,BorderLayout.EAST);      // on met le bouton à droite
-*/
