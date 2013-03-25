@@ -52,15 +52,11 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     	infoJoueurDroite = new JPanel();
     	
     	infoJoueurDroite.setLayout(new BorderLayout());
-    	infoJoueurDroite.setBackground(Color.GREEN);
-    	infoJoueurDroite.setOpaque(true);
     	infoJoueurDroite.add(infoJoueurs.get(0), BorderLayout.NORTH);
     	infoJoueurDroite.add(infoJoueurs.get(1), BorderLayout.SOUTH);
     	
     	
     	infoJoueurGauche.setLayout(new BorderLayout());
-    	infoJoueurGauche.setBackground(Color.GREEN);
-    	infoJoueurGauche.setOpaque(true);
     	infoJoueurGauche.add(infoJoueurs.get(2), BorderLayout.NORTH);
     	infoJoueurGauche.add(infoJoueurs.get(3), BorderLayout.SOUTH);
     	
