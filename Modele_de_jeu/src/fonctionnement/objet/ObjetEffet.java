@@ -1,8 +1,7 @@
 package fonctionnement.objet;
 
-import fonctionnement.environnement.*;
+
 public class ObjetEffet extends Objet {
-	
 	private TypeObjetEffet type;
 
 	public ObjetEffet(TypeObjetEffet type) {
@@ -15,7 +14,7 @@ public class ObjetEffet extends Objet {
 	}
 
 	public String toString() {
-		return this..type.getNom();
+		return this.type.getNom();
 	}
 	
 	public boolean goEffect(Joueur joueur) {
@@ -31,9 +30,5 @@ public class ObjetEffet extends Objet {
 			default :
 				return false;
 		}
-	}
-	
-	public ObjetEffet copy() {
-		return new ObjetEffet(this.type);
 	}
 }

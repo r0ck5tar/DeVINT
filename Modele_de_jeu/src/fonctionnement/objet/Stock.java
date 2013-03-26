@@ -1,5 +1,5 @@
 package fonctionnement.objet;
-import fonctionnement.environnement.*;
+
 import java.util.ArrayList;
 
 public class Stock {

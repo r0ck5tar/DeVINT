@@ -1,5 +1,6 @@
 package fonctionnement.objet;
-import fonctionnement.environnement.*;
+
+import fonctionnement.environnement.Cabane;
 
 
 public class Bateau {
