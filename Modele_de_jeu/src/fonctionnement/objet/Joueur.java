@@ -21,6 +21,7 @@ public class Joueur {
 		this.cabane = new Cabane(this);
 		this.position = null;
 	}
+<<<<<<< HEAD
 
 	public void ameliorerDeplacement() {
 		this.deplacementMax = 8;
@@ -124,4 +125,10 @@ public class Joueur {
 		}
 	}
 
+=======
+	
+	public String getNom(){
+		return this.nom;
+	}
+>>>>>>> e466b4ecca6f1677e41b3226db50278e4c41453b
 }
