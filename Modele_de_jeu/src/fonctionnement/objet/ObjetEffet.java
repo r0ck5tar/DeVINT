@@ -31,4 +31,8 @@ public class ObjetEffet extends Objet {
 				return false;
 		}
 	}
+	
+	public ObjetEffet copy() {
+		return new ObjetEffet(this.type);
+	}
 }

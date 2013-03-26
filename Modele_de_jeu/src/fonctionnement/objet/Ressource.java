@@ -15,4 +15,8 @@ public class Ressource extends Objet{
 	public String toString() {
 		return this.type.getNom();
 	}
+	
+	public Ressource copy() {
+		return new Ressource(this.type);
+	}
 }
