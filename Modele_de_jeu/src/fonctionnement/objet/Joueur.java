@@ -124,5 +124,47 @@ public class Joueur {
 			}
 		}
 	}
+	
+	/**
+	 * Methode arrangerListe. Cette méthode permet de ranger l'ArrayList de case obtenue grâce à la méthode déplacement. 
+Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regarde les y. 
+	 * @param cases
+	 * @param position
+	 * @return
+	 */
+	
+	private ArrayList<Case> arrangerListe(ArrayList<Case> cases, int position){
+		int saveVal=0;
+		if(cases.get(position+1)==null){
+			return cases; 
+		}
+		else if(cases.get(position).getPosX()==cases.get(position+1).getPosX()){
+			if(cases.get(position).getPosY()>cases.get(position+1).getPosY()){
+				saveVal=cases.get(position).getPosY(); 
+				cases.get(position).setPosY(cases.get(position+1).getPosY());
+				cases.get(position+1).setPosY(saveVal); 
+				return arrangerListe(cases,position++);
+			}
+			else{
+				return arrangerListe(cases,position++);
+			}
+		}
+		else if(cases.get(position).getPosX()>cases.get(position+1).getPosX()){
+			saveVal=cases.get(position).getPosX(); 
+			cases.get(position).setPosX(cases.get(position+1).getPosX());
+			cases.get(position+1).setPosX(saveVal);
+			return this.arrangerListe(cases, position++); 
+		}
+		return null;
+	}
+	
+	
+	public ArrayList<Case> arrangerList(ArrayList<Case> cases){
+		return this.arrangerListe(cases,0); 
+	}
+	
+	public void decisionApresDe(ArrayList<Case> choix){
+		
+	}
 
 }

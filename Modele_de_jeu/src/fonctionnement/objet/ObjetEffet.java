@@ -1,6 +1,7 @@
 package fonctionnement.objet;
 
 import fonctionnement.environnement.*;
+
 public class ObjetEffet extends Objet {
 	
 	private TypeObjetEffet type;
@@ -15,7 +16,7 @@ public class ObjetEffet extends Objet {
 	}
 
 	public String toString() {
-		return this..type.getNom();
+		return this.type.getNom();
 	}
 	
 	public boolean goEffect(Joueur joueur) {

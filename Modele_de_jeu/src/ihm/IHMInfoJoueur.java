@@ -1,19 +1,27 @@
 package ihm;
 
-import java.awt.Component;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
-import javax.swing.*; 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 
-import fonctionnement.objet.Joueur;
+import devintAPI.Preferences;
 
-public class IHMInfoJoueur extends JPanel{
 
-	private JLabel infos; 
-	//private Joueur joueur; 
+public class IHMInfoJoueur extends JButton{
 	
-	public IHMInfoJoueur (Joueur joueur){
-		this.infos= new JLabel(joueur.getNom()); 
+	public IHMInfoJoueur(ActionListener parent) {
+		super("Info Joueur");
+		Preferences pref = Preferences.getData();
+		setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(320, 410));
+		setBackground(pref.getCurrentBackgroundColor());
+		setForeground(pref.getCurrentForegroundColor());
+		setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+		setOpaque(true);
+		this.addActionListener((ActionListener) parent);
 	}
-	
-	
 }

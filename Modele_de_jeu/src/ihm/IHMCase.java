@@ -18,7 +18,7 @@ public class IHMCase extends JButton{
 	private Objet typeRessource; 
 	
 	IHMCase(ActionListener parent, Objet typeRessource ) {
-		super(typeRessource.get);
+		super("Case"); //Besoin de récupérer le nom de la ressource sur la case, sauf qu'on ne sait pas qu'elle type de ressource c'est
 		Preferences pref = Preferences.getData();
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(61, 61));

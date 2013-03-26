@@ -15,7 +15,7 @@ public class IHMPlateau extends JPanel{
 	private ActionListener parent; 
 	private Plateau plateau;  //Pour pouvoir recuperer les informations sur chaque case du plateau de jeu
 	
-	IHMPlateau(ActionListener parent, Plateau plateau) {
+	IHMPlateau(ActionListener parent) {
 		setLayout(new GridBagLayout());
 		this.parent = parent;
 		GridBagConstraints casePos = new GridBagConstraints();

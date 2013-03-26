@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import fonctionnement.environnement.*;
 import fonctionnement.objet.*;
 
-public class Game {
+public class Arbitre {
 	private final int MAXJOUEUR = 4;
 	private ArrayList<Joueur> joueurs;
 	private int qui;
 	private Plateau plateau;
+	private TourDeJeu tourDeJeu;
 	
-	public Game() {
+	public Arbitre() {
 		this.joueurs = new ArrayList<Joueur>();
 		this.qui = 0;
 		this.setPlateau(null);
