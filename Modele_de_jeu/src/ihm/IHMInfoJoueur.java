@@ -20,7 +20,7 @@ public class IHMInfoJoueur extends JButton{
 		setPreferredSize(new Dimension(320, 410));
 		setBackground(pref.getCurrentBackgroundColor());
 		setForeground(pref.getCurrentForegroundColor());
-		setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		setOpaque(true);
 		this.addActionListener((ActionListener) parent);
 	}

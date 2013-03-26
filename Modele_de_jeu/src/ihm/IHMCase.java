@@ -22,7 +22,7 @@ public class IHMCase extends JButton{
 		setPreferredSize(new Dimension(61, 61));
 		setBackground(pref.getCurrentBackgroundColor());
 		setForeground(pref.getCurrentForegroundColor());
-		setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		setOpaque(true);
 		this.addActionListener((ActionListener) parent);
 	}
