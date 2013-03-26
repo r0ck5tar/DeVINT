@@ -5,7 +5,6 @@ import fonctionnement.Tool.*;
 import fonctionnement.environnement.Case;
 import java.util.ArrayList;
 
-import fonctionnement.environnement.*;
 public class Joueur {
 	private int deplacementMax;
 	private int attaqueMax;
@@ -22,6 +21,7 @@ public class Joueur {
 		this.cabane = new Cabane(this);
 		this.position = null;
 	}
+<<<<<<< HEAD
 
 	public void ameliorerDeplacement() {
 		this.deplacementMax = 8;
@@ -66,37 +66,37 @@ public class Joueur {
 	// retourne les cases où le joueur peut se deplacer en fonction de la valeur
 	// de son de;
 	public ArrayList<Case> deplacement(int valDe) {
-		ArrayList<Case> casesDisponibles = new ArrayList<Case>();
-		casesDisponibles.add(deplacement(valDe, this.position, this.position));
-		return casesDisponibles;
+		ArrayList<Case> list = new ArrayList<Case>();
+		return deplacement(valDe, this.position, this.position, list);
 	}
-
-	private Case deplacement(int valDe, Case courante, Case precedante) {
+	
+	private ArrayList<Case> deplacement(int valDe, Case courante, Case precedante, ArrayList<Case> listeCases) {
 		if (valDe == 0) {
-			return courante;
-		}
-
-		if (courante.getOuest() != null && !courante.getOuest().equals(courante)) {
-			valDe--;
-			return deplacement(valDe, courante.getOuest(), courante);
-		}
-
-		if (courante.getEst() != null && !courante.getEst().equals(courante)) {
-			valDe--;
-			return deplacement(valDe, courante.getEst(), courante);
+			listeCases.add(courante);
+			return listeCases;
 		}
 		
-		if (courante.getNord() != null && !courante.getNord().equals(courante)) {
-			valDe--;
-			return deplacement(valDe, courante.getNord(), courante);
-		}
-
-		if (courante.getSud() != null && !courante.getSud().equals(courante)) {
-			valDe--;
-			return deplacement(valDe, courante.getSud(), courante);
+		if (courante.getOuest() != null && !courante.getOuest().equals(precedante)) {
+			
+			deplacement(--valDe, courante.getOuest(), courante ,listeCases);
 		}
 		
-		else return courante;
+		if (courante.getNord() != null && !courante.getNord().equals(precedante)) {
+		
+			deplacement(--valDe, courante.getNord(), courante ,listeCases);
+		}
+		
+		if (courante.getEst() != null && !courante.getEst().equals(precedante)) {
+		
+			deplacement(--valDe, courante.getEst(), courante ,listeCases);
+		}
+		
+		if (courante.getSud() != null && !courante.getSud().equals(precedante)) {
+		
+			deplacement(--valDe, courante.getSud(), courante ,listeCases);
+		}
+		
+		return listeCases;
 	}
 
 	public void recupererObjet() {
@@ -167,4 +167,10 @@ Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regard
 		
 	}
 
+=======
+	
+	public String getNom(){
+		return this.nom;
+	}
+>>>>>>> e466b4ecca6f1677e41b3226db50278e4c41453b
 }

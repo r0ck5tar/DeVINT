@@ -18,7 +18,9 @@ public class IHMCabane extends JButton {
 		setPreferredSize(new Dimension(105, 105));
 		setBackground(pref.getCurrentBackgroundColor());
 		setForeground(pref.getCurrentForegroundColor());
-		setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+
+		setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
 		setOpaque(true);
 	}
 }

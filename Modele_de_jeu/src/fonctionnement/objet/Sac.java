@@ -1,6 +1,5 @@
-package fonctionnement.objet;
-import fonctionnement.environnement.*;
 
+package fonctionnement.objet;
 
 import java.util.ArrayList;
 

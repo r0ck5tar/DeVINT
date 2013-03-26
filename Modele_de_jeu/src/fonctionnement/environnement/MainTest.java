@@ -21,10 +21,10 @@ public class MainTest {
 		}*/
 		
 		Joueur j = new Joueur("Clem");
-		j.setPosition(a.get(9));
+		j.setPosition(a.get(44));
 		
 		
-		ArrayList<Case> b = j.deplacement(3);
+		ArrayList<Case> b = j.deplacement(5);
 		
 		for (Case c : b){
 			System.out.println(c.getPosX() +" " + c.getPosY());

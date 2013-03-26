@@ -1,5 +1,4 @@
 package fonctionnement.objet;
-import fonctionnement.environnement.*;
 
 
 public class Bateau {

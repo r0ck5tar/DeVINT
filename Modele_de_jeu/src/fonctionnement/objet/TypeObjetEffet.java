@@ -1,5 +1,5 @@
 package fonctionnement.objet;
-import fonctionnement.environnement.*;
+
 public enum TypeObjetEffet
 {
     LANCE("lance"),

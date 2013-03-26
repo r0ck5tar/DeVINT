@@ -52,10 +52,6 @@ public class Case {
 	public Case getEst() { return this.est;}
 	
 	
-	public Objet getRessource(int positionDansArray){
-		return this.content.get(positionDansArray);
-	}
-	
 	public void setPosX(int x){
 		this.posX = x;
 	}
