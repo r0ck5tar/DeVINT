@@ -1,7 +1,5 @@
 package fonctionnement.objet;
 
-import fonctionnement.environnement.Cabane;
-
 
 public class Bateau {
 	private Cabane cabane;
