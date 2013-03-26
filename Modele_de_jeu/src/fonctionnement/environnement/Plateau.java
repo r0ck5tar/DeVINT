@@ -59,6 +59,9 @@ public class Plateau {
 		return cases;
 	}
 	
+	public Case getCase(int i) {
+		return cases.get(i);
+	}
 
 	public void printCases(){
 		int i = 1;

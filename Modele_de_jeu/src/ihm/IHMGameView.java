@@ -111,71 +111,77 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     	switch(e.getKeyCode()){
     	case KeyEvent.VK_UP:
     		unFocusedButton(currentButton);
-    		if((currentButton >10 && currentButton <=20) || (currentButton >40 && currentButton <=48)){
-    			currentButton--;
-    		}
-    		
-    		else if(currentButton >=30 && currentButton <39){
+    		if((currentButton >=22 && currentButton <30) || (currentButton >=40 && currentButton <48)
+    		|| (currentButton >=31 && currentButton <39)){
     			currentButton++;
     		}
     		
-    		else if(currentButton == 25){
-    			currentButton=48;
+    		else if(currentButton == 0){
+    			currentButton=22;
+    		}
+    		else if(currentButton == 10){
+    			currentButton = 31;
+    		}
+    		else if(currentButton == 5){
+    			currentButton = 40;
+    		}
+    		else if(currentButton == 30){
+    			currentButton = 11;
+    		}
+    		else if(currentButton == 48){
+    			currentButton = 16;
     		}
     		else if(currentButton == 39){
-    			currentButton = 0;
-    		}
-    		else if(currentButton == 40){
-    			currentButton = 5;
+    			currentButton = 21;
     		}
     		setFocusedButton(currentButton);
     		break;
     		
     	case KeyEvent.VK_DOWN:
     		unFocusedButton(currentButton);
-    		if((currentButton >=10 && currentButton <20) || (currentButton >=40 && currentButton <48)){
-    			currentButton++;
-    		}
-    		
-    		else if (currentButton >30 && currentButton <=39) {
+    		if((currentButton >31 && currentButton <=39) || (currentButton >40 && currentButton <=48)
+    		|| (currentButton >22 && currentButton <=30)){
     			currentButton--;
     		}
-
-    		else if(currentButton == 48){
-    			currentButton=25;
+    		else if(currentButton == 31){
+    			currentButton=10;
     		}
-    		else if(currentButton == 5) {
-    			currentButton = 40;
+    		else if(currentButton == 40) {
+    			currentButton = 5;
     		}
-    		else if(currentButton == 0) {
+    		else if(currentButton == 22) {
+    			currentButton = 0;
+    		}
+    		else if(currentButton == 11) {
+    			currentButton = 30;
+    		}
+    		else if(currentButton == 16) {
+    			currentButton = 48;
+    		}
+    		else if(currentButton == 21) {
     			currentButton = 39;
     		}
+    		
     		setFocusedButton(currentButton);
     		break;
     		
     	case KeyEvent.VK_LEFT:
     		unFocusedButton(currentButton);
-    		if((currentButton >53 && currentButton <=56) || (currentButton>49 && currentButton<53)|| currentButton <=10 && currentButton >0){
+    		if((currentButton >11 && currentButton <=21) || (currentButton>0 && currentButton<=10)
+    		|| (currentButton >49 && currentButton<=52) || (currentButton>53 && currentButton<=56)){
     			currentButton--;
     		}
-    		
-    		else if((currentButton >=20 && currentButton <30)){
-    			currentButton++;
-    		}
-    		
     		else if(currentButton == 53){
     			currentButton=44;
     		}
-    		
     		else if(currentButton == 44){
     			currentButton = 52;
     		}
-    		
-    		else if(currentButton == 15){
+    		else if(currentButton == 35){
     			currentButton=56;
     		}
     		else if(currentButton == 49) {
-    			currentButton = 35;
+    			currentButton = 26;
     		}
  
     		setFocusedButton(currentButton);
@@ -183,27 +189,23 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		
     	case KeyEvent.VK_RIGHT:
     		unFocusedButton(currentButton);
-    		if((currentButton >=0 && currentButton <10) || (currentButton >=49 && currentButton <52) || (currentButton >=53 && currentButton <56)){
+    		if((currentButton >=0 && currentButton <10) || (currentButton >=11 && currentButton <21) 
+    		|| (currentButton >=49 && currentButton <52) || (currentButton >=53 && currentButton <56)){
     			currentButton++;
     		}
-    		
-    		else if (currentButton <31 && currentButton >20) {
-    			currentButton--;
+    		else if(currentButton == 26){
+    			currentButton=49;
     		}
-
-    		else if(currentButton == 52){
-    			currentButton=44;
-    		}
-    		
     		else if(currentButton ==44){
     			currentButton=53;
     		}
     		else if(currentButton == 56) {
-    			currentButton = 15;
+    			currentButton = 35;
     		}
-    		else if(currentButton == 35) {
-    			currentButton = 49;
+    		else if(currentButton == 52) {
+    			currentButton = 44;
     		}
+
     		setFocusedButton(currentButton);
     		break; 
     	case KeyEvent.VK_F5:
