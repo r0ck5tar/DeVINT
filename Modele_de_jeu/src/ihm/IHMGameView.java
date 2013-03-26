@@ -23,13 +23,12 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
 	private JButton question;
 	private IHMPlateau plateau;
-<<<<<<< HEAD
-=======
+
 	JPanel infoJoueurGauche;
 	JPanel infoJoueurDroite;
 	ArrayList<IHMInfoJoueur> infoJoueurs;
 	
->>>>>>> origin/HakimIHM
+
 	private int currentButton = -1;
 
 	/*
@@ -46,15 +45,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
      * Initialisation du frame. 
      */
     protected void init() {
-<<<<<<< HEAD
-    	setLayout(new GridBagLayout());
-    	plateau = new IHMPlateau(this);
-    	this.add(plateau);
-    	setLayout(new FlowLayout(FlowLayout.RIGHT)); 
-    	Joueur joueur= new Joueur("Pierre"); 
-    	IHMInfoJoueur infosJoueur1= new IHMInfoJoueur(joueur);
-    	this.add(infosJoueur1); 
-=======
     	setLayout(new FlowLayout(FlowLayout.CENTER));
     	plateau = new IHMPlateau(this);
     	
@@ -80,8 +70,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     	this.add(infoJoueurDroite);
     	this.add(plateau);
     	this.add(infoJoueurGauche);
-    	
->>>>>>> origin/HakimIHM
    }
 
     
@@ -259,11 +247,8 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 	// enlever le focus d'un bouton
 	private void unFocusedButton(int i) {
-<<<<<<< HEAD
-		if(i>0){
-=======
+
 		if(i>=0){
->>>>>>> origin/HakimIHM
 			JButton button = plateau.getCase(i);
 			Color oldBackground = button.getBackground();
 			button.setBackground(button.getForeground());
