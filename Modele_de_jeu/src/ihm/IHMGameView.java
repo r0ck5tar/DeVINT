@@ -22,18 +22,11 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
 	private JButton question;
 	private IHMPlateau plateau;
-<<<<<<< HEAD
-=======
-
->>>>>>> f80616f3b7eb668c200c24d179732a01f7a0e3b6
 	JPanel infoJoueurGauche;
 	JPanel infoJoueurDroite;
 	ArrayList<IHMInfoJoueur> infoJoueurs;
 	
-<<<<<<< HEAD
-=======
-
->>>>>>> f80616f3b7eb668c200c24d179732a01f7a0e3b6
+	
 	private int currentButton = -1;
 
 	/*
@@ -61,21 +54,17 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     	infoJoueurDroite = new JPanel();
     	
     	infoJoueurDroite.setLayout(new BorderLayout());
-<<<<<<< HEAD
+
     	infoJoueurDroite.setBackground(Color.GREEN);
     	infoJoueurDroite.setOpaque(true);
-=======
->>>>>>> f80616f3b7eb668c200c24d179732a01f7a0e3b6
     	infoJoueurDroite.add(infoJoueurs.get(0), BorderLayout.NORTH);
     	infoJoueurDroite.add(infoJoueurs.get(1), BorderLayout.SOUTH);
     	
     	
     	infoJoueurGauche.setLayout(new BorderLayout());
-<<<<<<< HEAD
+
     	infoJoueurGauche.setBackground(Color.GREEN);
     	infoJoueurGauche.setOpaque(true);
-=======
->>>>>>> f80616f3b7eb668c200c24d179732a01f7a0e3b6
     	infoJoueurGauche.add(infoJoueurs.get(2), BorderLayout.NORTH);
     	infoJoueurGauche.add(infoJoueurs.get(3), BorderLayout.SOUTH);
     	
@@ -84,10 +73,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     	this.add(infoJoueurDroite);
     	this.add(plateau);
     	this.add(infoJoueurGauche);
-<<<<<<< HEAD
-    	
-=======
->>>>>>> f80616f3b7eb668c200c24d179732a01f7a0e3b6
    }
 
     
@@ -172,8 +157,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		break;
     		
     	case KeyEvent.VK_LEFT:
-<<<<<<< HEAD
-=======
     		unFocusedButton(currentButton);
     		if((currentButton >53 && currentButton <=56) || (currentButton>49 && currentButton<53)|| currentButton <=10 && currentButton >0){
     			currentButton--;
@@ -199,11 +182,8 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		}
  
     		setFocusedButton(currentButton);
->>>>>>> f80616f3b7eb668c200c24d179732a01f7a0e3b6
     		break;
     	case KeyEvent.VK_RIGHT:
-<<<<<<< HEAD
-=======
     		unFocusedButton(currentButton);
     		if((currentButton >=0 && currentButton <10) || (currentButton >=49 && currentButton <52) || (currentButton >=53 && currentButton <56)){
     			currentButton++;
@@ -227,7 +207,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     			currentButton = 49;
     		}
     		setFocusedButton(currentButton);
->>>>>>> f80616f3b7eb668c200c24d179732a01f7a0e3b6
     		break; 
     	case KeyEvent.VK_F5:
     		currentButton = 20;
@@ -270,10 +249,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 	// enlever le focus d'un bouton
 	private void unFocusedButton(int i) {
-<<<<<<< HEAD
-=======
-
->>>>>>> f80616f3b7eb668c200c24d179732a01f7a0e3b6
 		if(i>=0){
 			JButton button = plateau.getCase(i);
 			Color oldBackground = button.getBackground();

@@ -21,8 +21,7 @@ public class Joueur {
 		this.cabane = new Cabane(this);
 		this.position = null;
 	}
-<<<<<<< HEAD
-
+	
 	public void ameliorerDeplacement() {
 		this.deplacementMax = 8;
 	}
@@ -167,10 +166,4 @@ Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regard
 		
 	}
 
-=======
-	
-	public String getNom(){
-		return this.nom;
-	}
->>>>>>> e466b4ecca6f1677e41b3226db50278e4c41453b
 }

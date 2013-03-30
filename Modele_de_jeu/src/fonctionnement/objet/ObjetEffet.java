@@ -1,9 +1,6 @@
 package fonctionnement.objet;
 
-<<<<<<< HEAD
 import fonctionnement.environnement.*;
-=======
->>>>>>> f80616f3b7eb668c200c24d179732a01f7a0e3b6
 
 public class ObjetEffet extends Objet {
 	private TypeObjetEffet type;
