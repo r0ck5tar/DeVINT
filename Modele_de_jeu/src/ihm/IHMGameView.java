@@ -1,10 +1,10 @@
 package ihm;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 
 import devintAPI.FenetreAbstraite;
 import devintAPI.Preferences;
+import fonctionnement.jeu.Game;
 import fonctionnement.objet.Joueur;
 
 import java.awt.*;
@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	
+	private Game game;
 	private JButton question;
 	private IHMPlateau plateau;
 
@@ -36,19 +37,29 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	 * 
 	 */
 	
-    public IHMGameView(String title) {
+    public IHMGameView(String title, Game game) {
     	super(title);
+    	this.game = game;
      }
     
    
     /* 
      * Initialisation du frame. 
      */
+    @Override
     protected void init() {
     	setLayout(new FlowLayout(FlowLayout.CENTER));
     	plateau = new IHMPlateau(this);
     	
+    	//ArrayList<Joueur> listJoueurs = game.getJoueurs();
     	infoJoueurs = new ArrayList<IHMInfoJoueur>();
+    	
+    	
+    	//for(int i=0; i<game.getJoueurs().size(); i++) {
+    	//	System.out.println(game.getJoueurs().get(i).getNom());
+    	//}
+    	
+    	
     	for(int i=0; i<4; i++) {
     		infoJoueurs.add(new IHMInfoJoueur(this));
     	}
@@ -219,6 +230,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	 * à chaque fois que l'on presse F3 
 	 * 
 	 **/
+    @Override
 	public  void changeColor() {
     	// on récupère les couleurs de base dans la classe Preferences 
 		Preferences pref = Preferences.getData();
@@ -263,14 +275,17 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
      * Pour plus d'informations, regarder la classe DevintFrameListener (dans le package devintAPI)
      */
 	
+	@Override
 	protected  String wavAccueil() {			    // renvoie le fichier wave contenant le message d'accueil
 		return "../ressources/sons/accueilJeu.wav";
 	}
 
+	@Override
 	protected  String wavRegleJeu() {			    // renvoie le fichier wave contenant la règle du jeu
 		return "../ressources/sons/aideF1.wav";
 	}
 	
+	@Override
 	protected  String wavAide() {			        // renvoie le fichier wave contenant la règle du jeu
 		return "../ressources/sons/aide.wav";
 	}

@@ -13,7 +13,7 @@ public class Game {
 	public Game() {
 		this.joueurs = new ArrayList<Joueur>();
 		this.qui = 0;
-		this.setPlateau(null);
+		this.plateau = null;
 	}
 	
 	public ArrayList<Joueur> getJoueurs() { return this.joueurs;}
@@ -29,7 +29,7 @@ public class Game {
 	}
 	
 	public int startGame() {
-		this.setPlateau(new Plateau());
+		plateau = new Plateau();
 		
 		return play();
 	}
@@ -47,9 +47,5 @@ public class Game {
 
 	public Plateau getPlateau() {
 		return plateau;
-	}
-
-	public void setPlateau(Plateau plateau) {
-		this.plateau = plateau;
 	}
 }
