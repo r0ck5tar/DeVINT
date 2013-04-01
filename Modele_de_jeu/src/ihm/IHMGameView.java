@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import devintAPI.FenetreAbstraite;
 import devintAPI.Preferences;
+import fonctionnement.environnement.Plateau;
 import fonctionnement.jeu.Game;
 import fonctionnement.objet.Joueur;
 
@@ -24,6 +25,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	private Game game;
 	private JButton question;
 	private IHMPlateau plateau;
+	private ArrayList<Joueur> listJoueurs;
+	private Plateau plateauJeu;
+	
 
 	JPanel infoJoueurGauche;
 	JPanel infoJoueurDroite;
@@ -40,6 +44,11 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     public IHMGameView(String title, Game game) {
     	super(title);
     	this.game = game;
+    	listJoueurs = game.getJoueurs();
+    	
+     	for(int i=0; i<listJoueurs.size(); i++) {
+    		System.out.println(listJoueurs.get(i).getNom());
+    	}
      }
     
    
@@ -51,13 +60,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     	setLayout(new FlowLayout(FlowLayout.CENTER));
     	plateau = new IHMPlateau(this);
     	
-    	//ArrayList<Joueur> listJoueurs = game.getJoueurs();
     	infoJoueurs = new ArrayList<IHMInfoJoueur>();
-    	
-    	
-    	//for(int i=0; i<game.getJoueurs().size(); i++) {
-    	//	System.out.println(game.getJoueurs().get(i).getNom());
-    	//}
     	
     	
     	for(int i=0; i<4; i++) {
