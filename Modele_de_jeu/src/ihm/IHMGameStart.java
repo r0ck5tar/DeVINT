@@ -86,7 +86,7 @@ public class IHMGameStart extends FenetreAbstraite implements ActionListener{
 	    	}
 	    	
 	    	new IHMGameView("Ile des Naufragés", game);
-	    	this.setVisible(false);
+	    	this.dispose();
 	    }
 
 	@Override
