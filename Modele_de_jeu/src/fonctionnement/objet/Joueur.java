@@ -99,7 +99,7 @@ public class Joueur {
 	
 	/**
 	 * Methode arrangerListe. Cette méthode permet de ranger l'ArrayList de case obtenue grâce à la méthode déplacement. 
-Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regarde les y. 
+	 * Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regarde les y. 
 	 * @param cases
 	 * @param position
 	 * @return
