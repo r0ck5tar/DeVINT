@@ -20,6 +20,7 @@ public class Joueur {
 		this.sac = new Sac(this);
 		this.cabane = new Cabane(this);
 		this.position = null;
+	
 	}
 	
 	public void ameliorerDeplacement() {
@@ -134,7 +135,7 @@ Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regard
 	
 	private ArrayList<Case> arrangerListe(ArrayList<Case> cases, int position){
 		int saveVal=0;
-		if(cases.get(position+1)==null){
+		if(cases.get(position+1)==null || cases.get(position).getPosX()<cases.get(position+1).getPosX()){
 			return cases; 
 		}
 		else if(cases.get(position).getPosX()==cases.get(position+1).getPosX()){
@@ -158,8 +159,12 @@ Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regard
 	}
 	
 	
-	public ArrayList<Case> arrangerList(ArrayList<Case> cases){
-		return this.arrangerListe(cases,0); 
+	public ArrayList<Case> arrangerListe(ArrayList<Case> cases){
+		for(int i =0; i <cases.size(); i++){
+
+			this.arrangerListe(cases, i);
+		}
+		return cases; 
 	}
 	
 	public void decisionApresDe(ArrayList<Case> choix){
