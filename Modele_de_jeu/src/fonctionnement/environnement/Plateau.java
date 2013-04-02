@@ -53,8 +53,19 @@ public class Plateau {
 	
 	private void linkAllCell() {
 		for(Case c : cases) c.link(cases);
+		this.initAllCase();
 	}
 	
+	private void initAllCase() {
+		String initer = "EBFBNHNBNPNEBEFEHPEPNPBBPBHEPENFNENHPBPFBECFEFCPBBBCFFCNB";
+		for(Case c : cases) {
+			c.init(initer.charAt(0));
+			initer = initer.substring(1,initer.length()-1);
+		}
+		
+	}
+
+
 	public ArrayList<Case> getCases(){
 		return cases;
 	}
