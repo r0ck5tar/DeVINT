@@ -143,8 +143,4 @@ public class Joueur {
 		
 	}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> c230c3073f2182ecaf73dceb5ecf29aa86314224
 }
