@@ -26,7 +26,7 @@ public class Joueur {
 	public boolean ctontour() {
 		this.deplacement();
 		this.recupererObjet();
-			
+		
 		/*
 		 * > Choix de prendre ou pas la ressource
 		 * > Proposition de construction
