@@ -10,13 +10,14 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 import devintAPI.Preferences;
+import fonctionnement.environnement.Case;
 
 
 @SuppressWarnings("serial")
 public class IHMCase extends JButton{
 
-	IHMCase(ActionListener parent) {
-		super("case");
+	IHMCase(Case uneCase, ActionListener parent) {
+		super(uneCase.getNom());
 		Preferences pref = Preferences.getData();
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(61, 61));

@@ -2,9 +2,11 @@ package ihm;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 
-import fonctionnement.environnement.Plateau;
+import fonctionnement.environnement.*;
 
 
 
@@ -12,11 +14,14 @@ import fonctionnement.environnement.Plateau;
 public class IHMPlateau extends JPanel{
 	private IHMCase[] cases;
 	private IHMCabane[] cabanes;
+	private ArrayList<Case> listCases;
 	private ActionListener parent; 
+	private Plateau plateauJeu;
 	
 	IHMPlateau(Plateau plateauJeu, ActionListener parent) {
 		setLayout(new GridBagLayout());
 		this.parent = parent;
+		this.plateauJeu = plateauJeu;
 		GridBagConstraints casePos = new GridBagConstraints();
 		GridBagConstraints cabanePos = new GridBagConstraints();
 		
@@ -27,6 +32,10 @@ public class IHMPlateau extends JPanel{
 		
 		cases = new IHMCase[57];
 		cabanes = new IHMCabane[4];
+		
+		listCases = new ArrayList<Case>();
+		
+		
 		
 		initialiseCabanes(cabanePos);
 		initialiseCases(casePos);
@@ -78,9 +87,16 @@ public class IHMPlateau extends JPanel{
 		 * Emplacement des cases
 		 */
 		
+		listCases = plateauJeu.getCases();
+		
+		for (Case c : plateauJeu.getCases()){
+			System.out.println(c.getPosX() +" " + c.getPosY());
+		}
+		
+		
 		//Bottom Row
 		for(int i=0; i<11; i++) {
-			cases[i] = new IHMCase(parent);
+			cases[i] = new IHMCase(listCases.get(i), parent);
 			casePos.fill = GridBagConstraints.HORIZONTAL;
 			casePos.gridx = i+3;
 			casePos.gridy = 13;
@@ -90,7 +106,7 @@ public class IHMPlateau extends JPanel{
 				
 		//Top row
 		for(int i=11; i<22; i++) {
-			cases[i] = new IHMCase(parent);
+			cases[i] = new IHMCase(listCases.get(i), parent);
 			casePos.gridx = i-8;
 			casePos.gridy = 3;
 			this.add(cases[i], casePos);
@@ -99,7 +115,7 @@ public class IHMPlateau extends JPanel{
 		
 		//Left Column
 		for(int i=30, y=26; i>21; i--, y-=2) {
-			cases[i]= new IHMCase(parent);
+			cases[i]= new IHMCase(listCases.get(i), parent);
 			casePos.gridx = 3;
 			casePos.gridy = i-y;
 			this.add(cases[i], casePos);
@@ -108,7 +124,7 @@ public class IHMPlateau extends JPanel{
 		
 		//Right Column
 		for(int i=39, y=35; i>30; i--, y-=2) {
-			cases[i] = new IHMCase(parent);
+			cases[i] = new IHMCase(listCases.get(i), parent);
 			casePos.gridx = 13;
 			casePos.gridy = i-y;
 			this.add(cases[i], casePos);
@@ -117,7 +133,7 @@ public class IHMPlateau extends JPanel{
 		
 		//Middle Column
 		for(int i=48, y=44; i>39; i--, y-=2) {
-			cases[i] = new IHMCase(parent);
+			cases[i] = new IHMCase(listCases.get(i), parent);
 			casePos.gridx = 8;
 			casePos.gridy = i-y;
 			this.add(cases[i], casePos);
@@ -126,7 +142,7 @@ public class IHMPlateau extends JPanel{
 		
 		//Middle Left-half Row
 		for(int i=49; i<53; i++) {
-			cases[i] = new IHMCase(parent);
+			cases[i] = new IHMCase(listCases.get(i), parent);
 			casePos.gridx = i-45;
 			casePos.gridy = 8;
 			this.add(cases[i], casePos);
@@ -134,7 +150,7 @@ public class IHMPlateau extends JPanel{
 		
 		//Middle Right-half Row
 		for(int i=53; i<57; i++) {
-			cases[i] = new IHMCase(parent);
+			cases[i] = new IHMCase(listCases.get(i), parent);
 			casePos.gridx = i-44;
 			casePos.gridy = 8;
 			this.add(cases[i], casePos);
