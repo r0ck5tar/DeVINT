@@ -8,7 +8,7 @@
 
 package jeu; 
 
-import ihm.IHMGameView;
+import ihm.IHMGameStart;
 import devintAPI.MenuAbstrait;
 
 public class MenuJeu extends MenuAbstrait {
@@ -33,7 +33,7 @@ public class MenuJeu extends MenuAbstrait {
 	 */
 	protected void lancerOption(int i) {
 		switch (i){  
-		case 0 : new IHMGameView(nomJeu);break;
+		case 0 : new IHMGameStart(nomJeu);break;
 		case 1 : new Histoire(nomJeu + ": Histoire");break;
 		case 2 : new Option(nomJeu + ": gestion des options");break;
 		case 3 : new Fichier(nomJeu + ": pour écrire dans un fichier");break;

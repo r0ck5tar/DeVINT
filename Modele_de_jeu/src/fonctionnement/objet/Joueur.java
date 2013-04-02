@@ -92,5 +92,8 @@ public class Joueur {
 			}
 		}
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 297a5ee2abd3deaf79bcb41a1f7784e8f4d80743
 }
