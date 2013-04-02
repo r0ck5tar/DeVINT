@@ -2,6 +2,9 @@ package fonctionnement.environnement;
 
 import java.util.ArrayList;
 
+import fonctionnement.objet.Ressource;
+import fonctionnement.objet.TypeRessource;
+
 public class Plateau {
 
 	private ArrayList<Case> cases;
@@ -77,6 +80,7 @@ public class Plateau {
 	public Case getCase(int i) {
 		return cases.get(i);
 	}
+	
 
 	public void printCases(){
 		int i = 1;
