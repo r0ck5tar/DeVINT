@@ -29,9 +29,11 @@ public class Game {
 		else return false;
 	}
 	
-	public int startGame() {
-		this.setPlateau(new Plateau());
-		plateau = new Plateau();		
+	public void initialisePlateau() {
+		plateau = new Plateau();	
+	}
+	
+	public int startGame() {	
 		return play();
 	}
 	
