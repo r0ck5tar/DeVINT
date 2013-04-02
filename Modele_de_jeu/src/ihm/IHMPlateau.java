@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
+import fonctionnement.environnement.Plateau;
+
 
 
 @SuppressWarnings("serial")
@@ -12,7 +14,7 @@ public class IHMPlateau extends JPanel{
 	private IHMCabane[] cabanes;
 	private ActionListener parent; 
 	
-	IHMPlateau(ActionListener parent) {
+	IHMPlateau(Plateau plateauJeu, ActionListener parent) {
 		setLayout(new GridBagLayout());
 		this.parent = parent;
 		GridBagConstraints casePos = new GridBagConstraints();
