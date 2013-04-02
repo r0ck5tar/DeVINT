@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import fonctionnement.environnement.*;
 import fonctionnement.objet.*;
 
-public class Arbitre {
+public class Game {
 	private final int MAXJOUEUR = 4;
 	private ArrayList<Joueur> joueurs;
 	private int qui;
 	private Plateau plateau;
-	private TourDeJeu tourDeJeu;
 	
-	public Arbitre() {
+	public Game() {
 		this.joueurs = new ArrayList<Joueur>();
 		this.qui = 0;
-		this.setPlateau(null);
+		this.plateau = null;
 	}
 	
 	public ArrayList<Joueur> getJoueurs() { return this.joueurs;}
@@ -30,27 +29,25 @@ public class Arbitre {
 	}
 	
 	public int startGame() {
-		this.setPlateau(new Plateau());
-		
+		plateau = new Plateau();
 		return play();
 	}
 	
 	
 	private int play() {
 		while(true) {
-			if(this.joueurs.get(this.qui).ctontour())
+			if(this.joueurs.get(this.qui).ctontour()){
 				return qui;
+			}
 			qui++;
-			if(this.qui >= this.joueurs.size())
+			if(this.qui >= this.joueurs.size()){
 				this.qui = 0;
+			}
+			
 		}		
 	}
 
 	public Plateau getPlateau() {
 		return plateau;
-	}
-
-	public void setPlateau(Plateau plateau) {
-		this.plateau = plateau;
 	}
 }

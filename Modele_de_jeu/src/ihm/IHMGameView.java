@@ -1,10 +1,13 @@
 package ihm;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 
 import devintAPI.FenetreAbstraite;
 import devintAPI.Preferences;
+
+import fonctionnement.environnement.Plateau;
+import fonctionnement.jeu.Game;
+import fonctionnement.objet.Joueur;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -19,14 +22,20 @@ import java.util.ArrayList;
  */
 
 public class IHMGameView extends FenetreAbstraite implements ActionListener{
-	
+
+	private Game game;
 	private JButton question;
 	private IHMPlateau plateau;
+
 	JPanel infoJoueurGauche;
 	JPanel infoJoueurDroite;
 	ArrayList<IHMInfoJoueur> infoJoueurs;
 	
-	
+	private ArrayList<Joueur> listJoueurs;
+	private Plateau plateauJeu;
+
+
+
 	private int currentButton = -1;
 
 	/*
@@ -214,32 +223,36 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
     		currentButton = 20;
     	} 	
     }
-    
-	/**
+
+
+
+
+/**
 	 * Pour modifier les couleurs de fond et de premier plan de la fenêtre.
 	 * Cette fonction est appelée par la fonction "changeColor" de la classe "Preferences"
 	 * à chaque fois que l'on presse F3 
 	 * 
 	 **/
+	@Override
 	public  void changeColor() {
-    	// on récupère les couleurs de base dans la classe Preferences 
+		// on récupère les couleurs de base dans la classe Preferences 
 		Preferences pref = Preferences.getData();
-		
+
 		//on change les couleurs de tous les éléments
-		
+
 		for(int i=0; i<57; i++) {
 			JButton button = plateau.getCase(i);
 			button.setBackground(pref.getCurrentBackgroundColor());
 			button.setForeground(pref.getCurrentForegroundColor());
 		}	
-		
+
 		for(int i=0; i<4; i++) {
 			JButton button = plateau.getCabane(i);
 			button.setBackground(pref.getCurrentBackgroundColor());
 			button.setForeground(pref.getCurrentForegroundColor());
 		}
 	}
-	
+
 	// mettre le focus sur un bouton
 	private void setFocusedButton(int i) {
 		JButton button = plateau.getCase(i);
@@ -258,20 +271,23 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 			button.setForeground(oldBackground);
 		}
 	}
-	
-	 /*
-     * Fonctions qui renvoient les sons d'accueil et d'aide.
-     * Pour plus d'informations, regarder la classe DevintFrameListener (dans le package devintAPI)
-     */
-	
+
+	/*
+	 * Fonctions qui renvoient les sons d'accueil et d'aide.
+	 * Pour plus d'informations, regarder la classe DevintFrameListener (dans le package devintAPI)
+	 */
+
+	@Override
 	protected  String wavAccueil() {			    // renvoie le fichier wave contenant le message d'accueil
 		return "../ressources/sons/accueilJeu.wav";
 	}
 
+	@Override
 	protected  String wavRegleJeu() {			    // renvoie le fichier wave contenant la règle du jeu
 		return "../ressources/sons/aideF1.wav";
 	}
-	
+
+	@Override
 	protected  String wavAide() {			        // renvoie le fichier wave contenant la règle du jeu
 		return "../ressources/sons/aide.wav";
 	}
