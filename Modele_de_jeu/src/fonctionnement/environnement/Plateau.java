@@ -64,10 +64,12 @@ public class Plateau {
 	}
 	
 	private void initAllCase() {
-		String initer = "EBFBNHNBNPNEBEFEHPEPNPBBPBHEPENFNENHPBPFBECFEFCPBBBCFFCNB";
+		String initer = "EBLBNHNBNPNEBELEHPEPNPBBPBHEPENLNENHPBPLBECLELCPBBBCLLCNB";
 		for(Case c : cases) {
 			c.init(initer.charAt(0));
-			initer = initer.substring(1,initer.length()-1);
+			if(initer.length() > 0) {
+				initer = initer.substring(1);
+			}
 		}
 		
 	}

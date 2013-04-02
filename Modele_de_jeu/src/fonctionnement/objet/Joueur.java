@@ -26,7 +26,7 @@ public class Joueur {
 	public boolean ctontour() {
 		this.deplacement();
 		this.recupererObjet();
-			
+		
 		/*
 		 * > Choix de prendre ou pas la ressource
 		 * > Proposition de construction
@@ -99,7 +99,7 @@ public class Joueur {
 	
 	/**
 	 * Methode arrangerListe. Cette méthode permet de ranger l'ArrayList de case obtenue grâce à la méthode déplacement. 
-Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regarde les y. 
+	 * Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regarde les y. 
 	 * @param cases
 	 * @param position
 	 * @return
@@ -143,5 +143,8 @@ Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regard
 		
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c230c3073f2182ecaf73dceb5ecf29aa86314224
 }
