@@ -50,6 +50,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		game.initialisePlateau();
 		plateauJeu = game.getPlateau();
 		initialize();
+		lancerDe();
 	}
 
 
@@ -124,6 +125,14 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		this.requestFocus();  // on redonne le focus au JFrame principal  (après un clic, le focus est sur le bouton) 
 	}
 
+	public void lancerDe() {
+		JDialog menuDe = new JDialog(this, "lancer le dé");
+		menuDe.setLayout(new BorderLayout());
+		JButton boutonDe = new JButton ("lancer le dé");
+		boutonDe.setVisible(true);
+		menuDe.add(boutonDe);
+		menuDe.setVisible(true);
+	}
 
 	//Keyboard event listener: détecte les éléments clavier. 
 	@Override
