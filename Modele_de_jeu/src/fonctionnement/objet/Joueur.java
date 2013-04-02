@@ -1,9 +1,9 @@
 package fonctionnement.objet;
 
-import fonctionnement.Tool.*;
 
 import fonctionnement.environnement.Case;
 import java.util.ArrayList;
+import Tool.Tool;
 
 public class Joueur {
 	private int deplacementMax;
@@ -23,6 +23,19 @@ public class Joueur {
 	
 	}
 	
+	public boolean ctontour() {
+		this.deplacement();
+		this.recupererObjet();
+			
+		/*
+		 * > Choix de prendre ou pas la ressource
+		 * > Proposition de construction
+		 */
+		//this.sac.apliquerEffetObjet();
+		return this.cabane.getBateau().gameOver();
+	}
+
+
 	public void ameliorerDeplacement() {
 		this.deplacementMax = 8;
 	}
@@ -42,63 +55,20 @@ public class Joueur {
 	public String getNom() {
 		return this.nom;
 	}
+	
+	public Case getPosition(){
+		return position;
 
-	public boolean ctontour() {
-		this.deplacement();
-		this.recupererObjet();
-		
-		/*
-		 * > Choix de prendre ou pas la ressource > Proposition de construction
-		 */
-		
-		// this.sac.apliquerEffetObjet();
-		return this.cabane.getBateau().gameOver();
 	}
-
 	public void deplacement() {
 		// Ajouter le fait qu'on peut avoir la catapulte
 		int de = 0;
 		ArrayList<Case> list;
 		de = Tool.lancerDe(deplacementMax);
-		list = this.position.getChoixCase(de);
-		this.position = Tool.changerPosition(list);
-	}
-
-	// retourne les cases où le joueur peut se deplacer en fonction de la valeur
-	// de son de;
-	public ArrayList<Case> deplacement(int valDe) {
-		ArrayList<Case> list = new ArrayList<Case>();
-		return deplacement(valDe, this.position, this.position, list);
+		list = this.position.getChoixCase(de,null);
+		this.position = Tool.changerPosition(list,this);
 	}
 	
-	private ArrayList<Case> deplacement(int valDe, Case courante, Case precedante, ArrayList<Case> listeCases) {
-		if (valDe == 0) {
-			listeCases.add(courante);
-			return listeCases;
-		}
-		
-		if (courante.getOuest() != null && !courante.getOuest().equals(precedante)) {
-			
-			deplacement(--valDe, courante.getOuest(), courante ,listeCases);
-		}
-		
-		if (courante.getNord() != null && !courante.getNord().equals(precedante)) {
-		
-			deplacement(--valDe, courante.getNord(), courante ,listeCases);
-		}
-		
-		if (courante.getEst() != null && !courante.getEst().equals(precedante)) {
-		
-			deplacement(--valDe, courante.getEst(), courante ,listeCases);
-		}
-		
-		if (courante.getSud() != null && !courante.getSud().equals(precedante)) {
-		
-			deplacement(--valDe, courante.getSud(), courante ,listeCases);
-		}
-		
-		return listeCases;
-	}
 
 	public void recupererObjet() {
 		Objet o = this.position.recupererObjet();

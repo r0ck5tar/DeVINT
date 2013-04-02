@@ -16,7 +16,7 @@ import devintAPI.Preferences;
 public class IHMCase extends JButton{
 
 	IHMCase(ActionListener parent) {
-		super("Case");
+		super("case");
 		Preferences pref = Preferences.getData();
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(61, 61));
