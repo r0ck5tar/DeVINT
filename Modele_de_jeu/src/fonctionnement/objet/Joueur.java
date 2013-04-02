@@ -95,10 +95,7 @@ public class Joueur {
 			}
 		}
 	}
-<<<<<<< HEAD
 
-
-=======
 	
 	/**
 	 * Methode arrangerListe. Cette méthode permet de ranger l'ArrayList de case obtenue grâce à la méthode déplacement. 
@@ -142,9 +139,9 @@ Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regard
 		return cases; 
 	}
 	
-	public void decisionApresDe(ArrayList<Case> choix){
+	public void decisionApresDe(Case choix){
 		
 	}
 
->>>>>>> 92fbc0bf1e99c3a0c78fce98532d4294fe2477e8
+
 }
