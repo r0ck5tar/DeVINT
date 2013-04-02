@@ -23,8 +23,9 @@ public class MainTest {
 		Joueur j = new Joueur("Clem");
 		j.setPosition(a.get(44));
 		
+		ArrayList<Case> b = j.getPosition().getChoixCase(2, j.getPosition());
 		
-		ArrayList<Case> b = j.deplacement(5);
+		System.out.println(b.isEmpty());
 		
 		for (Case c : b){
 			System.out.println(c.getPosX() +" " + c.getPosY());
