@@ -51,6 +51,10 @@ public class Plateau {
 		linkAllCell();
 	}
 	
+	public void initCasesTableau(){
+		
+	}
+	
 	private void linkAllCell() {
 		for(Case c : cases) c.link(cases);
 		this.initAllCase();

@@ -20,6 +20,7 @@ public class Joueur {
 		this.sac = new Sac(this);
 		this.cabane = new Cabane(this);
 		this.position = null;
+	
 	}
 	
 	public boolean ctontour() {
@@ -33,6 +34,7 @@ public class Joueur {
 		//this.sac.apliquerEffetObjet();
 		return this.cabane.getBateau().gameOver();
 	}
+
 
 	public void ameliorerDeplacement() {
 		this.deplacementMax = 8;
@@ -56,6 +58,7 @@ public class Joueur {
 	
 	public Case getPosition(){
 		return position;
+
 	}
 	public void deplacement() {
 		// Ajouter le fait qu'on peut avoir la catapulte
@@ -92,4 +95,51 @@ public class Joueur {
 			}
 		}
 	}
+	
+	/**
+	 * Methode arrangerListe. Cette méthode permet de ranger l'ArrayList de case obtenue grâce à la méthode déplacement. 
+Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regarde les y. 
+	 * @param cases
+	 * @param position
+	 * @return
+	 */
+	
+	private ArrayList<Case> arrangerListe(ArrayList<Case> cases, int position){
+		int saveVal=0;
+		if(cases.get(position+1)==null || cases.get(position).getPosX()<cases.get(position+1).getPosX()){
+			return cases; 
+		}
+		else if(cases.get(position).getPosX()==cases.get(position+1).getPosX()){
+			if(cases.get(position).getPosY()>cases.get(position+1).getPosY()){
+				saveVal=cases.get(position).getPosY(); 
+				cases.get(position).setPosY(cases.get(position+1).getPosY());
+				cases.get(position+1).setPosY(saveVal); 
+				return arrangerListe(cases,position++);
+			}
+			else{
+				return arrangerListe(cases,position++);
+			}
+		}
+		else if(cases.get(position).getPosX()>cases.get(position+1).getPosX()){
+			saveVal=cases.get(position).getPosX(); 
+			cases.get(position).setPosX(cases.get(position+1).getPosX());
+			cases.get(position+1).setPosX(saveVal);
+			return this.arrangerListe(cases, position++); 
+		}
+		return null;
+	}
+	
+	
+	public ArrayList<Case> arrangerListe(ArrayList<Case> cases){
+		for(int i =0; i <cases.size(); i++){
+
+			this.arrangerListe(cases, i);
+		}
+		return cases; 
+	}
+	
+	public void decisionApresDe(ArrayList<Case> choix){
+		
+	}
+
 }
