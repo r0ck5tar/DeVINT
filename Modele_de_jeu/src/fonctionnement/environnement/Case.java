@@ -152,6 +152,9 @@ public class Case {
 			list.add(this);
 			return list;
 		}
+		if(this.nom.equals("home")) {
+			list.add(this);
+		}
 		if(this.est != null && this.est != c)
 			list.addAll(this.est.getChoixCase(n-1, this));
 		if(this.ouest != null && this.ouest != c)

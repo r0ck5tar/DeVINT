@@ -66,7 +66,7 @@ public class Joueur {
 		ArrayList<Case> list;
 		de = Tool.lancerDe(deplacementMax);
 		list = this.position.getChoixCase(de,null);
-		this.position = Tool.changerPosition(list,this);
+		this.position = Tool.changerPosition(list);
 	}
 	
 
@@ -91,55 +91,8 @@ public class Joueur {
 			if (!this.sac.isFull())
 				this.sac.ajouterObjet(o);
 			else {
-				// Vous n'avez pas pu ramasser + o
+				Tool.parler("Vous n'avez pas pu ramasser l'objet ");
 			}
 		}
 	}
-	
-	/**
-	 * Methode arrangerListe. Cette méthode permet de ranger l'ArrayList de case obtenue grâce à la méthode déplacement. 
-Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regarde les y. 
-	 * @param cases
-	 * @param position
-	 * @return
-	 */
-	
-	private ArrayList<Case> arrangerListe(ArrayList<Case> cases, int position){
-		int saveVal=0;
-		if(cases.get(position+1)==null || cases.get(position).getPosX()<cases.get(position+1).getPosX()){
-			return cases; 
-		}
-		else if(cases.get(position).getPosX()==cases.get(position+1).getPosX()){
-			if(cases.get(position).getPosY()>cases.get(position+1).getPosY()){
-				saveVal=cases.get(position).getPosY(); 
-				cases.get(position).setPosY(cases.get(position+1).getPosY());
-				cases.get(position+1).setPosY(saveVal); 
-				return arrangerListe(cases,position++);
-			}
-			else{
-				return arrangerListe(cases,position++);
-			}
-		}
-		else if(cases.get(position).getPosX()>cases.get(position+1).getPosX()){
-			saveVal=cases.get(position).getPosX(); 
-			cases.get(position).setPosX(cases.get(position+1).getPosX());
-			cases.get(position+1).setPosX(saveVal);
-			return this.arrangerListe(cases, position++); 
-		}
-		return null;
-	}
-	
-	
-	public ArrayList<Case> arrangerListe(ArrayList<Case> cases){
-		for(int i =0; i <cases.size(); i++){
-
-			this.arrangerListe(cases, i);
-		}
-		return cases; 
-	}
-	
-	public void decisionApresDe(ArrayList<Case> choix){
-		
-	}
-
 }
