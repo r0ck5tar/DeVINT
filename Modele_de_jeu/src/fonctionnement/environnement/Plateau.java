@@ -55,6 +55,13 @@ public class Plateau {
 		for(Case c : cases) c.link(cases);
 	}
 	
+	public ArrayList<Case> getCases(){
+		return cases;
+	}
+	
+	public Case getCase(int i) {
+		return cases.get(i);
+	}
 
 	public void printCases(){
 		int i = 1;
