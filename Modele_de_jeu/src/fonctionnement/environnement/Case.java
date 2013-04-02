@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import fonctionnement.Tool.Tool;
+import Tool.Tool;
 import fonctionnement.objet.Objet;
 import fonctionnement.objet.ObjetEffet;
 import fonctionnement.objet.Ressource;
+import fonctionnement.objet.TypeObjetEffet;
+import fonctionnement.objet.TypeRessource;
 
 public class Case {
 	private ArrayList<Objet> content;
+	private String nom;
 	private Case nord;
 	private Case sud;
 	private Case ouest;
@@ -20,6 +23,44 @@ public class Case {
 	
 	public Case(){
 		this(-1,-1);
+	}
+	
+	public void init(char c) {
+		this.content = new ArrayList<Objet>();
+		switch(c) {
+		case 'B':
+			this.nom = "bois";
+			this.content.add(new Ressource(TypeRessource.BOIS));
+			break;
+		case 'L':
+			this.nom = "liane";
+			this.content.add(new Ressource(TypeRessource.LIANE));
+			break;
+		case 'P':
+			this.nom = "pierre";
+			this.content.add(new Ressource(TypeRessource.PIERRE));
+			break;
+		case 'N':
+			this.nom = "nourriture";
+			this.content.add(new Ressource(TypeRessource.NOURRITURE));
+			break;
+		case 'E':
+			this.nom = "eau";
+			this.content.add(new Ressource(TypeRessource.EAU));
+			break;
+		case 'H':
+			this.nom = "home";
+			break;
+		case 'C':
+			this.nom = "cabane abandonnee";
+			this.content.add(new Ressource(TypeRessource.VOILE));
+			this.content.add(new Ressource(TypeRessource.FILET));
+			this.content.add(new ObjetEffet(TypeObjetEffet.LANCE));
+			this.content.add(new ObjetEffet(TypeObjetEffet.BOUSSOLE));
+			this.content.add(new ObjetEffet(TypeObjetEffet.CATAPULTE));
+			this.content.add(new ObjetEffet(TypeObjetEffet.SAC));
+			break;
+		}
 	}
 	
 	public Case(int x , int y){
@@ -127,6 +168,14 @@ public class Case {
         set.addAll(list) ;
         list = new ArrayList<Case>(set) ;
 		return list;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 	
 	

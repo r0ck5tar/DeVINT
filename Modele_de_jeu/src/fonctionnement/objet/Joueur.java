@@ -1,9 +1,9 @@
 package fonctionnement.objet;
 
-import fonctionnement.Tool.*;
 
 import fonctionnement.environnement.Case;
 import java.util.ArrayList;
+import Tool.Tool;
 
 public class Joueur {
 	private int deplacementMax;
@@ -20,7 +20,21 @@ public class Joueur {
 		this.sac = new Sac(this);
 		this.cabane = new Cabane(this);
 		this.position = null;
+	
 	}
+	
+	public boolean ctontour() {
+		this.deplacement();
+		this.recupererObjet();
+			
+		/*
+		 * > Choix de prendre ou pas la ressource
+		 * > Proposition de construction
+		 */
+		//this.sac.apliquerEffetObjet();
+		return this.cabane.getBateau().gameOver();
+	}
+
 
 	public void ameliorerDeplacement() {
 		this.deplacementMax = 8;
@@ -44,26 +58,15 @@ public class Joueur {
 	
 	public Case getPosition(){
 		return position;
+
 	}
-
-	public boolean ctontour() {
-		this.deplacement();
-		this.recupererObjet();
-
-		/*
-		 * > Choix de prendre ou pas la ressource > Proposition de construction
-		 */
-		// this.sac.apliquerEffetObjet();
-		return this.cabane.getBateau().gameOver();
-	}
-
 	public void deplacement() {
 		// Ajouter le fait qu'on peut avoir la catapulte
 		int de = 0;
 		ArrayList<Case> list;
 		de = Tool.lancerDe(deplacementMax);
-		list = this.position.getChoixCase(de, this.position);
-		this.position = Tool.changerPosition(list);
+		list = this.position.getChoixCase(de,null);
+		this.position = Tool.changerPosition(list,this);
 	}
 	
 
@@ -92,6 +95,56 @@ public class Joueur {
 			}
 		}
 	}
+<<<<<<< HEAD
 
 
+=======
+	
+	/**
+	 * Methode arrangerListe. Cette méthode permet de ranger l'ArrayList de case obtenue grâce à la méthode déplacement. 
+Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regarde les y. 
+	 * @param cases
+	 * @param position
+	 * @return
+	 */
+	
+	private ArrayList<Case> arrangerListe(ArrayList<Case> cases, int position){
+		int saveVal=0;
+		if(cases.get(position+1)==null || cases.get(position).getPosX()<cases.get(position+1).getPosX()){
+			return cases; 
+		}
+		else if(cases.get(position).getPosX()==cases.get(position+1).getPosX()){
+			if(cases.get(position).getPosY()>cases.get(position+1).getPosY()){
+				saveVal=cases.get(position).getPosY(); 
+				cases.get(position).setPosY(cases.get(position+1).getPosY());
+				cases.get(position+1).setPosY(saveVal); 
+				return arrangerListe(cases,position++);
+			}
+			else{
+				return arrangerListe(cases,position++);
+			}
+		}
+		else if(cases.get(position).getPosX()>cases.get(position+1).getPosX()){
+			saveVal=cases.get(position).getPosX(); 
+			cases.get(position).setPosX(cases.get(position+1).getPosX());
+			cases.get(position+1).setPosX(saveVal);
+			return this.arrangerListe(cases, position++); 
+		}
+		return null;
+	}
+	
+	
+	public ArrayList<Case> arrangerListe(ArrayList<Case> cases){
+		for(int i =0; i <cases.size(); i++){
+
+			this.arrangerListe(cases, i);
+		}
+		return cases; 
+	}
+	
+	public void decisionApresDe(ArrayList<Case> choix){
+		
+	}
+
+>>>>>>> 92fbc0bf1e99c3a0c78fce98532d4294fe2477e8
 }

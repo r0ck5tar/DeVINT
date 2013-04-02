@@ -23,10 +23,12 @@ import java.util.ArrayList;
 public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 	private Game game;
+	private Plateau plateauJeu;
+	
 	private JButton question;
 	private IHMPlateau plateau;
 	private ArrayList<Joueur> listJoueurs;
-	private Plateau plateauJeu;
+	
 
 
 	JPanel infoJoueurGauche;
@@ -44,6 +46,8 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	public IHMGameView(String title, Game game) {
 		super(title);
 		this.game = game;
+		listJoueurs = game.getJoueurs();
+		plateauJeu = game.getPlateau();
 		initialize();
 	}
 
@@ -57,13 +61,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	}
 
 	private void initialize() {
-
-		listJoueurs = game.getJoueurs();
-
-		for(int i=0; i<listJoueurs.size(); i++) {
-			System.out.println(listJoueurs.get(i).getNom());
-		}
-
+		
 		infoJoueurs = new ArrayList<IHMInfoJoueur>();
 
 
@@ -72,7 +70,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		}
 
 		setLayout(new FlowLayout(FlowLayout.CENTER));
-		plateau = new IHMPlateau(this);
+		plateau = new IHMPlateau(plateauJeu, this);
 
 		infoJoueurGauche = new JPanel();
 		infoJoueurDroite = new JPanel();

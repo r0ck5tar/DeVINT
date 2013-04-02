@@ -13,6 +13,7 @@ public class Game {
 	public Game() {
 		this.joueurs = new ArrayList<Joueur>();
 		this.qui = 0;
+		this.setPlateau(null);
 		this.plateau = null;
 	}
 	
@@ -29,23 +30,30 @@ public class Game {
 	}
 	
 	public int startGame() {
-		plateau = new Plateau();
-		
+		this.setPlateau(new Plateau());
+		plateau = new Plateau();		
 		return play();
 	}
 	
 	
 	private int play() {
 		while(true) {
-			if(this.joueurs.get(this.qui).ctontour())
+			if(this.joueurs.get(this.qui).ctontour()){
 				return qui;
+			}
 			qui++;
-			if(this.qui >= this.joueurs.size())
+			if(this.qui >= this.joueurs.size()){
 				this.qui = 0;
+			}
+			
 		}		
 	}
 
 	public Plateau getPlateau() {
 		return plateau;
+	}
+
+	public void setPlateau(Plateau plateau) {
+		this.plateau = plateau;
 	}
 }
