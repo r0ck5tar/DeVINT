@@ -1,6 +1,8 @@
 package fonctionnement.environnement;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import Tool.Tool;
 import fonctionnement.objet.Objet;
@@ -103,9 +105,24 @@ public class Case {
 		return o;
 	}
 
-	public ArrayList<Case> getChoixCase(int de) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Case> getChoixCase(int n,Case c) {
+		ArrayList<Case> list = new ArrayList<Case>();
+		if(n<1) {
+			list.add(this);
+			return list;
+		}
+		if(this.est != null && this.est != c)
+			list.addAll(this.est.getChoixCase(n-1, this));
+		if(this.ouest != null && this.ouest != c)
+			list.addAll(this.ouest.getChoixCase(n-1, this));
+		if(this.sud != null && this.sud != c)
+			list.addAll(this.sud.getChoixCase(n-1, this));
+		if(this.nord != null && this.nord != c)
+			list.addAll(this.nord.getChoixCase(n-1, this));
+        Set<Case> set = new HashSet<Case>() ;
+        set.addAll(list) ;
+        list = new ArrayList<Case>(set) ;
+		return list;
 	}
 	
 	

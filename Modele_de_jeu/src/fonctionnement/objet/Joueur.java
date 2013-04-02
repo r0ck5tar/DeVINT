@@ -50,8 +50,8 @@ public class Joueur {
 		int de = 0;
 		ArrayList<Case> list;
 		de = Tool.lancerDe(deplacementMax);
-		list = this.position.getChoixCase(de);
-		this.position = Tool.changerPosition(list);
+		list = this.position.getChoixCase(de,null);
+		this.position = Tool.changerPosition(list,this);
 	}
 	
 	public void recupererObjet() {
