@@ -31,6 +31,10 @@ public class Case {
 		posX=x;
 		posY=y;
 	}
+	
+	public void setContent(Objet o){
+		content.add(o);
+	}
 
 	public void setNord(Case c){
 		this.nord = c;
