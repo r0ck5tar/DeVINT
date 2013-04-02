@@ -21,7 +21,6 @@ public class Joueur {
 		this.cabane = new Cabane(this);
 		this.position = null;
 	}
-<<<<<<< HEAD
 
 	public void ameliorerDeplacement() {
 		this.deplacementMax = 8;
@@ -42,6 +41,10 @@ public class Joueur {
 	public String getNom() {
 		return this.nom;
 	}
+	
+	public Case getPosition(){
+		return position;
+	}
 
 	public boolean ctontour() {
 		this.deplacement();
@@ -59,45 +62,10 @@ public class Joueur {
 		int de = 0;
 		ArrayList<Case> list;
 		de = Tool.lancerDe(deplacementMax);
-		list = this.position.getChoixCase(de);
+		list = this.position.getChoixCase(de, this.position);
 		this.position = Tool.changerPosition(list);
 	}
-
-	// retourne les cases où le joueur peut se deplacer en fonction de la valeur
-	// de son de;
-	public ArrayList<Case> deplacement(int valDe) {
-		ArrayList<Case> list = new ArrayList<Case>();
-		return deplacement(valDe, this.position, this.position, list);
-	}
 	
-	private ArrayList<Case> deplacement(int valDe, Case courante, Case precedante, ArrayList<Case> listeCases) {
-		if (valDe == 0) {
-			listeCases.add(courante);
-			return listeCases;
-		}
-		
-		if (courante.getOuest() != null && !courante.getOuest().equals(precedante)) {
-			
-			deplacement(--valDe, courante.getOuest(), courante ,listeCases);
-		}
-		
-		if (courante.getNord() != null && !courante.getNord().equals(precedante)) {
-		
-			deplacement(--valDe, courante.getNord(), courante ,listeCases);
-		}
-		
-		if (courante.getEst() != null && !courante.getEst().equals(precedante)) {
-		
-			deplacement(--valDe, courante.getEst(), courante ,listeCases);
-		}
-		
-		if (courante.getSud() != null && !courante.getSud().equals(precedante)) {
-		
-			deplacement(--valDe, courante.getSud(), courante ,listeCases);
-		}
-		
-		return listeCases;
-	}
 
 	public void recupererObjet() {
 		Objet o = this.position.recupererObjet();
@@ -125,10 +93,4 @@ public class Joueur {
 		}
 	}
 
-=======
-	
-	public String getNom(){
-		return this.nom;
-	}
->>>>>>> e466b4ecca6f1677e41b3226db50278e4c41453b
 }
