@@ -38,11 +38,14 @@ public class Game {
 	
 	private int play() {
 		while(true) {
-			if(this.joueurs.get(this.qui).ctontour())
+			if(this.joueurs.get(this.qui).ctontour()){
 				return qui;
+			}
 			qui++;
-			if(this.qui >= this.joueurs.size())
+			if(this.qui >= this.joueurs.size()){
 				this.qui = 0;
+			}
+			
 		}		
 	}
 

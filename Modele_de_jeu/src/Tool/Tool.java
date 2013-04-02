@@ -12,7 +12,7 @@ public class Tool {
 	}
 
 	public static Case changerPosition(ArrayList<Case> list, Joueur joueur) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 }

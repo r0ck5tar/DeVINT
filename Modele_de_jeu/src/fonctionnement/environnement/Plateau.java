@@ -2,6 +2,9 @@ package fonctionnement.environnement;
 
 import java.util.ArrayList;
 
+import fonctionnement.objet.Ressource;
+import fonctionnement.objet.TypeRessource;
+
 public class Plateau {
 
 	private ArrayList<Case> cases;
@@ -51,10 +54,25 @@ public class Plateau {
 		linkAllCell();
 	}
 	
-	private void linkAllCell() {
-		for(Case c : cases) c.link(cases);
+	public void initCasesTableau(){
+		
 	}
 	
+	private void linkAllCell() {
+		for(Case c : cases) c.link(cases);
+		this.initAllCase();
+	}
+	
+	private void initAllCase() {
+		String initer = "EBFBNHNBNPNEBEFEHPEPNPBBPBHEPENFNENHPBPFBECFEFCPBBBCFFCNB";
+		for(Case c : cases) {
+			c.init(initer.charAt(0));
+			initer = initer.substring(1,initer.length()-1);
+		}
+		
+	}
+
+
 	public ArrayList<Case> getCases(){
 		return cases;
 	}
@@ -62,6 +80,7 @@ public class Plateau {
 	public Case getCase(int i) {
 		return cases.get(i);
 	}
+	
 
 	public void printCases(){
 		int i = 1;
