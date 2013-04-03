@@ -30,8 +30,7 @@ public class Joueur {
 	public boolean ctontour() {
 		this.deplacement();
 		this.recupererObjet();
-		
-
+	
 		/*
 		 * > Choix de prendre ou pas la ressource
 		 * > Proposition de construction
@@ -151,6 +150,7 @@ public class Joueur {
 	public int getDeplacementMax() {
 		return deplacementMax;
 	}
+
 
 	public void setDeplacementMax(int deplacementMax) {
 		this.deplacementMax = deplacementMax;
