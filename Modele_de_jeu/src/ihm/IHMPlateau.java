@@ -45,8 +45,18 @@ public class IHMPlateau extends JPanel{
 		return cases[i];
 	}
 	
+	public IHMCase getCaseAtIndex(Case uneCase) {
+		return cases[listCases.indexOf(uneCase)];
+	}
+	
 	public IHMCabane getCabane(int i) {
 		return cabanes[i];
+	}
+	
+	public void afficheChoixDeplacement(ArrayList<Case> caseAccessibles) {
+		for (Case uneCase : caseAccessibles) {
+			getCaseAtIndex(uneCase).setCouleurCaseAccessible();
+		}
 	}
 	
 	private void initialiseCabanes(GridBagConstraints cabanePos) {
@@ -88,10 +98,6 @@ public class IHMPlateau extends JPanel{
 		 */
 		
 		listCases = plateauJeu.getCases();
-		
-		for (Case c : plateauJeu.getCases()){
-			System.out.println(c.getPosX() +" " + c.getPosY());
-		}
 		
 		
 		//Bottom Row

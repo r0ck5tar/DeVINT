@@ -28,5 +28,7 @@ public class IHMCase extends JButton{
 		this.addActionListener((ActionListener) parent);
 	}
 	
-	
+	public void setCouleurCaseAccessible() {
+		setBackground(Color.CYAN);
+	}
 }

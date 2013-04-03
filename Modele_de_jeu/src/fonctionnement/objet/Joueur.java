@@ -2,6 +2,10 @@ package fonctionnement.objet;
 
 
 import fonctionnement.environnement.Case;
+import fonctionnement.jeu.Game;
+
+import ihm.IHMGameView;
+
 import java.util.ArrayList;
 import Tool.Tool;
 
@@ -25,7 +29,7 @@ public class Joueur {
 	
 	public boolean ctontour() {
 		this.deplacement();
-		this.recupererObjet();
+		//this.recupererObjet();
 			
 		/*
 		 * > Choix de prendre ou pas la ressource
@@ -141,6 +145,14 @@ public class Joueur {
 	
 	public void decisionApresDe(ArrayList<Case> choix){
 		
+	}
+	
+	public int getDeplacementMax() {
+		return deplacementMax;
+	}
+
+	public void setDeplacementMax(int deplacementMax) {
+		this.deplacementMax = deplacementMax;
 	}
 
 }
