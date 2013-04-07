@@ -47,6 +47,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		super(title);
 		this.game = game;
 		listJoueurs = game.getJoueurs();
+		game.initialisePlateau();
 		plateauJeu = game.getPlateau();
 		initialize();
 	}

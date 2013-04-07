@@ -72,6 +72,10 @@ public class Case {
 		posX=x;
 		posY=y;
 	}
+	
+	public void setContent(Objet o){
+		content.add(o);
+	}
 
 	public void setNord(Case c){
 		this.nord = c;
@@ -163,7 +167,7 @@ public class Case {
 			list.addAll(this.sud.getChoixCase(n-1, this));
 		if(this.nord != null && this.nord != c)
 			list.addAll(this.nord.getChoixCase(n-1, this));
-        Set<Case> set = new HashSet<Case>() ;
+        Set<Case> set = new HashSet<Case>();
         set.addAll(list) ;
         list = new ArrayList<Case>(set) ;
 		return list;

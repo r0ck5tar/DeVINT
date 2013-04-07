@@ -2,6 +2,7 @@ package fonctionnement.environnement;
 
 import java.util.ArrayList;
 
+
 public class Plateau {
 
 	private ArrayList<Case> cases;
@@ -61,10 +62,12 @@ public class Plateau {
 	}
 	
 	private void initAllCase() {
-		String initer = "EBFBNHNBNPNEBEFEHPEPNPBBPBHEPENFNENHPBPFBECFEFCPBBBCFFCNB";
+		String initer = "EBLBNHNBNPNEBELEHPEPNPBBPBHEPENLNENHPBPLBECLELCPBBBCLLCNB";
 		for(Case c : cases) {
 			c.init(initer.charAt(0));
-			initer = initer.substring(1,initer.length()-1);
+			if(initer.length() > 0) {
+				initer = initer.substring(1);
+			}
 		}
 		
 	}
@@ -77,6 +80,7 @@ public class Plateau {
 	public Case getCase(int i) {
 		return cases.get(i);
 	}
+	
 
 	public void printCases(){
 		int i = 1;
