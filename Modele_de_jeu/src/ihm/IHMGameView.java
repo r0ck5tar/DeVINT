@@ -173,26 +173,27 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	public void deplacement(int qui) {
 		unFocusedButton(currentButton);
 		currentButton = plateau.getIndexOfCase(listJoueurs.get(qui).getPosition());
-		setFocusedButton(currentButton);
+		shiftFocusedButton(currentButton);
 		lancerDe(qui);
 	}
 
 	public void lancerDe (int qui) {
+		voix.playShortText("joueur" + (qui+1) +", lance le dé");
 		menuDe = new JDialog(this, "lancer le dé");
 		menuDe.setLayout(new BorderLayout());
 		menuDe.setSize(200, 100);
 		switch(qui){
 		case 0:
-			menuDe.setLocation(370, 20);
+			menuDe.setLocation(570, 220);
 			break;
 		case 1:
-			menuDe.setLocation(770, 20);
+			menuDe.setLocation(570, 620);
 			break;
 		case 2:
-			menuDe.setLocation(370, 20);
+			menuDe.setLocation(870, 220);
 			break;
 		case 3:
-			menuDe.setLocation(370, 20);
+			menuDe.setLocation(870, 620);
 			break;
 		}
 		boutonDe = new JButton ("lancer le dé");
@@ -362,8 +363,15 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 	// mettre le focus sur un bouton
 	private void setFocusedButton(int i) {
-		JButton button = plateau.getCase(i);
-		voix.playShortText(button.getText());
+		IHMCase button = plateau.getCase(i);
+		voix.playShortText(button.getContenu());
+		Color oldBackground = button.getBackground();
+		button.setBackground(button.getForeground());
+		button.setForeground(oldBackground);
+	}
+	
+	private void shiftFocusedButton(int i) {
+		IHMCase button = plateau.getCase(i);
 		Color oldBackground = button.getBackground();
 		button.setBackground(button.getForeground());
 		button.setForeground(oldBackground);

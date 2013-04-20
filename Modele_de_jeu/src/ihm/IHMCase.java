@@ -18,9 +18,11 @@ import fonctionnement.environnement.Case;
 @SuppressWarnings("serial")
 public class IHMCase extends JButton{
 	private Preferences pref;
+	private String contenu;
 
 	IHMCase(Case uneCase, ActionListener parent) {
 		super(uneCase.getNom().substring(0, 1));
+		contenu = uneCase.getNom();
 		pref = Preferences.getData();
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(61, 61));
@@ -59,4 +61,9 @@ public class IHMCase extends JButton{
 		}
 		
 	}
+
+	public String getContenu() {
+		return contenu;
+	}
+	
 }
