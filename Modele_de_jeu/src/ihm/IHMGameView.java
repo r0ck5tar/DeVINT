@@ -56,7 +56,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		plateauJeu = game.getPlateau();
 		couleursJoueurs = new HashMap<Joueur, Color>();
 		initialize();
-		qui = 0;
+		qui = -1;
 		game.setQui(qui);
 		initializePlayerPositions();
 		
@@ -150,7 +150,10 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	}
 	
 	public void play() {
+		qui++;
+		if(qui>3) {qui = 0;}
 		deplacement(qui);
+		
 	}
 	
 	
@@ -168,6 +171,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	}
 	
 	public void deplacement(int qui) {
+		unFocusedButton(currentButton);
+		currentButton = plateau.getIndexOfCase(listJoueurs.get(qui).getPosition());
+		setFocusedButton(currentButton);
 		lancerDe(qui);
 	}
 
@@ -218,6 +224,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 				listJoueurs.get(qui).setPosition(plateauJeu.getCase(currentButton));
 				setCaseJoueur();
 				plateau.masquerChoixDeplacement(currentButton);
+				play();
 			}
 			break;
 		case KeyEvent.VK_UP:
