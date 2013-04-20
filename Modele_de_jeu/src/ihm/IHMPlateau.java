@@ -15,7 +15,8 @@ public class IHMPlateau extends JPanel{
 	private IHMCase[] cases;
 	private IHMCabane[] cabanes;
 	private ArrayList<Case> listCases;
-	private ActionListener parent; 
+	private ArrayList<Integer> indiceCaseAccessibles;
+ 	private ActionListener parent; 
 	private Plateau plateauJeu;
 	
 	IHMPlateau(Plateau plateauJeu, ActionListener parent) {
@@ -24,6 +25,7 @@ public class IHMPlateau extends JPanel{
 		this.plateauJeu = plateauJeu;
 		GridBagConstraints casePos = new GridBagConstraints();
 		GridBagConstraints cabanePos = new GridBagConstraints();
+		indiceCaseAccessibles = new ArrayList<Integer>();
 		
 		cabanePos.fill = GridBagConstraints.BOTH;
 		cabanePos.gridwidth = 3;
@@ -35,8 +37,6 @@ public class IHMPlateau extends JPanel{
 		
 		listCases = new ArrayList<Case>();
 		
-		
-		
 		initialiseCabanes(cabanePos);
 		initialiseCases(casePos);
 	}
@@ -45,6 +45,10 @@ public class IHMPlateau extends JPanel{
 		return cases[i];
 	}
 	
+	public int getIndexOfCase(Case uneCase) {
+		return listCases.indexOf(uneCase);
+	}
+
 	public IHMCase getCaseAtIndex(Case uneCase) {
 		return cases[listCases.indexOf(uneCase)];
 	}
@@ -53,10 +57,25 @@ public class IHMPlateau extends JPanel{
 		return cabanes[i];
 	}
 	
+	public ArrayList<Integer> getIndiceCaseAccessibles() {
+		return indiceCaseAccessibles;
+	}
+
 	public void afficheChoixDeplacement(ArrayList<Case> caseAccessibles) {
 		for (Case uneCase : caseAccessibles) {
 			getCaseAtIndex(uneCase).setCouleurCaseAccessible();
+			indiceCaseAccessibles.add(listCases.indexOf(uneCase));
 		}
+	}
+	
+	//Remettre aux couleurs normales touts les cases aux indiceCaseAccessible sauf la caseAIgnorer
+	public void masquerChoixDeplacement(int caseAIgnorer) {
+		for (int indice: indiceCaseAccessibles) {
+			if (indice != caseAIgnorer) {
+				cases[indice].setCouleurCaseNormale();
+			}
+		}
+		indiceCaseAccessibles.clear();
 	}
 	
 	private void initialiseCabanes(GridBagConstraints cabanePos) {

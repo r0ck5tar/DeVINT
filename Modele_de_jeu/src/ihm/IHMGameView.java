@@ -33,13 +33,14 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	private IHMPlateau plateau;
 	private ArrayList<Joueur> listJoueurs;
 	private Map<Joueur, Color> couleursJoueurs;
+	JDialog menuDe;
 
 	JPanel infoJoueurGauche;
 	JPanel infoJoueurDroite;
 	ArrayList<IHMInfoJoueur> infoJoueurs;
 
 
-	private int currentButton = -1;
+	private int currentButton = 5;
 	private int qui;
 
 	/*
@@ -47,7 +48,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	 * 
 	 */
 
-	public IHMGameView(String title, Game game) {
+	public IHMGameView (String title, Game game) {
 		super(title);
 		this.game = game;
 		listJoueurs = game.getJoueurs();
@@ -125,8 +126,10 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 		if (source.equals(boutonDe)) {    // si c'est le bouton "question" on lit la question
 			
-			int de = Tool.lancerDe(listJoueurs.get(qui).getDeplacementMax());
+			int de = Tool.lancerDe(listJoueurs.get(qui).getDeplacementMax())+1;
 			plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition().getChoixCase(de, null));
+			menuDe.dispose();
+			
 			
 			String text = Integer.toString(de);
 			voix.playText(text);          // le contenu des questions est variable donc on les lit avec SI_VOX
@@ -165,13 +168,27 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	}
 	
 	public void deplacement(int qui) {
-		lancerDe();
+		lancerDe(qui);
 	}
 
-	public void lancerDe() {
-		JDialog menuDe = new JDialog(this, "lancer le dé");
+	public void lancerDe (int qui) {
+		menuDe = new JDialog(this, "lancer le dé");
 		menuDe.setLayout(new BorderLayout());
-		menuDe.setSize(400, 200);
+		menuDe.setSize(200, 100);
+		switch(qui){
+		case 0:
+			menuDe.setLocation(370, 20);
+			break;
+		case 1:
+			menuDe.setLocation(770, 20);
+			break;
+		case 2:
+			menuDe.setLocation(370, 20);
+			break;
+		case 3:
+			menuDe.setLocation(370, 20);
+			break;
+		}
 		boutonDe = new JButton ("lancer le dé");
 		boutonDe.setVisible(true);
 		boutonDe.addActionListener(this);
@@ -182,6 +199,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	public void setCaseJoueur() {
 		for(Joueur joueur : listJoueurs) {
 			plateau.getCaseAtIndex(joueur.getPosition()).setBackground(couleursJoueurs.get(joueur));
+			plateau.getCaseAtIndex(joueur.getPosition()).setForeground(Color.BLACK);
 		}
 	}
 
@@ -191,6 +209,17 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	public void keyPressed(KeyEvent e) {
 		super.keyPressed(e);		     // appel à la méthode mère qui gère les évènements ESC, F1, F3, F4
 		switch(e.getKeyCode()){
+		
+		case KeyEvent.VK_ENTER:
+		case KeyEvent.VK_SPACE:
+			//change position to the selected case if it's accessible.
+			if(plateau.getIndiceCaseAccessibles().contains(currentButton)) {
+				plateau.getCaseAtIndex(listJoueurs.get(qui).getPosition()).setCouleurCaseNormale();
+				listJoueurs.get(qui).setPosition(plateauJeu.getCase(currentButton));
+				setCaseJoueur();
+				plateau.masquerChoixDeplacement(currentButton);
+			}
+			break;
 		case KeyEvent.VK_UP:
 			unFocusedButton(currentButton);
 			if((currentButton >=22 && currentButton <30) || (currentButton >=40 && currentButton <48)
@@ -319,6 +348,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 			button.setBackground(pref.getCurrentBackgroundColor());
 			button.setForeground(pref.getCurrentForegroundColor());
 		}
+		
+		setFocusedButton(currentButton);
+		setCaseJoueur();
 	}
 
 	// mettre le focus sur un bouton
@@ -338,6 +370,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 			Color oldBackground = button.getBackground();
 			button.setBackground(button.getForeground());
 			button.setForeground(oldBackground);
+			setCaseJoueur();
 		}
 	}
 
