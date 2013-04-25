@@ -153,8 +153,11 @@ public class Tool {
 			j.getCabane().getBateau().construireVoile();
 			break;
 			
-		default:
-				
+		default:	
 		}
+	}
+	
+	public boolean gameOver(Joueur j) {
+		return j.getCabane().getBateau().gameOver();
 	}
 }
