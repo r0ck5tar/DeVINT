@@ -2,8 +2,6 @@ package fonctionnement.environnement;
 
 import java.util.ArrayList;
 
-import fonctionnement.objet.Ressource;
-import fonctionnement.objet.TypeRessource;
 
 public class Plateau {
 
