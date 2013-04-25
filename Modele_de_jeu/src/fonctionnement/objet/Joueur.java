@@ -70,7 +70,7 @@ public class Joueur {
 		ArrayList<Case> list;
 		de = Tool.lancerDe(deplacementMax);
 		list = this.position.getChoixCase(de,null);
-		this.position = Tool.changerPosition(list);
+		this.position = Tool.changerPosition(list,this);
 	}
 	
 
@@ -99,13 +99,11 @@ public class Joueur {
 			}
 		}
 	}
-<<<<<<< HEAD
-=======
 
 	
 	/**
-	 * Methode arrangerListe. Cette méthode permet de ranger l'ArrayList de case obtenue grâce à la méthode déplacement. 
-	 * Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regarde les y. 
+	 * Methode arrangerListe. Cette mï¿½thode permet de ranger l'ArrayList de case obtenue grï¿½ce ï¿½ la mï¿½thode dï¿½placement. 
+	 * Rangementï¿½par ordre croissant: comparaison des x. Si les x sont ï¿½gaux, on regarde les y. 
 	 * @param cases
 	 * @param position
 	 * @return
@@ -157,5 +155,4 @@ public class Joueur {
 	public void setDeplacementMax(int deplacementMax) {
 		this.deplacementMax = deplacementMax;
 	}
->>>>>>> ef88e9210c97ab56c3fcedd9abbfd3a6cc1e28d6
 }

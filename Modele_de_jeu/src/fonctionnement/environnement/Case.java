@@ -136,8 +136,6 @@ public class Case {
 			if(c.isPos(posX,posY-1)){
 				this.setSud(c);
 			}
-			
-			
 		}
 	}
 	

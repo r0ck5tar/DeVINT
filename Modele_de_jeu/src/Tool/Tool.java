@@ -16,4 +16,8 @@ public class Tool {
 		
 		return null;
 	}
+	
+	public static void parler(String phrase) {
+		
+	}
 }
