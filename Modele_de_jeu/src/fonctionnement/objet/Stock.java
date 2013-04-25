@@ -34,6 +34,12 @@ public class Stock {
 		}
 	}
 	
+	public void ajouterRessource(Ressource r) {
+		if(!isFull()) {
+			stock.add(r);
+		}
+	}
+	
 	public boolean isFull() { return this.stock.size() >= niveau;}
 	public boolean isEmpty() { return this.stock.size() == 0;}
 }

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import Tool.Tool;
+import fonctionnement.objet.Joueur;
 import fonctionnement.objet.Objet;
 import fonctionnement.objet.ObjetEffet;
 import fonctionnement.objet.Ressource;
@@ -148,23 +149,23 @@ public class Case {
 		return o;
 	}
 
-	public ArrayList<Case> getChoixCase(int n,Case c) {
+	public ArrayList<Case> getChoixCase(int n,Case c,Joueur joueur) {
 		ArrayList<Case> list = new ArrayList<Case>();
 		if(n<1) {
 			list.add(this);
 			return list;
 		}
-		if(this.nom.equals("home")) {
+		if(this.nom.equals("home") && joueur.getCabane().getPosition() == this) {
 			list.add(this);
 		}
 		if(this.est != null && this.est != c)
-			list.addAll(this.est.getChoixCase(n-1, this));
+			list.addAll(this.est.getChoixCase(n-1, this,joueur));
 		if(this.ouest != null && this.ouest != c)
-			list.addAll(this.ouest.getChoixCase(n-1, this));
+			list.addAll(this.ouest.getChoixCase(n-1, this,joueur));
 		if(this.sud != null && this.sud != c)
-			list.addAll(this.sud.getChoixCase(n-1, this));
+			list.addAll(this.sud.getChoixCase(n-1, this,joueur));
 		if(this.nord != null && this.nord != c)
-			list.addAll(this.nord.getChoixCase(n-1, this));
+			list.addAll(this.nord.getChoixCase(n-1, this,joueur));
         Set<Case> set = new HashSet<Case>();
         set.addAll(list) ;
         list = new ArrayList<Case>(set) ;

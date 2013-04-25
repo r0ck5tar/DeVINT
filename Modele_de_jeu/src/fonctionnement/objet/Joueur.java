@@ -69,7 +69,7 @@ public class Joueur {
 		int de = 0;
 		ArrayList<Case> list;
 		de = Tool.lancerDe(deplacementMax);
-		list = this.position.getChoixCase(de,null);
+		list = this.position.getChoixCase(de,null,this);
 		this.position = Tool.changerPosition(list,this);
 	}
 	
@@ -140,7 +140,7 @@ public class Joueur {
 
 			this.arrangerListe(cases, i);
 		}
-		return cases; 
+		return cases;
 	}
 	
 	public void decisionApresDe(Case choix){
@@ -156,4 +156,19 @@ public class Joueur {
 		this.deplacementMax = deplacementMax;
 	}
 
+	public Cabane getCabane() {
+		return cabane;
+	}
+
+	public void setCabane(Cabane cabane) {
+		this.cabane = cabane;
+	}
+
+	public Sac getSac() {
+		return sac;
+	}
+
+	public void setSac(Sac sac) {
+		this.sac = sac;
+	}
 }

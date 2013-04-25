@@ -1,5 +1,7 @@
 package fonctionnement.objet;
 
+import fonctionnement.environnement.Case;
+
 public class Cabane {
 	private Joueur joueur;
 	private Stock stock;
@@ -9,6 +11,11 @@ public class Cabane {
 	private boolean tonneau;
 	private boolean filet;
 	private boolean atelier;
+	private Case position;
+	
+	public Case getPosition() {
+		return this.position;
+	}
 
 	public Cabane(Joueur joueur) {
 		this.joueur = joueur;

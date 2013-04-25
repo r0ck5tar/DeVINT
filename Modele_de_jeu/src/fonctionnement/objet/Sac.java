@@ -24,7 +24,11 @@ public class Sac {
 	
 	public boolean isFull() {
 		return this.stock.size() >= this.limite;
-	}	
+	}
+	
+	public boolean isEmpty() {
+		return this.stock.size() == 0;
+	}
 	
 	public void ajouterObjet(Objet r){
 		if (this.stock.size() < this.limite)
@@ -48,6 +52,45 @@ public class Sac {
 			return ressource;
 		}
 		else return null;
+	}
+	
+	public boolean containsObjetEffet() {
+		for(Objet o:stock) {
+			if(o instanceof ObjetEffet) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public ArrayList<ObjetEffet> recupObjetEffet() {
+		ArrayList<ObjetEffet> list = new ArrayList<ObjetEffet>();
+		for(Objet o:stock) {
+			if(o instanceof ObjetEffet) {
+				list.add((ObjetEffet) o);
+			}
+		}		
+		return list;
+	}
+
+	public boolean containsRessource() {
+		for(Objet o:stock) {
+			if(o instanceof Ressource) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Ressource getFirstRessource() {
+		if(this.containsRessource()) {
+			for(Objet o:stock) {
+				if(o instanceof Ressource) {
+					return (Ressource)o;
+				}
+			}			
+		}
+		return null;
 	}
 
 }
