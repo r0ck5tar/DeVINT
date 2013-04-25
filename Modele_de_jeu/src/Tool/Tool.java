@@ -14,17 +14,17 @@ import fonctionnement.objet.Stock;
 public class Tool {
 
 	public static int lancerDe(int n) {
-		Random rnd =  new Random();
+		Random rnd = new Random();
 		return rnd.nextInt(n);
 	}
 
 	public static Case changerPosition(ArrayList<Case> list, Joueur joueur) {
-		
+
 		return null;
 	}
-	
+
 	public static void parler(String phrase) {
-		
+
 	}
 	
 	public static ArrayList<Case> getChoixCase(int n,Joueur joueur) {
@@ -43,17 +43,17 @@ public class Tool {
 		}
 		else return false;
 	}
-	
+
 	public static boolean containsObjetEffet(Joueur j) {
 		// Laisser peut-etre dans IHM
 		return j.getSac().containsObjetEffet();
 	}
-	
+
 	public static ArrayList<ObjetEffet> recupObjetSpecial(Joueur j) {
 		// Laisser peut-etre dans IHM
 		return j.getSac().recupObjetEffet();
 	}
-	
+
 	public static boolean appliquerEffet(Joueur j, ObjetEffet o) {
 		switch(o.getType()) {
 		case CATAPULTE:
@@ -73,13 +73,88 @@ public class Tool {
 			stock.ajouterRessource(sac.getFirstRessource());
 		}
 	}
-	
-	public static ArrayList<String> getBuildables(Joueur j){
-		return null;
-	}
-	
-	
-	public static void construire(String choseAConstruire){
+
+	public static ArrayList<String> getBuildables(Joueur j) {
+		ArrayList<String> buildableThings = new ArrayList<String>();
 		
+		if (j.getCabane().isBuildableAtelier()){
+			buildableThings.add("atelier");
+		}
+		
+		if (j.getCabane().isBuildableFilet()){
+			buildableThings.add("filet");
+		}
+		
+		if (j.getCabane().isBuildableStock()){
+			buildableThings.add("stock");
+		}
+		
+		if (j.getCabane().isBuildableToit()){
+			buildableThings.add("toit");
+		}
+		if (j.getCabane().isBuildableTonneau()){
+			buildableThings.add("tonneau");
+		}
+		
+		if (j.getCabane().getBateau().isBuildableCoque()){
+			buildableThings.add("coque");
+		}
+		
+		if (j.getCabane().getBateau().isBuildableGouvernail()){
+			buildableThings.add("gouvernail");
+		}
+		
+		if (j.getCabane().getBateau().isBuildableMat()){
+			buildableThings.add("mat");
+		}
+		
+		if (j.getCabane().getBateau().isBuildableVoile()){
+			buildableThings.add("voile");
+		}
+		
+		return buildableThings;
+	}
+
+	public static void construire(String choseAConstruire, Joueur j) {
+		switch (choseAConstruire) {
+		case "toit":
+			j.getCabane().construireToit();
+			break;
+
+		case "atelier":
+			j.getCabane().construireAtelier();
+			break;
+			
+		case "filet":
+			j.getCabane().construireFilet();
+			break;
+			
+		case "stock":
+			j.getCabane().construireStock();
+			break;
+			
+		case "tonneau":
+			j.getCabane().construireTonneau();
+			break;
+			
+		case "mat":
+			j.getCabane().getBateau().construireMat();
+			break;
+			
+		case "coque":
+			j.getCabane().getBateau().construireCoque();
+			break;
+			
+		case "gouvernail":
+			j.getCabane().getBateau().construireGouvernail();
+			break;
+			
+		case "voile":
+			j.getCabane().getBateau().construireVoile();
+			break;
+			
+		default:
+				
+		}
 	}
 }
