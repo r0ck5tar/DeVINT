@@ -136,8 +136,6 @@ public class Case {
 			if(c.isPos(posX,posY-1)){
 				this.setSud(c);
 			}
-			
-			
 		}
 	}
 	
@@ -156,6 +154,9 @@ public class Case {
 			list.add(this);
 			return list;
 		}
+		if(this.nom.equals("home")) {
+			list.add(this);
+		}
 		if(this.est != null && this.est != c)
 			list.addAll(this.est.getChoixCase(n-1, this));
 		if(this.ouest != null && this.ouest != c)
@@ -164,7 +165,7 @@ public class Case {
 			list.addAll(this.sud.getChoixCase(n-1, this));
 		if(this.nord != null && this.nord != c)
 			list.addAll(this.nord.getChoixCase(n-1, this));
-        Set<Case> set = new HashSet<Case>() ;
+        Set<Case> set = new HashSet<Case>();
         set.addAll(list) ;
         list = new ArrayList<Case>(set) ;
 		return list;

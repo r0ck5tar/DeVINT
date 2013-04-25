@@ -1,6 +1,5 @@
 package fonctionnement.objet;
 
-import fonctionnement.environnement.*;
 
 public class ObjetEffet extends Objet {
 	private TypeObjetEffet type;

@@ -17,9 +17,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** Cette classe est un exemple d'interface de jeu.
- *  Elle étend DevintFrame pour avoir un Frame et réagir aux évênements claviers
- *  Implémente ActionListener pour réagir au clic souris sur le bouton.
- *  On surchage la méthode "keyPressed" pour associer une action à la touche F3
+ *  Elle ï¿½tend DevintFrame pour avoir un Frame et rï¿½agir aux ï¿½vï¿½nements claviers
+ *  Implï¿½mente ActionListener pour rï¿½agir au clic souris sur le bouton.
+ *  On surchage la mï¿½thode "keyPressed" pour associer une action ï¿½ la touche F3
  * 
  *  @author helene
  */
@@ -115,14 +115,14 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 
 	/*
-	 * Fonctions permettant de gérer les évènements et les actions 
+	 * Fonctions permettant de gï¿½rer les ï¿½vï¿½nements et les actions 
 	 */
 
-	 //Action performed: Défini les actions à effectuer lors de détection des évènements 
+	 //Action performed: Dï¿½fini les actions ï¿½ effectuer lors de dï¿½tection des ï¿½vï¿½nements 
 	public void actionPerformed(ActionEvent ae){
 		voix.stop();			    	  // toujours stopper la voix avant de parler
 
-		Object source = ae.getSource();   // on récupère la source de l'évènement
+		Object source = ae.getSource();   // on rï¿½cupï¿½re la source de l'ï¿½vï¿½nement
 
 		if (source.equals(boutonDe)) {    // si c'est le bouton "question" on lit la question
 			
@@ -146,7 +146,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 			}
 		}
 
-		this.requestFocus();  // on redonne le focus au JFrame principal  (après un clic, le focus est sur le bouton) 
+		this.requestFocus();  // on redonne le focus au JFrame principal  (aprï¿½s un clic, le focus est sur le bouton) 
 	}
 	
 	public void play() {
@@ -177,8 +177,8 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	}
 
 	public void lancerDe (int qui) {
-		voix.playShortText("joueur" + (qui+1) +", lance le dé");
-		menuDe = new JDialog(this, "lancer le dé");
+		voix.playShortText("joueur" + (qui+1) +", lance le dï¿½");
+		menuDe = new JDialog(this, "lancer le dï¿½");
 		menuDe.setLayout(new BorderLayout());
 		menuDe.setSize(200, 100);
 		switch(qui){
@@ -195,7 +195,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 			menuDe.setLocation(870, 620);
 			break;
 		}
-		boutonDe = new JButton ("lancer le dé");
+		boutonDe = new JButton ("lancer le dï¿½");
 		boutonDe.setVisible(true);
 		boutonDe.addActionListener(this);
 		menuDe.add(boutonDe);
@@ -210,10 +210,10 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	}
 
 
-	//Keyboard event listener: détecte les éléments clavier. 
+	//Keyboard event listener: dï¿½tecte les ï¿½lï¿½ments clavier. 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		super.keyPressed(e);		     // appel à la méthode mère qui gère les évènements ESC, F1, F3, F4
+		super.keyPressed(e);		     // appel ï¿½ la mï¿½thode mï¿½re qui gï¿½re les ï¿½vï¿½nements ESC, F1, F3, F4
 		switch(e.getKeyCode()){
 		
 		case KeyEvent.VK_ENTER:
@@ -332,17 +332,17 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	}
 
 	/**
-	 * Pour modifier les couleurs de fond et de premier plan de la fenêtre.
-	 * Cette fonction est appelée par la fonction "changeColor" de la classe "Preferences"
-	 * à chaque fois que l'on presse F3 
+	 * Pour modifier les couleurs de fond et de premier plan de la fenï¿½tre.
+	 * Cette fonction est appelï¿½e par la fonction "changeColor" de la classe "Preferences"
+	 * ï¿½ chaque fois que l'on presse F3 
 	 * 
 	 **/
 	@Override
 	public  void changeColor() {
-		// on récupère les couleurs de base dans la classe Preferences 
+		// on rï¿½cupï¿½re les couleurs de base dans la classe Preferences 
 		Preferences pref = Preferences.getData();
 
-		//on change les couleurs de tous les éléments
+		//on change les couleurs de tous les ï¿½lï¿½ments
 
 		for(int i=0; i<57; i++) {
 			JButton button = plateau.getCase(i);
@@ -399,12 +399,12 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	}
 
 	@Override
-	protected  String wavRegleJeu() {			    // renvoie le fichier wave contenant la règle du jeu
+	protected  String wavRegleJeu() {			    // renvoie le fichier wave contenant la rï¿½gle du jeu
 		return "../ressources/sons/aideF1.wav";
 	}
 
 	@Override
-	protected  String wavAide() {			        // renvoie le fichier wave contenant la règle du jeu
+	protected  String wavAide() {			        // renvoie le fichier wave contenant la rï¿½gle du jeu
 		return "../ressources/sons/aide.wav";
 	}
 }

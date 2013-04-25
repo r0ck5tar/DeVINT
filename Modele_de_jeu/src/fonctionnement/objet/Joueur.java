@@ -95,15 +95,15 @@ public class Joueur {
 			if (!this.sac.isFull())
 				this.sac.ajouterObjet(o);
 			else {
-				// Vous n'avez pas pu ramasser + o
+				Tool.parler("Vous n'avez pas pu ramasser l'objet ");
 			}
 		}
 	}
 
 	
 	/**
-	 * Methode arrangerListe. Cette méthode permet de ranger l'ArrayList de case obtenue grâce à la méthode déplacement. 
-	 * Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regarde les y. 
+	 * Methode arrangerListe. Cette mï¿½thode permet de ranger l'ArrayList de case obtenue grï¿½ce ï¿½ la mï¿½thode dï¿½placement. 
+	 * Rangementï¿½par ordre croissant: comparaison des x. Si les x sont ï¿½gaux, on regarde les y. 
 	 * @param cases
 	 * @param position
 	 * @return
@@ -155,4 +155,5 @@ public class Joueur {
 	public void setDeplacementMax(int deplacementMax) {
 		this.deplacementMax = deplacementMax;
 	}
+
 }
