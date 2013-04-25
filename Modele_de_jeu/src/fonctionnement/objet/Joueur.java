@@ -27,10 +27,6 @@ public class Joueur {
 	
 	}
 	
-	public Cabane getCabane(){
-		return this.cabane;
-	}
-	
 	public boolean ctontour() {
 		this.deplacement();
 		this.recupererObjet();
