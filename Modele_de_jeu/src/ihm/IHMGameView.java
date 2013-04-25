@@ -178,7 +178,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 	public void lancerDe (int qui) {
 		voix.playShortText("joueur" + (qui+1) +", lance le dï¿½");
-		menuDe = new JDialog(this, "lancer le dï¿½");
+		menuDe = new JDialog(this, "lancer le dé");
 		menuDe.setLayout(new BorderLayout());
 		menuDe.setSize(200, 100);
 		switch(qui){
