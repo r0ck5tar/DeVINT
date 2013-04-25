@@ -155,4 +155,5 @@ public class Joueur {
 	public void setDeplacementMax(int deplacementMax) {
 		this.deplacementMax = deplacementMax;
 	}
+
 }
