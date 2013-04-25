@@ -165,8 +165,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		positionJouers.add(26);
 		for(int i = 0; i<listJoueurs.size(); i++) {
 			listJoueurs.get(i).setPosition(game.getPlateau().getCase(positionJouers.get(i)));
-		}
-		
+		}	
 		setCaseJoueur();
 	}
 	
