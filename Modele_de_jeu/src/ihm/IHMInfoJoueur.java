@@ -4,6 +4,7 @@ package ihm;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
@@ -33,6 +34,7 @@ public class IHMInfoJoueur extends JButton{
 		setPreferredSize(new Dimension(320, 410));
 		setBackground(pref.getCurrentBackgroundColor());
 		setForeground(pref.getCurrentForegroundColor());
+		setFont(new Font("Tahoma", 1, 56));
 
 		setBorder(BorderFactory.createLineBorder(Color.YELLOW));
 

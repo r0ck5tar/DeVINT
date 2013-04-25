@@ -3,6 +3,7 @@ package ihm;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -19,6 +20,7 @@ public class IHMCabane extends JButton {
 		setBackground(pref.getCurrentBackgroundColor());
 		setForeground(pref.getCurrentForegroundColor());
 
+		setFont(new Font("Tahoma", 1, 36));
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		setOpaque(true);
