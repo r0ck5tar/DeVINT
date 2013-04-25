@@ -127,7 +127,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		if (source.equals(boutonDe)) {    // si c'est le bouton "question" on lit la question
 			
 			int de = Tool.lancerDe(listJoueurs.get(qui).getDeplacementMax())+1;
-			plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition().getChoixCase(de, null));
+			plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition().getChoixCase(de, null, listJoueurs.get(qui)));
 			menuDe.dispose();
 			
 			
