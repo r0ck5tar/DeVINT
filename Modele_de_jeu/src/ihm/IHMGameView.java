@@ -2,6 +2,8 @@ package ihm;
 
 import javax.swing.*;
 
+import Tool.Tool;
+
 import devintAPI.FenetreAbstraite;
 import devintAPI.Preferences;
 import fonctionnement.environnement.Plateau;
@@ -11,6 +13,8 @@ import fonctionnement.objet.Joueur;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Cette classe est un exemple d'interface de jeu.
  *  Elle étend DevintFrame pour avoir un Frame et réagir aux évênements claviers
@@ -25,11 +29,10 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	private Game game;
 	private Plateau plateauJeu;
 	
-	private JButton question;
+	private JButton boutonDe;
 	private IHMPlateau plateau;
 	private ArrayList<Joueur> listJoueurs;
-	
-
+	private Map<Joueur, Color> couleursJoueurs;
 
 	JPanel infoJoueurGauche;
 	JPanel infoJoueurDroite;
@@ -37,6 +40,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 
 	private int currentButton = -1;
+	private int qui;
 
 	/*
 	 * Constructeur
@@ -49,7 +53,13 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		listJoueurs = game.getJoueurs();
 		game.initialisePlateau();
 		plateauJeu = game.getPlateau();
+		couleursJoueurs = new HashMap<Joueur, Color>();
 		initialize();
+		qui = 0;
+		game.setQui(qui);
+		initializePlayerPositions();
+		
+		play();
 	}
 
 
@@ -58,11 +68,20 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	 */
 	@Override
 	protected void init() {
-
 	}
 
 	private void initialize() {
+
+		ArrayList<Color> colorList = new ArrayList<Color>();
+		colorList.add(Color.BLUE);
+		colorList.add(Color.GREEN);
+		colorList.add(Color.MAGENTA);
+		colorList.add(Color.ORANGE);
 		
+		for(int i = 0; i<listJoueurs.size(); i++) {
+			couleursJoueurs.put(listJoueurs.get(i), colorList.get(i));
+		}
+	
 		infoJoueurs = new ArrayList<IHMInfoJoueur>();
 
 
@@ -104,9 +123,12 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 		Object source = ae.getSource();   // on récupère la source de l'évènement
 
-		if (source.equals(question)) {    // si c'est le bouton "question" on lit la question
-			String text = "les questions sont longues et ont un contenu variable."
-					+"Il ne faut pas générer un fichier wave mais lire directement les textes";
+		if (source.equals(boutonDe)) {    // si c'est le bouton "question" on lit la question
+			
+			int de = Tool.lancerDe(listJoueurs.get(qui).getDeplacementMax());
+			plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition().getChoixCase(de, null));
+			
+			String text = Integer.toString(de);
 			voix.playText(text);          // le contenu des questions est variable donc on les lit avec SI_VOX
 		}
 
@@ -122,6 +144,45 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		}
 
 		this.requestFocus();  // on redonne le focus au JFrame principal  (après un clic, le focus est sur le bouton) 
+	}
+	
+	public void play() {
+		deplacement(qui);
+	}
+	
+	
+	public void initializePlayerPositions() {
+		ArrayList<Integer> positionJouers = new ArrayList<Integer>();
+		positionJouers.add(5);
+		positionJouers.add(35);
+		positionJouers.add(16);
+		positionJouers.add(26);
+		for(int i = 0; i<listJoueurs.size(); i++) {
+			listJoueurs.get(i).setPosition(game.getPlateau().getCase(positionJouers.get(i)));
+		}
+		
+		setCaseJoueur();
+	}
+	
+	public void deplacement(int qui) {
+		lancerDe();
+	}
+
+	public void lancerDe() {
+		JDialog menuDe = new JDialog(this, "lancer le dé");
+		menuDe.setLayout(new BorderLayout());
+		menuDe.setSize(400, 200);
+		boutonDe = new JButton ("lancer le dé");
+		boutonDe.setVisible(true);
+		boutonDe.addActionListener(this);
+		menuDe.add(boutonDe);
+		menuDe.setVisible(true);
+	}
+	
+	public void setCaseJoueur() {
+		for(Joueur joueur : listJoueurs) {
+			plateau.getCaseAtIndex(joueur.getPosition()).setBackground(couleursJoueurs.get(joueur));
+		}
 	}
 
 

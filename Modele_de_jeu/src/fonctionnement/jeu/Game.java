@@ -1,5 +1,7 @@
 package fonctionnement.jeu;
 
+import ihm.IHMGameView;
+
 import java.util.ArrayList;
 import fonctionnement.environnement.*;
 import fonctionnement.objet.*;

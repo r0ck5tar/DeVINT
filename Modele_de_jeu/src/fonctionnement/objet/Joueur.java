@@ -2,6 +2,10 @@ package fonctionnement.objet;
 
 
 import fonctionnement.environnement.Case;
+import fonctionnement.jeu.Game;
+
+import ihm.IHMGameView;
+
 import java.util.ArrayList;
 import Tool.Tool;
 
@@ -26,7 +30,7 @@ public class Joueur {
 	public boolean ctontour() {
 		this.deplacement();
 		this.recupererObjet();
-		
+	
 		/*
 		 * > Choix de prendre ou pas la ressource
 		 * > Proposition de construction
@@ -95,4 +99,63 @@ public class Joueur {
 			}
 		}
 	}
+<<<<<<< HEAD
+=======
+
+	
+	/**
+	 * Methode arrangerListe. Cette méthode permet de ranger l'ArrayList de case obtenue grâce à la méthode déplacement. 
+	 * Rangement par ordre croissant: comparaison des x. Si les x sont égaux, on regarde les y. 
+	 * @param cases
+	 * @param position
+	 * @return
+	 */
+	
+	private ArrayList<Case> arrangerListe(ArrayList<Case> cases, int position){
+		int saveVal=0;
+		if(cases.get(position+1)==null || cases.get(position).getPosX()<cases.get(position+1).getPosX()){
+			return cases; 
+		}
+		else if(cases.get(position).getPosX()==cases.get(position+1).getPosX()){
+			if(cases.get(position).getPosY()>cases.get(position+1).getPosY()){
+				saveVal=cases.get(position).getPosY(); 
+				cases.get(position).setPosY(cases.get(position+1).getPosY());
+				cases.get(position+1).setPosY(saveVal); 
+				return arrangerListe(cases,position++);
+			}
+			else{
+				return arrangerListe(cases,position++);
+			}
+		}
+		else if(cases.get(position).getPosX()>cases.get(position+1).getPosX()){
+			saveVal=cases.get(position).getPosX(); 
+			cases.get(position).setPosX(cases.get(position+1).getPosX());
+			cases.get(position+1).setPosX(saveVal);
+			return this.arrangerListe(cases, position++); 
+		}
+		return null;
+	}
+	
+	
+	public ArrayList<Case> arrangerListe(ArrayList<Case> cases){
+		for(int i =0; i <cases.size(); i++){
+
+			this.arrangerListe(cases, i);
+		}
+		return cases; 
+	}
+	
+	public void decisionApresDe(Case choix){
+		
+	}
+	
+	public int getDeplacementMax() {
+		return deplacementMax;
+	}
+
+
+	public void setDeplacementMax(int deplacementMax) {
+		this.deplacementMax = deplacementMax;
+	}
+>>>>>>> ef88e9210c97ab56c3fcedd9abbfd3a6cc1e28d6
 }
