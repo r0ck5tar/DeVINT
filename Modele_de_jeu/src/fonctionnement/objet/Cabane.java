@@ -16,6 +16,9 @@ public class Cabane {
 	public Case getPosition() {
 		return this.position;
 	}
+	public void setPosition(Case c) {
+		this.position = c;
+	}
 
 	public Cabane(Joueur joueur) {
 		this.joueur = joueur;

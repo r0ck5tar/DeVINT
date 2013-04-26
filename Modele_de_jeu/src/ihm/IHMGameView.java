@@ -30,10 +30,15 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	private Plateau plateauJeu;
 	
 	private JButton boutonDe;
+	private JButton boutonTrue; 
+	private JButton boutonFalse; 
+	
+	
 	private IHMPlateau plateau;
 	private ArrayList<Joueur> listJoueurs;
 	private Map<Joueur, Color> couleursJoueurs;
 	JDialog menuDe;
+	JDialog menuRessource;
 
 	JPanel infoJoueurGauche;
 	JPanel infoJoueurDroite;
@@ -129,10 +134,21 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 			int de = Tool.lancerDe(listJoueurs.get(qui).getDeplacementMax())+1;
 			plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition().getChoixCase(de, null, listJoueurs.get(qui)));
 			menuDe.dispose();
-			
-			
+		
 			String text = Integer.toString(de);
 			voix.playText(text);          // le contenu des questions est variable donc on les lit avec SI_VOX
+			System.out.println(listJoueurs.get(qui).getPosition().getNom());			
+		}
+		
+		if (source.equals(boutonTrue)) {
+			menuRessource.dispose();
+			Tool.recupRessource(listJoueurs.get(qui));
+			play();
+		}
+		
+		if (source.equals(boutonFalse)) {
+			menuRessource.dispose();
+			play();
 		}
 
 		if(source.getClass().getSimpleName().equals("IHMCase")) {
@@ -149,11 +165,23 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		this.requestFocus();  // on redonne le focus au JFrame principal  (aprï¿½s un clic, le focus est sur le bouton) 
 	}
 	
+	public void deroulementTotalJeu() {
+
+		qui++;
+		if (qui > 3) {
+			qui = 0;
+		}
+		deplacement(qui);
+		/*
+		if(this.recupRessource){
+			Tool.recupR
+		}*/
+	}
+	
 	public void play() {
 		qui++;
 		if(qui>3) {qui = 0;}
 		deplacement(qui);
-		
 	}
 	
 	
@@ -165,7 +193,10 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		positionJouers.add(26);
 		for(int i = 0; i<listJoueurs.size(); i++) {
 			listJoueurs.get(i).setPosition(game.getPlateau().getCase(positionJouers.get(i)));
-		}	
+		}
+		for(int i = 0; i < listJoueurs.size();i++) {
+			listJoueurs.get(i).getCabane().setPosition(listJoueurs.get(i).getPosition());
+		}
 		setCaseJoueur();
 	}
 	
@@ -177,7 +208,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	}
 
 	public void lancerDe (int qui) {
-		voix.playShortText("joueur" + (qui+1) +", lance le dï¿½");
+		voix.playShortText("joueur" + (qui+1) +", lance le dé");
 		menuDe = new JDialog(this, "lancer le dé");
 		menuDe.setLayout(new BorderLayout());
 		menuDe.setSize(200, 100);
@@ -195,13 +226,34 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 			menuDe.setLocation(870, 620);
 			break;
 		}
-		boutonDe = new JButton ("lancer le dï¿½");
+		boutonDe = new JButton ("lancer le dé");
 		boutonDe.setVisible(true);
 		boutonDe.addActionListener(this);
 		menuDe.add(boutonDe);
 		menuDe.setVisible(true);
 	}
 	
+	public void recupRessource(){
+		
+		menuRessource = new JDialog(this, "Recupere ressource !");
+		menuRessource.setLayout(new BorderLayout());
+		menuRessource.setSize(350, 100);
+		
+		boutonTrue = new JButton("Oui je recupere");
+		boutonTrue.setVisible(true);
+		boutonTrue.addActionListener(this);
+		
+		boutonFalse = new JButton("Non je ne veux pas");
+		boutonFalse.setVisible(true);
+		boutonFalse.addActionListener(this);
+		
+		menuRessource.add(boutonTrue, BorderLayout.WEST);
+		menuRessource.add(boutonFalse, BorderLayout.EAST);
+		menuRessource.setVisible(true);
+		
+		
+	}
+
 	public void setCaseJoueur() {
 		for(Joueur joueur : listJoueurs) {
 			plateau.getCaseAtIndex(joueur.getPosition()).setBackground(couleursJoueurs.get(joueur));
@@ -224,7 +276,13 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 				listJoueurs.get(qui).setPosition(plateauJeu.getCase(currentButton));
 				setCaseJoueur();
 				plateau.masquerChoixDeplacement(currentButton);
-				play();
+				
+				if(listJoueurs.get(qui).getPosition().equals("home")){
+					
+				}
+				else{
+					recupRessource();	
+				}
 			}
 			break;
 		case KeyEvent.VK_UP:
