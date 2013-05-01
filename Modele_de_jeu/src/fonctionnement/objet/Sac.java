@@ -86,7 +86,9 @@ public class Sac {
 		if(this.containsRessource()) {
 			for(Objet o:stock) {
 				if(o instanceof Ressource) {
-					return (Ressource)o;
+					Ressource r = (Ressource) o;
+					stock.remove(o);
+					return r;
 				}
 			}			
 		}

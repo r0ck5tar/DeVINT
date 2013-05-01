@@ -9,6 +9,8 @@ import devintAPI.Preferences;
 import fonctionnement.environnement.Plateau;
 import fonctionnement.jeu.Game;
 import fonctionnement.objet.Joueur;
+import fonctionnement.objet.Objet;
+import fonctionnement.objet.Ressource;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -16,47 +18,48 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Cette classe est un exemple d'interface de jeu.
- *  Elle ï¿½tend DevintFrame pour avoir un Frame et rï¿½agir aux ï¿½vï¿½nements claviers
- *  Implï¿½mente ActionListener pour rï¿½agir au clic souris sur le bouton.
- *  On surchage la mï¿½thode "keyPressed" pour associer une action ï¿½ la touche F3
+/**
+ * Cette classe est un exemple d'interface de jeu. Elle ï¿½tend DevintFrame pour
+ * avoir un Frame et rï¿½agir aux ï¿½vï¿½nements claviers Implï¿½mente
+ * ActionListener pour rï¿½agir au clic souris sur le bouton. On surchage la
+ * mï¿½thode "keyPressed" pour associer une action ï¿½ la touche F3
  * 
- *  @author helene
+ * @author helene
  */
 
-public class IHMGameView extends FenetreAbstraite implements ActionListener{
+public class IHMGameView extends FenetreAbstraite implements ActionListener {
 
 	private Game game;
 	private Plateau plateauJeu;
-	
+
 	private JButton boutonDe;
-	private JButton boutonTrue; 
-	private JButton boutonFalse; 
-	
-	
+	private JButton boutonTrue;
+	private JButton boutonFalse;
+	private ArrayList<JButton> listButton;
+
 	private IHMPlateau plateau;
 	private ArrayList<Joueur> listJoueurs;
 	private Map<Joueur, Color> couleursJoueurs;
 	JDialog menuDe;
 	JDialog menuRessource;
 
+	
 	JPanel infoJoueurGauche;
 	JPanel infoJoueurDroite;
 	ArrayList<IHMInfoJoueur> infoJoueurs;
-
 
 	private int currentButton = 5;
 	private int qui;
 
 	/*
 	 * Constructeur
-	 * 
 	 */
 
-	public IHMGameView (String title, Game game) {
+	public IHMGameView(String title, Game game) {
 		super(title);
 		this.game = game;
 		listJoueurs = game.getJoueurs();
+		listButton = new ArrayList<JButton>();
 		game.initialisePlateau();
 		plateauJeu = game.getPlateau();
 		couleursJoueurs = new HashMap<Joueur, Color>();
@@ -64,13 +67,12 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		qui = -1;
 		game.setQui(qui);
 		initializePlayerPositions();
-		
+
 		play();
 	}
 
-
-	/* 
-	 * Initialisation du frame. 
+	/*
+	 * Initialisation du frame.
 	 */
 	@Override
 	protected void init() {
@@ -83,15 +85,14 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		colorList.add(Color.GREEN);
 		colorList.add(Color.MAGENTA);
 		colorList.add(Color.ORANGE);
-		
-		for(int i = 0; i<listJoueurs.size(); i++) {
+
+		for (int i = 0; i < listJoueurs.size(); i++) {
 			couleursJoueurs.put(listJoueurs.get(i), colorList.get(i));
 		}
-	
+
 		infoJoueurs = new ArrayList<IHMInfoJoueur>();
 
-
-		for(int i=0; i<listJoueurs.size(); i++) {
+		for (int i = 0; i < listJoueurs.size(); i++) {
 			infoJoueurs.add(new IHMInfoJoueur(listJoueurs.get(i), this));
 		}
 
@@ -105,55 +106,85 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		infoJoueurDroite.add(infoJoueurs.get(0), BorderLayout.NORTH);
 		infoJoueurDroite.add(infoJoueurs.get(1), BorderLayout.SOUTH);
 
-		if(infoJoueurs.size() >2) {
+		if (infoJoueurs.size() > 2) {
 			infoJoueurGauche.setLayout(new BorderLayout());
 			infoJoueurGauche.add(infoJoueurs.get(2), BorderLayout.NORTH);
 			infoJoueurGauche.add(infoJoueurs.get(3), BorderLayout.SOUTH);
 		}
-
-
 
 		this.add(infoJoueurDroite);
 		this.add(plateau);
 		this.add(infoJoueurGauche);
 	}
 
-
 	/*
-	 * Fonctions permettant de gï¿½rer les ï¿½vï¿½nements et les actions 
+	 * Fonctions permettant de gï¿½rer les ï¿½vï¿½nements et les actions
 	 */
 
-	 //Action performed: Dï¿½fini les actions ï¿½ effectuer lors de dï¿½tection des ï¿½vï¿½nements 
-	public void actionPerformed(ActionEvent ae){
-		voix.stop();			    	  // toujours stopper la voix avant de parler
+	// Action performed: Dï¿½fini les actions ï¿½ effectuer lors de dï¿½tection
+	// des ï¿½vï¿½nements
+	public void actionPerformed(ActionEvent ae) {
+		voix.stop(); // toujours stopper la voix avant de parler
 
-		Object source = ae.getSource();   // on rï¿½cupï¿½re la source de l'ï¿½vï¿½nement
+		Object source = ae.getSource(); // on rï¿½cupï¿½re la source de
+										// l'ï¿½vï¿½nement
 
-		if (source.equals(boutonDe)) {    // si c'est le bouton "question" on lit la question
-			
-			int de = Tool.lancerDe(listJoueurs.get(qui).getDeplacementMax())+1;
-			plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition().getChoixCase(de, null, listJoueurs.get(qui)));
+		if (source.equals(boutonDe)) { // si c'est le bouton "question" on lit
+										// la question
+
+			int de = Tool.lancerDe(listJoueurs.get(qui).getDeplacementMax()) + 1;
+			plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition()
+					.getChoixCase(de, null, listJoueurs.get(qui)));
 			menuDe.dispose();
-		
+
 			String text = Integer.toString(de);
-			voix.playText(text);          // le contenu des questions est variable donc on les lit avec SI_VOX
-			System.out.println(listJoueurs.get(qui).getPosition().getNom());			
+			voix.playText(text); // le contenu des questions est variable donc
+									// on les lit avec SI_VOX
+			System.out.println(listJoueurs.get(qui).getPosition().getNom());
 		}
-		
+
 		if (source.equals(boutonTrue)) {
-			menuRessource.dispose();
-			Tool.recupRessource(listJoueurs.get(qui));
-			play();
+			if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui).getCabane().getPosition()) {
+				menuRessource.dispose();
+				System.out.println("Votre inventaire de la cabane avant transfert\n : " + listJoueurs.get(qui).getCabane().getStock().getStock());
+				Tool.viderSac(listJoueurs.get(qui));
+				System.out.println("Votre inventaire de la cabane apres transfert\n : " + listJoueurs.get(qui).getCabane().getStock().getStock());
+				ArrayList<String> listBuildable = Tool.getBuildables(listJoueurs.get(qui));
+				if(listBuildable.isEmpty()) {
+					//GO TO OBJET EFFET
+					System.out.println("recupererobjet");
+				}
+				else {
+					System.out.println("construction possible");
+					afficheConstruction(listBuildable);
+				}
+			} else {
+				menuRessource.dispose();
+				Objet r = Tool.recupRessource(listJoueurs.get(qui));
+				if(r != null && r instanceof Ressource) {
+					Tool.mettreRessource((Ressource)r, listJoueurs.get(qui));
+					System.out.println("Vous avez recupere : " + r);
+					System.out.println("Votre inventaire \n : " + listJoueurs.get(qui).getSac().getStock());
+				}
+				
+				play();
+			}
 		}
-		
+
+		for(int i = 0; i < listButton.size();i++) {
+			if(source.equals(listButton.get(i))) {
+				//METTRE IHM INFOJOUEUR
+				
+			}
+		}
 		if (source.equals(boutonFalse)) {
 			menuRessource.dispose();
 			play();
 		}
 
-		if(source.getClass().getSimpleName().equals("IHMCase")) {
-			for(int i=0; i<57; i++) {
-				if (plateau.getCase(i).equals(source)){
+		if (source.getClass().getSimpleName().equals("IHMCase")) {
+			for (int i = 0; i < 57; i++) {
+				if (plateau.getCase(i).equals(source)) {
 					unFocusedButton(currentButton);
 					currentButton = i;
 					setFocusedButton(currentButton);
@@ -162,9 +193,48 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 			}
 		}
 
-		this.requestFocus();  // on redonne le focus au JFrame principal  (aprï¿½s un clic, le focus est sur le bouton) 
+		this.requestFocus(); // on redonne le focus au JFrame principal (aprï¿½s
+								// un clic, le focus est sur le bouton)
 	}
-	
+
+	private void afficheConstruction(ArrayList<String> listBuildable) {
+		int nbConstructible = listBuildable.size();
+		System.out.println("AFFICHE CONSTRUCTION");
+		menuRessource = new JDialog(this, "Que voulez vous construire ?");
+		System.out.println("TEST 1");
+		menuRessource.setLayout(new BorderLayout());
+		System.out.println("TEST 2");
+		menuRessource.setSize(350, 100);
+		System.out.println("TEST 3");
+
+		listButton = new ArrayList<JButton>();
+		System.out.println("TEST 4");
+		
+		for(int i = 0 ; i < nbConstructible; i++) {
+			System.out.println("TEST 5.1"+i);
+			listButton.add(new JButton(listBuildable.get(i)));
+			System.out.println("TEST 5.2"+i);
+			listButton.get(i).setVisible(true);
+			System.out.println("TEST 5.3"+i);
+			listButton.get(i).addActionListener(this);
+			System.out.println("TEST 5.4"+i);
+			
+			
+			menuRessource.add(listButton.get(i), i);
+			System.out.println("TEST 5.5"+i);
+		}
+		listButton.add(new JButton("Ne rien construire"));
+		System.out.println("TEST 6");
+		listButton.get(listButton.size()-1).setVisible(true);
+		System.out.println("TEST 7");
+		listButton.get(listButton.size()-1).addActionListener(this);
+		System.out.println("TEST 8");
+		menuRessource.add(listButton.get(listButton.size()-1), listButton.size()-1);
+		System.out.println("TEST 9");
+		menuRessource.setVisible(true);
+		System.out.println("TEST 10");
+	}
+
 	public void deroulementTotalJeu() {
 
 		qui++;
@@ -173,46 +243,49 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		}
 		deplacement(qui);
 		/*
-		if(this.recupRessource){
-			Tool.recupR
-		}*/
+		 * if(this.recupRessource){ Tool.recupR }
+		 */
 	}
-	
+
 	public void play() {
 		qui++;
-		if(qui>3) {qui = 0;}
+		if (qui > 3) {
+			qui = 0;
+		}
 		deplacement(qui);
 	}
-	
-	
+
 	public void initializePlayerPositions() {
 		ArrayList<Integer> positionJouers = new ArrayList<Integer>();
 		positionJouers.add(5);
 		positionJouers.add(35);
 		positionJouers.add(16);
 		positionJouers.add(26);
-		for(int i = 0; i<listJoueurs.size(); i++) {
-			listJoueurs.get(i).setPosition(game.getPlateau().getCase(positionJouers.get(i)));
+		for (int i = 0; i < listJoueurs.size(); i++) {
+			listJoueurs.get(i).setPosition(
+					game.getPlateau().getCase(positionJouers.get(i)));
 		}
-		for(int i = 0; i < listJoueurs.size();i++) {
-			listJoueurs.get(i).getCabane().setPosition(listJoueurs.get(i).getPosition());
+		for (int i = 0; i < listJoueurs.size(); i++) {
+			listJoueurs.get(i).getCabane()
+					.setPosition(listJoueurs.get(i).getPosition());
 		}
 		setCaseJoueur();
 	}
-	
+
 	public void deplacement(int qui) {
 		unFocusedButton(currentButton);
-		currentButton = plateau.getIndexOfCase(listJoueurs.get(qui).getPosition());
+		currentButton = plateau.getIndexOfCase(listJoueurs.get(qui)
+				.getPosition());
 		shiftFocusedButton(currentButton);
 		lancerDe(qui);
 	}
 
-	public void lancerDe (int qui) {
-		voix.playShortText("joueur" + (qui+1) +", lance le dé");
+	public void lancerDe(int qui) {
+		voix.playShortText("joueur" + (qui + 1) + ", lance le dé");
 		menuDe = new JDialog(this, "lancer le dé");
 		menuDe.setLayout(new BorderLayout());
 		menuDe.setSize(200, 100);
-		switch(qui){
+		switch (qui) {
 		case 0:
 			menuDe.setLocation(570, 220);
 			break;
@@ -226,88 +299,106 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 			menuDe.setLocation(870, 620);
 			break;
 		}
-		boutonDe = new JButton ("lancer le dé");
+		boutonDe = new JButton("lancer le dé");
 		boutonDe.setVisible(true);
 		boutonDe.addActionListener(this);
 		menuDe.add(boutonDe);
 		menuDe.setVisible(true);
 	}
-	
-	public void recupRessource(){
-		
+
+	public void recupRessource() {
+
 		menuRessource = new JDialog(this, "Recupere ressource !");
 		menuRessource.setLayout(new BorderLayout());
 		menuRessource.setSize(350, 100);
-		
+
 		boutonTrue = new JButton("Oui je recupere");
 		boutonTrue.setVisible(true);
 		boutonTrue.addActionListener(this);
-		
+
 		boutonFalse = new JButton("Non je ne veux pas");
 		boutonFalse.setVisible(true);
 		boutonFalse.addActionListener(this);
-		
+
 		menuRessource.add(boutonTrue, BorderLayout.WEST);
 		menuRessource.add(boutonFalse, BorderLayout.EAST);
 		menuRessource.setVisible(true);
-		
-		
+
+	}
+
+	public void rentreChezToi() {
+		menuRessource = new JDialog(this, "Te voilà chez toi !");
+		menuRessource.setLayout(new BorderLayout());
+		menuRessource.setSize(350, 100);
+
+		boutonTrue = new JButton("Oui je rentre");
+		boutonTrue.setVisible(true);
+		boutonTrue.addActionListener(this);
+
+		boutonFalse = new JButton("Non je ne rentre pas");
+		boutonFalse.setVisible(true);
+		boutonFalse.addActionListener(this);
+
+		menuRessource.add(boutonTrue, BorderLayout.WEST);
+		menuRessource.add(boutonFalse, BorderLayout.EAST);
+		menuRessource.setVisible(true);
+
 	}
 
 	public void setCaseJoueur() {
-		for(Joueur joueur : listJoueurs) {
-			plateau.getCaseAtIndex(joueur.getPosition()).setBackground(couleursJoueurs.get(joueur));
-			plateau.getCaseAtIndex(joueur.getPosition()).setForeground(Color.BLACK);
+		for (Joueur joueur : listJoueurs) {
+			plateau.getCaseAtIndex(joueur.getPosition()).setBackground(
+					couleursJoueurs.get(joueur));
+			plateau.getCaseAtIndex(joueur.getPosition()).setForeground(
+					Color.BLACK);
 		}
 	}
 
-
-	//Keyboard event listener: dï¿½tecte les ï¿½lï¿½ments clavier. 
+	// Keyboard event listener: dï¿½tecte les ï¿½lï¿½ments clavier.
 	@Override
 	public void keyPressed(KeyEvent e) {
-		super.keyPressed(e);		     // appel ï¿½ la mï¿½thode mï¿½re qui gï¿½re les ï¿½vï¿½nements ESC, F1, F3, F4
-		switch(e.getKeyCode()){
-		
+		super.keyPressed(e); // appel ï¿½ la mï¿½thode mï¿½re qui gï¿½re les
+								// ï¿½vï¿½nements ESC, F1, F3, F4
+		switch (e.getKeyCode()) {
+
 		case KeyEvent.VK_ENTER:
 		case KeyEvent.VK_SPACE:
-			//change position to the selected case if it's accessible.
-			if(plateau.getIndiceCaseAccessibles().contains(currentButton)) {
-				plateau.getCaseAtIndex(listJoueurs.get(qui).getPosition()).setCouleurCaseNormale();
-				listJoueurs.get(qui).setPosition(plateauJeu.getCase(currentButton));
+			// change position to the selected case if it's accessible.
+			if (plateau.getIndiceCaseAccessibles().contains(currentButton)) {
+				plateau.getCaseAtIndex(listJoueurs.get(qui).getPosition())
+						.setCouleurCaseNormale();
+				listJoueurs.get(qui).setPosition(
+						plateauJeu.getCase(currentButton));
 				setCaseJoueur();
 				plateau.masquerChoixDeplacement(currentButton);
-				
-				if(listJoueurs.get(qui).getPosition().equals("home")){
-					
-				}
-				else{
-					recupRessource();	
+
+				if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
+						.getCabane().getPosition()) {
+					rentreChezToi();
+				} else {
+					recupRessource();
 				}
 			}
 			break;
 		case KeyEvent.VK_UP:
 			unFocusedButton(currentButton);
-			if((currentButton >=22 && currentButton <30) || (currentButton >=40 && currentButton <48)
-					|| (currentButton >=31 && currentButton <39)){
+			if ((currentButton >= 22 && currentButton < 30)
+					|| (currentButton >= 40 && currentButton < 48)
+					|| (currentButton >= 31 && currentButton < 39)) {
 				currentButton++;
 			}
 
-			else if(currentButton == 0){
-				currentButton=22;
-			}
-			else if(currentButton == 10){
+			else if (currentButton == 0) {
+				currentButton = 22;
+			} else if (currentButton == 10) {
 				currentButton = 31;
-			}
-			else if(currentButton == 5){
+			} else if (currentButton == 5) {
 				currentButton = 40;
-			}
-			else if(currentButton == 30){
+			} else if (currentButton == 30) {
 				currentButton = 11;
-			}
-			else if(currentButton == 48){
+			} else if (currentButton == 48) {
 				currentButton = 16;
-			}
-			else if(currentButton == 39){
+			} else if (currentButton == 39) {
 				currentButton = 21;
 			}
 			setFocusedButton(currentButton);
@@ -315,26 +406,21 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 		case KeyEvent.VK_DOWN:
 			unFocusedButton(currentButton);
-			if((currentButton >31 && currentButton <=39) || (currentButton >40 && currentButton <=48)
-					|| (currentButton >22 && currentButton <=30)){
+			if ((currentButton > 31 && currentButton <= 39)
+					|| (currentButton > 40 && currentButton <= 48)
+					|| (currentButton > 22 && currentButton <= 30)) {
 				currentButton--;
-			}
-			else if(currentButton == 31){
-				currentButton=10;
-			}
-			else if(currentButton == 40) {
+			} else if (currentButton == 31) {
+				currentButton = 10;
+			} else if (currentButton == 40) {
 				currentButton = 5;
-			}
-			else if(currentButton == 22) {
+			} else if (currentButton == 22) {
 				currentButton = 0;
-			}
-			else if(currentButton == 11) {
+			} else if (currentButton == 11) {
 				currentButton = 30;
-			}
-			else if(currentButton == 16) {
+			} else if (currentButton == 16) {
 				currentButton = 48;
-			}
-			else if(currentButton == 21) {
+			} else if (currentButton == 21) {
 				currentButton = 39;
 			}
 
@@ -343,20 +429,18 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 		case KeyEvent.VK_LEFT:
 			unFocusedButton(currentButton);
-			if((currentButton >11 && currentButton <=21) || (currentButton>0 && currentButton<=10)
-					|| (currentButton >49 && currentButton<=52) || (currentButton>53 && currentButton<=56)){
+			if ((currentButton > 11 && currentButton <= 21)
+					|| (currentButton > 0 && currentButton <= 10)
+					|| (currentButton > 49 && currentButton <= 52)
+					|| (currentButton > 53 && currentButton <= 56)) {
 				currentButton--;
-			}
-			else if(currentButton == 53){
-				currentButton=44;
-			}
-			else if(currentButton == 44){
+			} else if (currentButton == 53) {
+				currentButton = 44;
+			} else if (currentButton == 44) {
 				currentButton = 52;
-			}
-			else if(currentButton == 35){
-				currentButton=56;
-			}
-			else if(currentButton == 49) {
+			} else if (currentButton == 35) {
+				currentButton = 56;
+			} else if (currentButton == 49) {
 				currentButton = 26;
 			}
 
@@ -365,55 +449,53 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 
 		case KeyEvent.VK_RIGHT:
 			unFocusedButton(currentButton);
-			if((currentButton >=0 && currentButton <10) || (currentButton >=11 && currentButton <21) 
-					|| (currentButton >=49 && currentButton <52) || (currentButton >=53 && currentButton <56)){
+			if ((currentButton >= 0 && currentButton < 10)
+					|| (currentButton >= 11 && currentButton < 21)
+					|| (currentButton >= 49 && currentButton < 52)
+					|| (currentButton >= 53 && currentButton < 56)) {
 				currentButton++;
-			}
-			else if(currentButton == 26){
-				currentButton=49;
-			}
-			else if(currentButton ==44){
-				currentButton=53;
-			}
-			else if(currentButton == 56) {
+			} else if (currentButton == 26) {
+				currentButton = 49;
+			} else if (currentButton == 44) {
+				currentButton = 53;
+			} else if (currentButton == 56) {
 				currentButton = 35;
-			}
-			else if(currentButton == 52) {
+			} else if (currentButton == 52) {
 				currentButton = 44;
 			}
 
 			setFocusedButton(currentButton);
-			break; 
+			break;
 		case KeyEvent.VK_F5:
 			currentButton = 20;
-		} 	
+		}
 	}
 
 	/**
 	 * Pour modifier les couleurs de fond et de premier plan de la fenï¿½tre.
-	 * Cette fonction est appelï¿½e par la fonction "changeColor" de la classe "Preferences"
-	 * ï¿½ chaque fois que l'on presse F3 
+	 * Cette fonction est appelï¿½e par la fonction "changeColor" de la classe
+	 * "Preferences" ï¿½ chaque fois que l'on presse F3
 	 * 
 	 **/
 	@Override
-	public  void changeColor() {
-		// on rï¿½cupï¿½re les couleurs de base dans la classe Preferences 
+	public void changeColor() {
+		// on rï¿½cupï¿½re les couleurs de base dans la classe Preferences
 		Preferences pref = Preferences.getData();
 
-		//on change les couleurs de tous les ï¿½lï¿½ments
+		// on change les couleurs de tous les ï¿½lï¿½ments
 
-		for(int i=0; i<57; i++) {
+		for (int i = 0; i < 57; i++) {
 			JButton button = plateau.getCase(i);
 			button.setBackground(pref.getCurrentBackgroundColor());
 			button.setForeground(pref.getCurrentForegroundColor());
-		}	
+		}
 
-		for(int i=0; i<4; i++) {
+		for (int i = 0; i < 4; i++) {
 			JButton button = plateau.getCabane(i);
 			button.setBackground(pref.getCurrentBackgroundColor());
 			button.setForeground(pref.getCurrentForegroundColor());
 		}
-		
+
 		setFocusedButton(currentButton);
 		setCaseJoueur();
 	}
@@ -426,7 +508,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 		button.setBackground(button.getForeground());
 		button.setForeground(oldBackground);
 	}
-	
+
 	private void shiftFocusedButton(int i) {
 		IHMCase button = plateau.getCase(i);
 		Color oldBackground = button.getBackground();
@@ -437,7 +519,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	// enlever le focus d'un bouton
 	private void unFocusedButton(int i) {
 
-		if(i>=0){
+		if (i >= 0) {
 			JButton button = plateau.getCase(i);
 			Color oldBackground = button.getBackground();
 			button.setBackground(button.getForeground());
@@ -447,22 +529,26 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener{
 	}
 
 	/*
-	 * Fonctions qui renvoient les sons d'accueil et d'aide.
-	 * Pour plus d'informations, regarder la classe DevintFrameListener (dans le package devintAPI)
+	 * Fonctions qui renvoient les sons d'accueil et d'aide. Pour plus
+	 * d'informations, regarder la classe DevintFrameListener (dans le package
+	 * devintAPI)
 	 */
 
 	@Override
-	protected  String wavAccueil() {			    // renvoie le fichier wave contenant le message d'accueil
+	protected String wavAccueil() { // renvoie le fichier wave contenant le
+									// message d'accueil
 		return "../ressources/sons/accueilJeu.wav";
 	}
 
 	@Override
-	protected  String wavRegleJeu() {			    // renvoie le fichier wave contenant la rï¿½gle du jeu
+	protected String wavRegleJeu() { // renvoie le fichier wave contenant la
+										// rï¿½gle du jeu
 		return "../ressources/sons/aideF1.wav";
 	}
 
 	@Override
-	protected  String wavAide() {			        // renvoie le fichier wave contenant la rï¿½gle du jeu
+	protected String wavAide() { // renvoie le fichier wave contenant la rï¿½gle
+									// du jeu
 		return "../ressources/sons/aide.wav";
 	}
 }

@@ -66,22 +66,33 @@ public class Tool {
 	
 	
 	public static void viderSac(Joueur j){
+		System.out.println("VIDER LE SAC");
 		Stock stock = j.getCabane().getStock();
 		Sac sac = j.getSac();
-		
-		while(sac.containsRessource() || stock.isFull()) {
-			stock.ajouterRessource(sac.getFirstRessource());
+		Boolean b = true;
+		while(b) {
+			if(!sac.containsRessource()) {
+				b = false;
+			}
+			if(stock.isFull()) {
+				b = false;
+			}
+			if(b) {
+				stock.ajouterRessource(sac.getFirstRessource());
+				System.out.println("UNE RESSOURCE AJOUTEE");
+			}
 		}
 	}
 
 	public static ArrayList<String> getBuildables(Joueur j) {
 		ArrayList<String> buildableThings = new ArrayList<String>();
-		
+		System.out.println("TESTgetBuildable");
 		if (j.getCabane().isBuildableAtelier()){
 			buildableThings.add("atelier");
 		}
 		
 		if (j.getCabane().isBuildableFilet()){
+			System.out.println("TESTgetBuildableFILET");
 			buildableThings.add("filet");
 		}
 		
@@ -90,9 +101,11 @@ public class Tool {
 		}
 		
 		if (j.getCabane().isBuildableToit()){
+			System.out.println("TESTgetBuildableTOIT");
 			buildableThings.add("toit");
 		}
 		if (j.getCabane().isBuildableTonneau()){
+			System.out.println("TESTgetBuildableTONNEAU");
 			buildableThings.add("tonneau");
 		}
 		
