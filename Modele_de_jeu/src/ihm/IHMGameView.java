@@ -6,6 +6,7 @@ import Tool.Tool;
 
 import devintAPI.FenetreAbstraite;
 import devintAPI.Preferences;
+import fonctionnement.environnement.Case;
 import fonctionnement.environnement.Plateau;
 import fonctionnement.jeu.Game;
 import fonctionnement.objet.Joueur;
@@ -36,9 +37,15 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	private JButton boutonDe;
 	private JButton boutonTrue;
 	private JButton boutonFalse;
+<<<<<<< HEAD
 	private ArrayList<JButton> listButton;
 	private ArrayList<JButton> listButtonEffet;
 	
+=======
+	private ArrayList<JButton> listButtonConstruire;
+	private ArrayList<JButton> listButtonEffet;
+
+>>>>>>> 2nd partie d'Objet Effet recuperation
 	private IHMPlateau plateau;
 	private ArrayList<Joueur> listJoueurs;
 	private Map<Joueur, Color> couleursJoueurs;
@@ -61,7 +68,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		super(title);
 		this.game = game;
 		listJoueurs = game.getJoueurs();
-		listButton = new ArrayList<JButton>();
+		listButtonConstruire = new ArrayList<JButton>();
 		game.initialisePlateau();
 		plateauJeu = game.getPlateau();
 		couleursJoueurs = new HashMap<Joueur, Color>();
@@ -181,15 +188,47 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 			}
 		}
 
+<<<<<<< HEAD
 		for (int i = 0; i < listButton.size(); i++) {
 			if (source.equals(listButton.get(i))) {
 				// METTRE IHM INFOJOUEUR
 				Tool.construire(listButton.get(i).getText(),
 						listJoueurs.get(qui));
+=======
+		for(int i = 0; i < listButtonConstruire.size();i++) {
+			if(source.equals(listButtonConstruire.get(i))) {
+				//METTRE IHM INFOJOUEUR
+				Tool.construire(listButtonConstruire.get(i).getText(), listJoueurs.get(qui));
+>>>>>>> 2nd partie d'Objet Effet recuperation
 				menuRessource.dispose();
 				play();
 			}
 		}
+
+		for(int i = 0; i < listButtonEffet.size();i++) {
+			if(source.equals(listButtonEffet.get(i))) {
+				//METTRE IHM INFOJOUEUR
+				menuRessource.dispose();
+				
+				Case positionAvantEffet = listJoueurs.get(qui).getPosition();
+				
+				ArrayList<ObjetEffet> l = Tool.recupObjetSpecial(listJoueurs.get(qui));
+				Tool.appliquerEffet(listJoueurs.get(qui), l.get(i));
+				
+				if(positionAvantEffet == listJoueurs.get(qui).getPosition()) {
+					play();
+				}
+				else {
+					if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
+							.getCabane().getPosition()) {
+						rentreChezToi();
+					} else {
+						recupRessource();
+					}
+				}
+			}
+		}
+		
 		if (source.equals(boutonFalse)) {
 			menuRessource.dispose();
 			play();
@@ -216,6 +255,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		menuRessource.setLayout(new BorderLayout());
 		menuRessource.setSize(350, 100);
 
+<<<<<<< HEAD
 		listButton = new ArrayList<JButton>();
 
 		for (int i = 0; i < nbConstructible; i++) {
@@ -263,6 +303,23 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		// listButton.get(listButton.size()-1).addActionListener(this);
 		// menuRessource.add(listButton.get(listButton.size()-1),
 		// BorderLayout.EAST);
+=======
+		listButtonConstruire = new ArrayList<JButton>();
+		
+		for(int i = 0 ; i < nbConstructible; i++) {
+			listButtonConstruire.add(new JButton(listBuildable.get(i)));
+			listButtonConstruire.get(i).setVisible(true);
+			listButtonConstruire.get(i).addActionListener(this);
+			
+			
+			menuRessource.add(listButtonConstruire.get(i), BorderLayout.WEST);
+		}
+		menuRessource.add(boutonFalse, BorderLayout.EAST);
+		//listButtonConstruire.add(new JButton("Ne rien construire"));
+		//listButtonConstruire.get(listButtonConstruire.size()-1).setVisible(true);
+		//listButtonConstruire.get(listButtonConstruire.size()-1).addActionListener(this);
+		//menuRessource.add(listButtonConstruire.get(listButtonConstruire.size()-1), BorderLayout.EAST);
+>>>>>>> 2nd partie d'Objet Effet recuperation
 		menuRessource.setVisible(true);
 
 	}
