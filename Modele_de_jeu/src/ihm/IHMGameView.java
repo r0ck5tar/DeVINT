@@ -234,6 +234,15 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		menuRessource.setVisible(true);
 		System.out.println("TEST 10");
 	}
+	
+	/**
+	 * affiche seulement les objets à effet du sac du joueur.
+	 * prend en paramettre l'arraylist qui correspond au Sac du joueur.
+	 */
+	private void afficheObjetEffet(ArrayList<Objet> listObjet){
+		
+		
+	}
 
 	public void deroulementTotalJeu() {
 
