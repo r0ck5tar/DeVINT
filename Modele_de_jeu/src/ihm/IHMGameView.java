@@ -10,6 +10,7 @@ import fonctionnement.environnement.Plateau;
 import fonctionnement.jeu.Game;
 import fonctionnement.objet.Joueur;
 import fonctionnement.objet.Objet;
+import fonctionnement.objet.ObjetEffet;
 import fonctionnement.objet.Ressource;
 
 import java.awt.*;
@@ -36,14 +37,15 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	private JButton boutonTrue;
 	private JButton boutonFalse;
 	private ArrayList<JButton> listButton;
-
+	private ArrayList<JButton> listButtonEffet;
+	
 	private IHMPlateau plateau;
 	private ArrayList<Joueur> listJoueurs;
 	private Map<Joueur, Color> couleursJoueurs;
+	
 	JDialog menuDe;
 	JDialog menuRessource;
 
-	
 	JPanel infoJoueurGauche;
 	JPanel infoJoueurDroite;
 	ArrayList<IHMInfoJoueur> infoJoueurs;
@@ -144,37 +146,46 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		}
 
 		if (source.equals(boutonTrue)) {
-			if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui).getCabane().getPosition()) {
+			if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
+					.getCabane().getPosition()) {
 				menuRessource.dispose();
-				System.out.println("Votre inventaire de la cabane avant transfert\n : " + listJoueurs.get(qui).getCabane().getStock().getStock());
+				System.out
+						.println("Votre inventaire de la cabane avant transfert\n : "
+								+ listJoueurs.get(qui).getCabane().getStock()
+										.getStock());
 				Tool.viderSac(listJoueurs.get(qui));
-				System.out.println("Votre inventaire de la cabane apres transfert\n : " + listJoueurs.get(qui).getCabane().getStock().getStock());
-				ArrayList<String> listBuildable = Tool.getBuildables(listJoueurs.get(qui));
-				if(listBuildable.isEmpty()) {
-					//GO TO OBJET EFFET
+				System.out
+						.println("Votre inventaire de la cabane apres transfert\n : "
+								+ listJoueurs.get(qui).getCabane().getStock()
+										.getStock());
+				ArrayList<String> listBuildable = Tool
+						.getBuildables(listJoueurs.get(qui));
+				if (listBuildable.isEmpty()) {
+					// GO TO OBJET EFFET
 					System.out.println("recupererobjet");
-				}
-				else {
+				} else {
 					System.out.println("construction possible");
 					afficheConstruction(listBuildable);
 				}
 			} else {
 				menuRessource.dispose();
 				Objet r = Tool.recupRessource(listJoueurs.get(qui));
-				if(r != null && r instanceof Ressource) {
-					Tool.mettreRessource((Ressource)r, listJoueurs.get(qui));
+				if (r != null && r instanceof Ressource) {
+					Tool.mettreRessource((Ressource) r, listJoueurs.get(qui));
 					System.out.println("Vous avez recupere : " + r);
-					System.out.println("Votre inventaire \n : " + listJoueurs.get(qui).getSac().getStock());
+					System.out.println("Votre inventaire \n : "
+							+ listJoueurs.get(qui).getSac().getStock());
 				}
-				
+
 				play();
 			}
 		}
 
-		for(int i = 0; i < listButton.size();i++) {
-			if(source.equals(listButton.get(i))) {
-				//METTRE IHM INFOJOUEUR
-				Tool.construire(listButton.get(i).getText(), listJoueurs.get(qui));
+		for (int i = 0; i < listButton.size(); i++) {
+			if (source.equals(listButton.get(i))) {
+				// METTRE IHM INFOJOUEUR
+				Tool.construire(listButton.get(i).getText(),
+						listJoueurs.get(qui));
 				menuRessource.dispose();
 				play();
 			}
@@ -206,30 +217,54 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		menuRessource.setSize(350, 100);
 
 		listButton = new ArrayList<JButton>();
-		
-		for(int i = 0 ; i < nbConstructible; i++) {
+
+		for (int i = 0; i < nbConstructible; i++) {
 			listButton.add(new JButton(listBuildable.get(i)));
 			listButton.get(i).setVisible(true);
 			listButton.get(i).addActionListener(this);
-			
-			
+
 			menuRessource.add(listButton.get(i), BorderLayout.WEST);
 		}
 		menuRessource.add(boutonFalse, BorderLayout.EAST);
-		//listButton.add(new JButton("Ne rien construire"));
-		//listButton.get(listButton.size()-1).setVisible(true);
-		//listButton.get(listButton.size()-1).addActionListener(this);
-		//menuRessource.add(listButton.get(listButton.size()-1), BorderLayout.EAST);
+		// listButton.add(new JButton("Ne rien construire"));
+		// listButton.get(listButton.size()-1).setVisible(true);
+		// listButton.get(listButton.size()-1).addActionListener(this);
+		// menuRessource.add(listButton.get(listButton.size()-1),
+		// BorderLayout.EAST);
 		menuRessource.setVisible(true);
 	}
-	
+
 	/**
-	 * affiche seulement les objets à effet du sac du joueur.
-	 * prend en paramettre l'arraylist qui correspond au Sac du joueur.
+	 * affiche seulement les objets à effet du sac du joueur. prend en
+	 * paramettre l'arraylist qui correspond au Sac du joueur.
 	 */
-	private void afficheObjetEffet(ArrayList<Objet> listObjet){
+	private void afficheObjetEffet(ArrayList<ObjetEffet> listObjet) {
+		int nbObjetEffet = listObjet.size();
 		
 		
+		
+		menuRessource = new JDialog(this,
+				"Quel objet a effet voulez vous utiliser?");
+		menuRessource.setLayout(new BorderLayout());
+		menuRessource.setSize(350, 100);
+
+		listButton = new ArrayList<JButton>();
+
+		for (int i = 0; i < nbObjetEffet; i++) {
+			listButton.add(new JButton(listObjet.get(i).getType().getNom()));
+			listButton.get(i).setVisible(true);
+			listButton.get(i).addActionListener(this);
+
+			menuRessource.add(listButton.get(i), BorderLayout.WEST);
+		}
+		menuRessource.add(boutonFalse, BorderLayout.EAST);
+		// listButton.add(new JButton("Ne rien construire"));
+		// listButton.get(listButton.size()-1).setVisible(true);
+		// listButton.get(listButton.size()-1).addActionListener(this);
+		// menuRessource.add(listButton.get(listButton.size()-1),
+		// BorderLayout.EAST);
+		menuRessource.setVisible(true);
+
 	}
 
 	public void deroulementTotalJeu() {
