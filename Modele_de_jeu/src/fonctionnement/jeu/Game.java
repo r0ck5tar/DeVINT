@@ -30,6 +30,7 @@ public class Game {
 			j.getCabane().getStock().getStock().add(new Ressource(TypeRessource.BOIS));
 			j.getCabane().getStock().getStock().add(new Ressource(TypeRessource.BOIS));
 			j.getCabane().getStock().getStock().add(new Ressource(TypeRessource.BOIS));
+			j.getSac().getStock().add(new ObjetEffet(TypeObjetEffet.CATAPULTE));
 			this.joueurs.add(j);
 			return true;
 		}
