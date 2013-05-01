@@ -25,7 +25,12 @@ public class Game {
 	
 	public boolean ajouterJoueur(String name) {
 		if(this.joueurs.size() < this.MAXJOUEUR) {
-			this.joueurs.add(new Joueur(name));
+			Joueur j = new Joueur(name);
+			j.getCabane().getStock().getStock().add(new Ressource(TypeRessource.BOIS));
+			j.getCabane().getStock().getStock().add(new Ressource(TypeRessource.BOIS));
+			j.getCabane().getStock().getStock().add(new Ressource(TypeRessource.BOIS));
+			j.getCabane().getStock().getStock().add(new Ressource(TypeRessource.BOIS));
+			this.joueurs.add(j);
 			return true;
 		}
 		else return false;
