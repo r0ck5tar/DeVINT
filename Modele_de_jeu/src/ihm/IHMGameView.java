@@ -174,7 +174,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		for(int i = 0; i < listButton.size();i++) {
 			if(source.equals(listButton.get(i))) {
 				//METTRE IHM INFOJOUEUR
-				
+				Tool.construire(listButton.get(i).getText(), listJoueurs.get(qui));
+				menuRessource.dispose();
+				play();
 			}
 		}
 		if (source.equals(boutonFalse)) {
@@ -199,40 +201,26 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 
 	private void afficheConstruction(ArrayList<String> listBuildable) {
 		int nbConstructible = listBuildable.size();
-		System.out.println("AFFICHE CONSTRUCTION");
 		menuRessource = new JDialog(this, "Que voulez vous construire ?");
-		System.out.println("TEST 1");
 		menuRessource.setLayout(new BorderLayout());
-		System.out.println("TEST 2");
 		menuRessource.setSize(350, 100);
-		System.out.println("TEST 3");
 
 		listButton = new ArrayList<JButton>();
-		System.out.println("TEST 4");
 		
 		for(int i = 0 ; i < nbConstructible; i++) {
-			System.out.println("TEST 5.1"+i);
 			listButton.add(new JButton(listBuildable.get(i)));
-			System.out.println("TEST 5.2"+i);
 			listButton.get(i).setVisible(true);
-			System.out.println("TEST 5.3"+i);
 			listButton.get(i).addActionListener(this);
-			System.out.println("TEST 5.4"+i);
 			
 			
-			menuRessource.add(listButton.get(i), i);
-			System.out.println("TEST 5.5"+i);
+			menuRessource.add(listButton.get(i), BorderLayout.WEST);
 		}
-		listButton.add(new JButton("Ne rien construire"));
-		System.out.println("TEST 6");
-		listButton.get(listButton.size()-1).setVisible(true);
-		System.out.println("TEST 7");
-		listButton.get(listButton.size()-1).addActionListener(this);
-		System.out.println("TEST 8");
-		menuRessource.add(listButton.get(listButton.size()-1), listButton.size()-1);
-		System.out.println("TEST 9");
+		menuRessource.add(boutonFalse, BorderLayout.EAST);
+		//listButton.add(new JButton("Ne rien construire"));
+		//listButton.get(listButton.size()-1).setVisible(true);
+		//listButton.get(listButton.size()-1).addActionListener(this);
+		//menuRessource.add(listButton.get(listButton.size()-1), BorderLayout.EAST);
 		menuRessource.setVisible(true);
-		System.out.println("TEST 10");
 	}
 
 	public void deroulementTotalJeu() {
