@@ -255,18 +255,28 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	private void afficheConstruction(ArrayList<String> listBuildable) {
 		int nbConstructible = listBuildable.size();
 		menuRessource = new JDialog(this, "Que voulez vous construire ?");
-		menuRessource.setLayout(new BorderLayout());
+		menuRessource.setLayout(new GridBagLayout());
+		GridBagConstraints buttonPos = new GridBagConstraints();
+		buttonPos.fill = GridBagConstraints.BOTH;
+		buttonPos.gridwidth = 1;
+		buttonPos.gridheight = 1;
+		buttonPos.gridy = 0;
 		menuRessource.setSize(350, 100);
+		
 		for(int i = 0 ; i < nbConstructible; i++) {
+			buttonPos.gridx = i;
 			listButtonConstruire.add(new JButton(listBuildable.get(i)));
 			listButtonConstruire.get(i).setVisible(true);
 			listButtonConstruire.get(i).addActionListener(this);
 			
 			
-			menuRessource.add(listButtonConstruire.get(i), BorderLayout.WEST);
+			menuRessource.add(listButtonConstruire.get(i), buttonPos);
 		}
-		menuRessource.add(boutonFalseConstruire, BorderLayout.EAST);
+		
+		buttonPos.gridx = buttonPos.gridx+1; 
+		menuRessource.add(boutonFalseConstruire, buttonPos);
 		menuRessource.setVisible(true);
+		menuRessource.requestFocus();
 
 	}
 
@@ -278,25 +288,31 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		int nbObjetEffet = listObjet.size();
 		System.out.println("TEST GROSSE PUTE");
 		menuRessource = new JDialog(this,"Quel objet a effet voulez vous utiliser?");
-		menuRessource.setLayout(new BorderLayout());
+		menuRessource.setLayout(new GridBagLayout());
+		GridBagConstraints buttonPos = new GridBagConstraints();
+		buttonPos.fill = GridBagConstraints.BOTH;
+		buttonPos.gridwidth = 1;
+		buttonPos.gridheight = 1;
+		buttonPos.gridy = 0;
 		menuRessource.setSize(350, 100);
 
 		listButtonEffet = new ArrayList<JButton>();
 
 		for (int i = 0; i < nbObjetEffet; i++) {
+			buttonPos.gridx = i;
 			listButtonEffet.add(new JButton(listObjet.get(i).getType().getNom()));
 			listButtonEffet.get(i).setVisible(true);
 			listButtonEffet.get(i).addActionListener(this);
 
-			menuRessource.add(listButtonEffet.get(i), BorderLayout.WEST);
+			menuRessource.add(listButtonEffet.get(i), buttonPos);
 		}
 		System.out.println("TEST GROSSE PUTE DEUX");
+		buttonPos.gridx = buttonPos.gridx+1; 
 		boutonFalse = new JButton("Non je ne veux pas");
 		boutonFalse.setVisible(true);
 		boutonFalse.addActionListener(this);
-		menuRessource.add(boutonFalse, BorderLayout.EAST);
+		menuRessource.add(boutonFalse, buttonPos);
 		menuRessource.setVisible(true);
-
 	}
 
 	public void deroulementTotalJeu() {
