@@ -218,6 +218,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 					if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
 							.getCabane().getPosition()) {
 						rentreChezToi();
+						
 					} else {
 						recupRessource();
 					}
