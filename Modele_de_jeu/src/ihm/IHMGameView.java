@@ -193,6 +193,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 				Tool.construire(listButtonConstruire.get(i).getText(), listJoueurs.get(qui));
 
 				menuRessource.dispose();
+				listButtonConstruire.clear();
 				play();
 			}
 		}
