@@ -28,9 +28,12 @@ import devintAPI.Preferences;
 
 
 public class IHMInfoJoueur extends JTextArea{
+	private Joueur joueur;
 	
-	public IHMInfoJoueur(Joueur jouer) {
-		super(jouer.getNom());
+	public IHMInfoJoueur(Joueur joueur) {
+		this.joueur = joueur;
+		updateDisplay();
+
 		Preferences pref = Preferences.getData();
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(320, 410));
@@ -42,5 +45,13 @@ public class IHMInfoJoueur extends JTextArea{
 
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		setOpaque(true);
+	}
+	
+	public void updateDisplay() {
+		this.setText(joueur.getNom());
+		
+		for(int i=0; i<joueur.getSac().getStock().size(); i++) {
+			this.append("\n" + joueur.getSac().getStock().get(i));
+		}
 	}
 }

@@ -185,6 +185,8 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 
 				afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
 			}
+			
+			infoJoueurs.get(qui).updateDisplay();
 		}
 
 		for(int i = 0; i < listButtonConstruire.size();i++) {
