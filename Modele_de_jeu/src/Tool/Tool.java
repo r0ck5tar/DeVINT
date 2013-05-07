@@ -10,6 +10,7 @@ import fonctionnement.objet.ObjetEffet;
 import fonctionnement.objet.Ressource;
 import fonctionnement.objet.Sac;
 import fonctionnement.objet.Stock;
+import fonctionnement.objet.TypeObjetEffet;
 
 public class Tool {
 
@@ -58,6 +59,7 @@ public class Tool {
 		switch(o.getType()) {
 		case CATAPULTE:
 			j.setPosition(j.getCabane().getPosition());
+			j.getSac().remove(TypeObjetEffet.CATAPULTE);
 			return true;
 		default:
 			return false;
