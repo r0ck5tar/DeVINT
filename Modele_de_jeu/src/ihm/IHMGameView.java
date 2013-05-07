@@ -100,7 +100,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		infoJoueurs = new ArrayList<IHMInfoJoueur>();
 
 		for (int i = 0; i < listJoueurs.size(); i++) {
-			infoJoueurs.add(new IHMInfoJoueur(listJoueurs.get(i), this));
+			infoJoueurs.add(new IHMInfoJoueur(listJoueurs.get(i)));
 		}
 
 		setLayout(new FlowLayout(FlowLayout.CENTER));

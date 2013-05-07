@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import devintAPI.Preferences;
 import fonctionnement.objet.Joueur;
@@ -25,9 +27,9 @@ import javax.swing.JButton;
 import devintAPI.Preferences;
 
 
-public class IHMInfoJoueur extends JButton{
+public class IHMInfoJoueur extends JTextArea{
 	
-	public IHMInfoJoueur(Joueur jouer, ActionListener parent) {
+	public IHMInfoJoueur(Joueur jouer) {
 		super(jouer.getNom());
 		Preferences pref = Preferences.getData();
 		setLayout(new BorderLayout());
@@ -40,6 +42,5 @@ public class IHMInfoJoueur extends JButton{
 
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		setOpaque(true);
-		this.addActionListener((ActionListener) parent);
 	}
 }
