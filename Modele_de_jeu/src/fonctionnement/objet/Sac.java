@@ -72,6 +72,15 @@ public class Sac {
 		}		
 		return list;
 	}
+	
+	public void remove(TypeObjetEffet type) {
+		for(int i = 0 ; i < this.stock.size(); i++) {
+			if(this.stock.get(i) instanceof ObjetEffet && ((ObjetEffet)this.stock.get(i)).getType() == type) {
+				this.stock.remove(i);
+				return;
+			}
+		}
+	}
 
 	public boolean containsRessource() {
 		for(Objet o:stock) {

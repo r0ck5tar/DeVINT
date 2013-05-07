@@ -100,7 +100,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		infoJoueurs = new ArrayList<IHMInfoJoueur>();
 
 		for (int i = 0; i < listJoueurs.size(); i++) {
-			infoJoueurs.add(new IHMInfoJoueur(listJoueurs.get(i), this));
+			infoJoueurs.add(new IHMInfoJoueur(listJoueurs.get(i)));
 		}
 
 		setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -193,6 +193,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 				Tool.construire(listButtonConstruire.get(i).getText(), listJoueurs.get(qui));
 
 				menuRessource.dispose();
+				listButtonConstruire.clear();
 				play();
 			}
 		}
@@ -215,6 +216,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 					if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
 							.getCabane().getPosition()) {
 						rentreChezToi();
+						
 					} else {
 						recupRessource();
 					}
