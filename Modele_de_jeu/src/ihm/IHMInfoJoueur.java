@@ -82,6 +82,8 @@ public class IHMInfoJoueur extends JTextArea{
 		int bois =0, eau =0, liane =0, pierre = 0, nourriture = 0, lance = 0, boussole = 0, catapulte = 0, sac = 0;
 		int boisC =0, eauC =0, lianeC =0, pierreC = 0, nourritureC = 0, lanceC = 0, boussoleC = 0, catapulteC = 0, sacC = 0;
 		
+		inventaire.setText("Inventaire ("+joueur.getSac().getStock().size()  +"/"
+				+joueur.getSac().getLimite()+")");
 		for(Objet objet : joueur.getSac().getStock()) {
 			switch(objet.toString()) {
 			case "eau" : eau++; break;
@@ -102,6 +104,9 @@ public class IHMInfoJoueur extends JTextArea{
 		nbPierre.setText(" "+String.valueOf(pierre));
 		nbNourriture.setText(" "+String.valueOf(nourriture));
 		
+		
+		dansLaCabane.setText("DansLaCabane ("+joueur.getCabane().getStock().getStock().size() +"/"
+							+joueur.getCabane().getStock().getNiveau()+")");
 		for(Objet objet : joueur.getCabane().getStock().getStock()) {
 			switch(objet.toString()) {
 			case "eau" : eauC++; break;

@@ -207,6 +207,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 					Tool.construire(menu.listButtonConstruire().get(i).getText(), listJoueurs.get(qui));
 
 					menu.listButtonConstruire().clear();
+					infoJoueurs.get(qui).updateDisplay();
 					play();
 				}
 			}
@@ -300,8 +301,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 				listJoueurs.get(qui).setPosition(plateauJeu.getCase(currentButton));
 				setCaseJoueur();
 				plateau.masquerChoixDeplacement(currentButton);
-				
-				System.out.println("pos:"+ listJoueurs.get(qui).getPosition().getNom());
 
 				if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
 						.getCabane().getPosition()) {

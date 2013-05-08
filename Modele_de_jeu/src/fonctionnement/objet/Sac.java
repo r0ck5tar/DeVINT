@@ -103,5 +103,9 @@ public class Sac {
 		}
 		return null;
 	}
+	
+	public int getLimite() {
+		return limite;
+	}
 
 }
