@@ -23,9 +23,8 @@ public class IHMMenu {
 	
 	private JButton boutonDe;
 	private JButton boutonTrue;
+	private JButton boutonFalseEffet;
 	private JButton boutonFalse;
-	private JButton boutonFalseRessource;
-	private JButton boutonFalseConstruire;
 	private ArrayList<JButton> listButtonConstruire;
 	private ArrayList<JButton> listButtonEffet;
 
@@ -38,7 +37,7 @@ public class IHMMenu {
 		listButtonEffet = new ArrayList<JButton>();
 	}
 
-	public void lancerDe(int qui) {
+	public void afficheLancerDe(int qui) {
 		voix.playShortText("joueur" + (qui + 1) + ", lance le dé");
 		menuDe = new JDialog(parent, "lancer le dé");
 		menuDe.setLayout(new BorderLayout());
@@ -74,12 +73,12 @@ public class IHMMenu {
 		boutonTrue.setVisible(true);
 		boutonTrue.addActionListener((ActionListener) parent);
 	
-		boutonFalseRessource = new JButton("Non je ne veux pas");
-		boutonFalseRessource.setVisible(true);
-		boutonFalseRessource.addActionListener((ActionListener) parent);
+		boutonFalse = new JButton("Non je ne veux pas");
+		boutonFalse.setVisible(true);
+		boutonFalse.addActionListener((ActionListener) parent);
 	
 		menuGeneral.add(boutonTrue, BorderLayout.WEST);
-		menuGeneral.add(boutonFalseRessource, BorderLayout.EAST);
+		menuGeneral.add(boutonFalse, BorderLayout.EAST);
 		menuGeneral.setVisible(true);
 	
 	}
@@ -106,7 +105,7 @@ public class IHMMenu {
 		}
 		
 		buttonPos.gridx = buttonPos.gridx+1; 
-		menuGeneral.add(boutonFalseConstruire, buttonPos);
+		menuGeneral.add(boutonFalse, buttonPos);
 		menuGeneral.setVisible(true);
 		menuGeneral.requestFocus();
 	}
@@ -120,12 +119,12 @@ public class IHMMenu {
 		boutonTrue.setVisible(true);
 		boutonTrue.addActionListener((ActionListener) parent);
 
-		boutonFalseConstruire = new JButton("Non je ne rentre pas");
-		boutonFalseConstruire.setVisible(true);
-		boutonFalseConstruire.addActionListener((ActionListener) parent);
+		boutonFalse = new JButton("Non je ne rentre pas");
+		boutonFalse.setVisible(true);
+		boutonFalse.addActionListener((ActionListener) parent);
 
 		menuGeneral.add(boutonTrue, BorderLayout.WEST);
-		menuGeneral.add(boutonFalseConstruire, BorderLayout.EAST);
+		menuGeneral.add(boutonFalse, BorderLayout.EAST);
 		menuGeneral.setVisible(true);
 	}
 	
@@ -157,10 +156,10 @@ public class IHMMenu {
 		}
 		System.out.println("TEST GROSSE PUTE DEUX");
 		buttonPos.gridx = buttonPos.gridx+1; 
-		boutonFalse = new JButton("Non je ne veux pas");
-		boutonFalse.setVisible(true);
-		boutonFalse.addActionListener((ActionListener) parent);
-		menuGeneral.add(boutonFalse, buttonPos);
+		boutonFalseEffet = new JButton("Non je ne veux pas");
+		boutonFalseEffet.setVisible(true);
+		boutonFalseEffet.addActionListener((ActionListener) parent);
+		menuGeneral.add(boutonFalseEffet, buttonPos);
 		menuGeneral.setVisible(true);
 	}
 	
@@ -184,16 +183,12 @@ public class IHMMenu {
 		return boutonTrue;
 	}
 	
-	public JButton boutonFalse() {
-		return boutonFalse;
+	public JButton boutonFalseEffet() {
+		return boutonFalseEffet;
 	}
 
-	public JButton boutonFalseRessource() {
-		return boutonFalseRessource;
-	}
-	
-	public JButton boutonFalseConstruire() {
-		return boutonFalseConstruire;
+	public JButton boutonFalse() {
+		return boutonFalse;
 	}
 
 	public ArrayList<JButton> listButtonConstruire() {

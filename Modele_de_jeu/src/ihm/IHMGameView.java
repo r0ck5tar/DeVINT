@@ -20,32 +20,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Cette classe est un exemple d'interface de jeu. Elle �tend DevintFrame pour
- * avoir un Frame et r�agir aux �v�nements claviers Impl�mente
- * ActionListener pour r�agir au clic souris sur le bouton. On surchage la
- * m�thode "keyPressed" pour associer une action � la touche F3
- * 
- * @author helene
- */
-
+@SuppressWarnings("serial")
 public class IHMGameView extends FenetreAbstraite implements ActionListener {
 
 	private Game game;
 	private Plateau plateauJeu;
-
-	private IHMPlateau plateau;
 	private ArrayList<Joueur> listJoueurs;
 	private Map<Joueur, Color> couleursJoueurs;
-	
-	private IHMMenu menu;
 
+	private IHMPlateau plateau;
+	private IHMMenu menu;
+	private ArrayList<IHMInfoJoueur> infoJoueurs;
+	
 	private JPanel infoJoueurGauche;
 	private JPanel infoJoueurDroite;
-	private ArrayList<IHMInfoJoueur> infoJoueurs;
 
 	private int currentButton = 5;
-	private int qui;
+	private int qui = -1;
 
 	/*
 	 * Constructeur
@@ -54,17 +45,17 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	public IHMGameView(String title, Game game) {
 		super(title);
 		this.game = game;
-		menu = new IHMMenu(voix, this);
-		listJoueurs = game.getJoueurs();
 
 		game.initialisePlateau();
-		plateauJeu = game.getPlateau();
-		couleursJoueurs = new HashMap<Joueur, Color>();
-		initialize();
-		qui = -1;
 		game.setQui(qui);
+		plateauJeu = game.getPlateau();
+		listJoueurs = game.getJoueurs();
+		
+		couleursJoueurs = new HashMap<Joueur, Color>();
+		menu = new IHMMenu(voix, this);
+		
+		initialize();
 		initializePlayerPositions();
-
 		play();
 	}
 
@@ -132,62 +123,60 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	}
 	
 	/*
-	 * Fonctions permettant de g�rer les �v�nements et les actions
+	 * Fonctions permettant de gerer les evenements et les actions
 	 */
 
-	// Action performed: D�fini les actions � effectuer lors de d�tection
-	// des �v�nements
+	// Action performed: defini les actions a effectuer lors de detection des evenements
 	public void actionPerformed(ActionEvent ae) {
 		voix.stop(); // toujours stopper la voix avant de parler
 	
-		Object source = ae.getSource(); // on r�cup�re la source de
-										// l'�v�nement
+		Object source = ae.getSource(); // on recupere la source de l'evenement
 	
-		if (source.equals(menu.boutonDe())) { // si c'est le bouton "question" on lit
-										// la question
-	
+		/*
+		 * When the player clicks on boutonDe
+		 */
+		if (source.equals(menu.boutonDe())) { 
+			//throw the dice.
 			int de = Tool.lancerDe(listJoueurs.get(qui).getDeplacementMax()) + 1;
-			plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition()
-					.getChoixCase(de, null, listJoueurs.get(qui)));
+			//highlight the spaces which the player can move to.
+			plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition().getChoixCase(de, null, listJoueurs.get(qui)));
 			menu.menuDe().dispose();
 	
-			String text = Integer.toString(de);
-			voix.playText(text); // le contenu des questions est variable donc
-									// on les lit avec SI_VOX
-			System.out.println(listJoueurs.get(qui).getPosition().getNom());
+			String chiffre = Integer.toString(de);
+			voix.playText(chiffre); 
 		}
 		
 		if (source.equals(menu.boutonTrue())) {
-			if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
-					.getCabane().getPosition()) {
+			/*
+			 * if the player is in his own cabin, clicking the "true" button does the following:
+			 * transfer objects from bag, then show the menu for construction and for using objects.
+			 */
+			if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui).getCabane().getPosition()) {
 				menu.menuGeneral().dispose();
-				System.out
-						.println("Votre inventaire de la cabane avant transfert\n : "
-								+ listJoueurs.get(qui).getCabane().getStock()
-										.getStock());
-				Tool.viderSac(listJoueurs.get(qui));
-				System.out
-						.println("Votre inventaire de la cabane apres transfert\n : "
-								+ listJoueurs.get(qui).getCabane().getStock()
-										.getStock());
-				ArrayList<String> listBuildable = Tool
-						.getBuildables(listJoueurs.get(qui));
-				if (listBuildable.isEmpty()) {
-					// GO TO OBJET EFFET
+				
+				Tool.viderSac(listJoueurs.get(qui)); //empty the player's bag
+
+				ArrayList<String> listBuildable = Tool.getBuildables(listJoueurs.get(qui));
+				//If something is buildable, show the menu for construction.
+				if (!listBuildable.isEmpty()) {
+					menu.afficheConstruction(listBuildable);	
+				} 
+				
+				//otherwise, if nothing is buildable, skip to the menu for using objects.
+				else {
 					menu.afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
-					System.out.println("recupererobjet");
-				} else {
-					System.out.println("construction possible");
-					menu.afficheConstruction(listBuildable);
+					
 				}
+				
+			/*
+			 * if the player is on a resource space, clicking the "true" button does the following:
+			 * recover the resource and add it to the player's bag, then show the menu for using objects. 
+			 */
 			} else {
 				menu.menuGeneral().dispose();
 				Objet r = Tool.recupRessource(listJoueurs.get(qui));
 				if (r != null && r instanceof Ressource) {
 					Tool.mettreRessource((Ressource) r, listJoueurs.get(qui));
-					System.out.println("Vous avez recupere : " + r);
-					System.out.println("Votre inventaire \n : "
-							+ listJoueurs.get(qui).getSac().getStock());
 				}
 	
 				menu.afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
@@ -196,9 +185,12 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 			infoJoueurs.get(qui).updateDisplay();
 		}
 	
+		/*
+		 * Check if the source is one of the buttons in the listButtonConstruire
+		 */
 		for(int i = 0; i < menu.listButtonConstruire().size();i++) {
 			if(source.equals(menu.listButtonConstruire().get(i))) {
-				//METTRE IHM INFOJOUEUR
+				//Construct the selected object
 				Tool.construire(menu.listButtonConstruire().get(i).getText(), listJoueurs.get(qui));
 	
 				menu.menuGeneral().dispose();
@@ -206,14 +198,17 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 				play();
 			}
 		}
-	
+		
+		/*
+		 * Check if the source is one of the buttons in the listButtonEffet
+		 */
 		for(int i = 0; i < menu.listButtonEffet().size();i++) {
 			if(source.equals(menu.listButtonEffet().get(i))) {
-				//METTRE IHM INFOJOUEUR
 				menu.menuGeneral().dispose();
 				
 				Case positionAvantEffet = listJoueurs.get(qui).getPosition();
 				
+				//Use the selected object
 				ArrayList<ObjetEffet> l = Tool.recupObjetSpecial(listJoueurs.get(qui));
 				Tool.appliquerEffet(listJoueurs.get(qui), l.get(i));
 				
@@ -222,8 +217,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 				}
 				else {
 					// ICI IL FAUT DESELECTIONNER LA CASE PRECEDENTE
-					if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
-							.getCabane().getPosition()) {
+					if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui).getCabane().getPosition()) {
 						menu.afficheRentreChezToi();
 						
 					} else {
@@ -233,12 +227,18 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 			}
 		}
 		
-		if (source.equals(menu.boutonFalse())) {
+		/*
+		 * When the player clicks on boutonFalseEffet in the menu for using objects
+		 */
+		if (source.equals(menu.boutonFalseEffet())) {
 			menu.menuGeneral().dispose();
 			play();
 		}
 		
-		if (source.equals(menu.boutonFalseConstruire()) || source.equals(menu.boutonFalseRessource())) {
+		/*
+		 * When the player clicks on the boutonFalse in the menu for Taking a resource or going into his cabin.
+		 */
+		if (source.equals(menu.boutonFalse())) {
 			menu.menuGeneral().dispose();
 			if(listJoueurs.get(qui).getSac().containsObjetEffet()) {
 				menu.afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
@@ -259,8 +259,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 			}
 		}
 	
-		this.requestFocus(); // on redonne le focus au JFrame principal (apr�s
-								// un clic, le focus est sur le bouton)
+		this.requestFocus(); // on redonne le focus au JFrame principal (apres un clic, le focus est sur le bouton)
 	}
 
 	public void play() {
@@ -272,7 +271,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		unFocusedButton(currentButton);
 		currentButton = plateau.getIndexOfCase(listJoueurs.get(qui).getPosition());
 		shiftFocusedButton(currentButton);
-		menu.lancerDe(qui);
+		menu.afficheLancerDe(qui);
 	}
 
 	public void setCaseJoueur() {
@@ -284,11 +283,10 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		}
 	}
 
-	// Keyboard event listener: d�tecte les �l�ments clavier.
+	// Keyboard event listener: detecte les evenements clavier.
 	@Override
 	public void keyPressed(KeyEvent e) {
-		super.keyPressed(e); // appel � la m�thode m�re qui g�re les
-								// �v�nements ESC, F1, F3, F4
+		super.keyPressed(e); // appel a la methode mere qui gere les evenements ESC, F1, F3, F4
 		switch (e.getKeyCode()) {
 
 		case KeyEvent.VK_ENTER:
@@ -407,9 +405,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	}
 
 	/**
-	 * Pour modifier les couleurs de fond et de premier plan de la fen�tre.
-	 * Cette fonction est appel�e par la fonction "changeColor" de la classe
-	 * "Preferences" � chaque fois que l'on presse F3
+	 * Pour modifier les couleurs de fond et de premier plan de la fenetre.
+	 * Cette fonction est appellee par la fonction "changeColor" de la classe
+	 * "Preferences" a chaque fois que l'on presse F3
 	 * 
 	 **/
 	@Override
@@ -471,20 +469,17 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	 */
 
 	@Override
-	protected String wavAccueil() { // renvoie le fichier wave contenant le
-									// message d'accueil
+	protected String wavAccueil() { // renvoie le fichier wave contenant le message d'accueil
 		return "../ressources/sons/accueilJeu.wav";
 	}
 
 	@Override
-	protected String wavRegleJeu() { // renvoie le fichier wave contenant la
-										// r�gle du jeu
+	protected String wavRegleJeu() { // renvoie le fichier wave contenant la regle du jeu
 		return "../ressources/sons/aideF1.wav";
 	}
 
 	@Override
-	protected String wavAide() { // renvoie le fichier wave contenant la r�gle
-									// du jeu
+	protected String wavAide() { // renvoie le fichier wave contenant la regle du jeu
 		return "../ressources/sons/aide.wav";
 	}
 }
