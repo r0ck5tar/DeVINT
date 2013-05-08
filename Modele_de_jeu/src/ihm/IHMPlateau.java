@@ -2,8 +2,11 @@ package ihm;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import fonctionnement.environnement.*;
@@ -19,8 +22,15 @@ public class IHMPlateau extends JPanel{
  	private ActionListener parent; 
 	private Plateau plateauJeu;
 	
+	private Image backgroundImage;
+	
 	IHMPlateau(Plateau plateauJeu, ActionListener parent) {
 		setLayout(new GridBagLayout());
+		try {
+			backgroundImage = ImageIO.read(new File("../ressources/images/plateau.JPG"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		this.parent = parent;
 		this.plateauJeu = plateauJeu;
 		GridBagConstraints casePos = new GridBagConstraints();
@@ -181,4 +191,11 @@ public class IHMPlateau extends JPanel{
 			this.add(cases[i], casePos);
 		}
 	}
+	
+    @Override
+    public void paint(Graphics g) {
+    	super.paint(g);
+    	g.drawImage(backgroundImage, 0, 0, null);
+    	this.printComponents(g);
+    }
 }

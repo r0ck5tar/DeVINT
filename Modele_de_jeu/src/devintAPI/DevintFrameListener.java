@@ -1,5 +1,6 @@
 package devintAPI;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -92,6 +93,11 @@ public abstract class DevintFrameListener extends JFrame implements KeyListener 
     // à redéfinir si besoin dans les classes filles pour gérer les clics souris
     public void keyReleased(KeyEvent e) {}
     public void keyTyped(KeyEvent e){} {}
+    
+    @Override
+    public void paint(Graphics g) {
+    	super.paint(g);
+    }
 }
 
 

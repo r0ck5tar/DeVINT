@@ -1,5 +1,6 @@
 package ihm;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Tool.Tool;
@@ -16,6 +17,8 @@ import fonctionnement.objet.Ressource;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +56,8 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	JPanel infoJoueurGauche;
 	JPanel infoJoueurDroite;
 	ArrayList<IHMInfoJoueur> infoJoueurs;
+	
+	private Image backgroundImage;
 
 	private int currentButton = 5;
 	private int qui;
@@ -63,6 +68,11 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 
 	public IHMGameView(String title, Game game) {
 		super(title);
+		try {
+			backgroundImage = ImageIO.read(new File("../ressources/images/plateau.JPG"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		this.game = game;
 		listJoueurs = game.getJoueurs();
 		listButtonConstruire = new ArrayList<JButton>();
@@ -611,6 +621,14 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 			setCaseJoueur();
 		}
 	}
+	
+	/*
+    @Override
+    public void paint(Graphics g) {
+    	super.paint(g);
+    	g.drawImage(backgroundImage, 350, 30, null);
+    }
+    */
 
 	/*
 	 * Fonctions qui renvoient les sons d'accueil et d'aide. Pour plus

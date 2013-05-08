@@ -30,7 +30,7 @@ public class IHMCase extends JButton{
 		setForeground(Color.BLACK);
 		setFont(new Font("Tahoma", 1, 56));
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		setOpaque(true);
+		this.setOpaque(true);
 		this.addActionListener((ActionListener) parent);		
 	}
 	

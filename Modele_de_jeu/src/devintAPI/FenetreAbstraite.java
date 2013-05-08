@@ -8,6 +8,7 @@ Cette classe abstraite est un Frame associé à une instance de voix
 
 package devintAPI;
 
+import java.awt.Graphics;
 import java.awt.event.*;
 
 
@@ -68,5 +69,9 @@ public abstract class FenetreAbstraite extends  DevintFrameListener{
 	 **/
 	public abstract void changeColor() ;
 	
+    @Override
+    public void paint(Graphics g) {
+    	super.paint(g);
+    }
 }
 
