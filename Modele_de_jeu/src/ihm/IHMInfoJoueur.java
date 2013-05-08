@@ -59,7 +59,7 @@ public class IHMInfoJoueur extends JTextArea{
 		}
 		
 		if(joueur.getCabane().getStock().getStock().size() > 0) {
-			this.append("\nInventaire :");
+			this.append("\nDans la cabane :");
 			
 			for(int i=0; i<joueur.getCabane().getStock().getStock().size(); i++) {
 				this.append("\n" + joueur.getCabane().getStock().getStock().get(i));
