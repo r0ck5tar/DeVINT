@@ -56,8 +56,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	JPanel infoJoueurGauche;
 	JPanel infoJoueurDroite;
 	ArrayList<IHMInfoJoueur> infoJoueurs;
-	
-	private Image backgroundImage;
 
 	private int currentButton = 5;
 	private int qui;
@@ -68,11 +66,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 
 	public IHMGameView(String title, Game game) {
 		super(title);
-		try {
-			backgroundImage = ImageIO.read(new File("../ressources/images/plateau.JPG"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		this.game = game;
 		listJoueurs = game.getJoueurs();
 		listButtonConstruire = new ArrayList<JButton>();
@@ -622,19 +615,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		}
 	}
 	
-	/*
-    @Override
-    public void paint(Graphics g) {
-    	super.paint(g);
-    	g.drawImage(backgroundImage, 350, 30, null);
-    }
-    */
-
-	/*
-	 * Fonctions qui renvoient les sons d'accueil et d'aide. Pour plus
-	 * d'informations, regarder la classe DevintFrameListener (dans le package
-	 * devintAPI)
-	 */
 
 	@Override
 	protected String wavAccueil() { // renvoie le fichier wave contenant le
