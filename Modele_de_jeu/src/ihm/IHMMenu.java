@@ -18,13 +18,12 @@ public class IHMMenu {
 	private SIVOXDevint voix;
 	private JFrame parent;
 	
-	private JDialog menuDe;
-	private JDialog menuGeneral;
+	private JDialog menuGeneral; //utilisé pour le menu récupération de ressource, construction et choix de rentrer dans la cabane.
 	
-	private JButton boutonDe;
-	private JButton boutonTrue;
-	private JButton boutonFalseEffet;
-	private JButton boutonFalse;
+	private JButton boutonDe; //utilisé dans le menu pour lancer le dé
+	private JButton boutonTrue;  //utilisé dans le menu de récupération de ressource et pour le choix de rentrer dans la cabane.
+	private JButton boutonFalseEffet; //utilisé dans le menu présentant le choix d'utiliser un objet
+	private JButton boutonFalse; //utilisé dans le menu de récupération de ressource, construction et pour le choix de rentrer.
 	private ArrayList<JButton> listButtonConstruire;
 	private ArrayList<JButton> listButtonEffet;
 
@@ -39,28 +38,28 @@ public class IHMMenu {
 
 	public void afficheLancerDe(int qui) {
 		voix.playShortText("joueur" + (qui + 1) + ", lance le dé");
-		menuDe = new JDialog(parent, "lancer le dé");
-		menuDe.setLayout(new BorderLayout());
-		menuDe.setSize(200, 100);
+		menuGeneral = new JDialog(parent, "lancer le dé");
+		menuGeneral.setLayout(new BorderLayout());
+		menuGeneral.setSize(200, 100);
 		switch (qui) {
 		case 0:
-			menuDe.setLocation(570, 220);
+			menuGeneral.setLocation(570, 220);
 			break;
 		case 1:
-			menuDe.setLocation(570, 620);
+			menuGeneral.setLocation(570, 620);
 			break;
 		case 2:
-			menuDe.setLocation(870, 220);
+			menuGeneral.setLocation(870, 220);
 			break;
 		case 3:
-			menuDe.setLocation(870, 620);
+			menuGeneral.setLocation(870, 620);
 			break;
 		}
 		boutonDe = new JButton("lancer le dé");
 		boutonDe.setVisible(true);
 		boutonDe.addActionListener((ActionListener) parent);
-		menuDe.add(boutonDe);
-		menuDe.setVisible(true);
+		menuGeneral.add(boutonDe);
+		menuGeneral.setVisible(true);
 	}
 
 	public void afficheRecupRessource() {
@@ -169,10 +168,6 @@ public class IHMMenu {
 	
 	public JButton boutonDe() {
 		return boutonDe;
-	}
-
-	public JDialog menuDe() {
-		return menuDe;
 	}
 
 	public JDialog menuGeneral() {

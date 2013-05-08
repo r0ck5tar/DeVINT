@@ -39,7 +39,7 @@ public class IHMInfoJoueur extends JTextArea{
 		setPreferredSize(new Dimension(320, 410));
 		setBackground(pref.getCurrentBackgroundColor());
 		setForeground(pref.getCurrentForegroundColor());
-		setFont(new Font("Tahoma", 1, 36));
+		setFont(new Font("Tahoma", 1, 30));
 
 		setBorder(BorderFactory.createLineBorder(Color.YELLOW));
 

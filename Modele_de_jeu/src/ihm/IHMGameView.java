@@ -131,123 +131,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		voix.stop(); // toujours stopper la voix avant de parler
 	
 		Object source = ae.getSource(); // on recupere la source de l'evenement
-	
-		/*
-		 * When the player clicks on boutonDe
-		 */
-		if (source.equals(menu.boutonDe())) { 
-			//throw the dice.
-			int de = Tool.lancerDe(listJoueurs.get(qui).getDeplacementMax()) + 1;
-			//highlight the spaces which the player can move to.
-			plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition().getChoixCase(de, null, listJoueurs.get(qui)));
-			menu.menuDe().dispose();
-	
-			String chiffre = Integer.toString(de);
-			voix.playText(chiffre); 
-		}
 		
-		if (source.equals(menu.boutonTrue())) {
-			/*
-			 * if the player is in his own cabin, clicking the "true" button does the following:
-			 * transfer objects from bag, then show the menu for construction and for using objects.
-			 */
-			if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui).getCabane().getPosition()) {
-				menu.menuGeneral().dispose();
-				
-				Tool.viderSac(listJoueurs.get(qui)); //empty the player's bag
-
-				ArrayList<String> listBuildable = Tool.getBuildables(listJoueurs.get(qui));
-				//If something is buildable, show the menu for construction.
-				if (!listBuildable.isEmpty()) {
-					menu.afficheConstruction(listBuildable);	
-				} 
-				
-				//otherwise, if nothing is buildable, skip to the menu for using objects.
-				else {
-					menu.afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
-					
-				}
-				
-			/*
-			 * if the player is on a resource space, clicking the "true" button does the following:
-			 * recover the resource and add it to the player's bag, then show the menu for using objects. 
-			 */
-			} else {
-				menu.menuGeneral().dispose();
-				Objet r = Tool.recupRessource(listJoueurs.get(qui));
-				if (r != null && r instanceof Ressource) {
-					Tool.mettreRessource((Ressource) r, listJoueurs.get(qui));
-				}
-	
-				menu.afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
-			}
-			
-			infoJoueurs.get(qui).updateDisplay();
-		}
-	
-		/*
-		 * Check if the source is one of the buttons in the listButtonConstruire
-		 */
-		for(int i = 0; i < menu.listButtonConstruire().size();i++) {
-			if(source.equals(menu.listButtonConstruire().get(i))) {
-				//Construct the selected object
-				Tool.construire(menu.listButtonConstruire().get(i).getText(), listJoueurs.get(qui));
-	
-				menu.menuGeneral().dispose();
-				menu.listButtonConstruire().clear();
-				play();
-			}
-		}
-		
-		/*
-		 * Check if the source is one of the buttons in the listButtonEffet
-		 */
-		for(int i = 0; i < menu.listButtonEffet().size();i++) {
-			if(source.equals(menu.listButtonEffet().get(i))) {
-				menu.menuGeneral().dispose();
-				
-				Case positionAvantEffet = listJoueurs.get(qui).getPosition();
-				
-				//Use the selected object
-				ArrayList<ObjetEffet> l = Tool.recupObjetSpecial(listJoueurs.get(qui));
-				Tool.appliquerEffet(listJoueurs.get(qui), l.get(i));
-				
-				if(positionAvantEffet == listJoueurs.get(qui).getPosition()) {
-					play();
-				}
-				else {
-					// ICI IL FAUT DESELECTIONNER LA CASE PRECEDENTE
-					if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui).getCabane().getPosition()) {
-						menu.afficheRentreChezToi();
-						
-					} else {
-						menu.afficheRecupRessource();
-					}
-				}
-			}
-		}
-		
-		/*
-		 * When the player clicks on boutonFalseEffet in the menu for using objects
-		 */
-		if (source.equals(menu.boutonFalseEffet())) {
-			menu.menuGeneral().dispose();
-			play();
-		}
-		
-		/*
-		 * When the player clicks on the boutonFalse in the menu for Taking a resource or going into his cabin.
-		 */
-		if (source.equals(menu.boutonFalse())) {
-			menu.menuGeneral().dispose();
-			if(listJoueurs.get(qui).getSac().containsObjetEffet()) {
-				menu.afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
-			}
-			else {
-				play();
-			}
-		}
-	
 		if (source.getClass().getSimpleName().equals("IHMCase")) {
 			for (int i = 0; i < 57; i++) {
 				if (plateau.getCase(i).equals(source)) {
@@ -255,6 +139,125 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 					currentButton = i;
 					setFocusedButton(currentButton);
 					break;
+				}
+			}
+		}
+		
+		else {
+			menu.menuGeneral().dispose();
+			
+			/*
+			 * When the player clicks on boutonDe
+			 */
+			if (source.equals(menu.boutonDe())) { 
+				//throw the dice.
+				int de = Tool.lancerDe(listJoueurs.get(qui).getDeplacementMax()) + 1;
+				//highlight the spaces which the player can move to.
+				plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition().getChoixCase(de, null, listJoueurs.get(qui)));
+
+				String chiffre = Integer.toString(de);
+				voix.playText(chiffre); 
+			}
+
+			if (source.equals(menu.boutonTrue())) {
+				/*
+				 * if the player is in his own cabin, clicking the "true" button does the following:
+				 * transfer objects from bag, then show the menu for construction and for using objects.
+				 */
+				if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui).getCabane().getPosition()) {
+
+					Tool.viderSac(listJoueurs.get(qui)); //empty the player's bag
+
+					ArrayList<String> listBuildable = Tool.getBuildables(listJoueurs.get(qui));
+					//If something is buildable, show the menu for construction.
+					if (!listBuildable.isEmpty()) {
+						menu.afficheConstruction(listBuildable);	
+					} 
+
+					//otherwise, if nothing is buildable, skip to the menu for using objects.
+					else {
+						menu.afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
+
+					}
+					
+					infoJoueurs.get(qui).updateDisplay();
+				} 
+				
+				/*
+				 * if the player is on a resource space, clicking the "true" button does the following:
+				 * recover the resource and add it to the player's bag, then show the menu for using objects. 
+				 */
+				else {
+					Objet r = Tool.recupRessource(listJoueurs.get(qui));
+					if (r != null && r instanceof Ressource) {
+						Tool.mettreRessource((Ressource) r, listJoueurs.get(qui));
+					}
+
+					menu.afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
+				}
+				infoJoueurs.get(qui).updateDisplay();
+			}
+
+			/*
+			 * Check if the source is one of the buttons in the listButtonConstruire
+			 */
+			for(int i = 0; i < menu.listButtonConstruire().size();i++) {
+				if(source.equals(menu.listButtonConstruire().get(i))) {
+					//Construct the selected object
+					Tool.construire(menu.listButtonConstruire().get(i).getText(), listJoueurs.get(qui));
+
+					menu.listButtonConstruire().clear();
+					play();
+				}
+			}
+
+			/*
+			 * Check if the source is one of the buttons in the listButtonEffet
+			 */
+			for(int i = 0; i < menu.listButtonEffet().size();i++) {
+				if(source.equals(menu.listButtonEffet().get(i))) {
+
+					Case positionAvantEffet = listJoueurs.get(qui).getPosition();
+
+					//Use the selected object
+					ArrayList<ObjetEffet> l = Tool.recupObjetSpecial(listJoueurs.get(qui));
+					Tool.appliquerEffet(listJoueurs.get(qui), l.get(i));
+					
+					infoJoueurs.get(qui).updateDisplay();
+
+					if(positionAvantEffet == listJoueurs.get(qui).getPosition()) {
+						play();
+					}
+					
+					else {
+						// ICI IL FAUT DESELECTIONNER LA CASE PRECEDENTE
+						if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui).getCabane().getPosition()) {
+							menu.afficheRentreChezToi();
+
+						} else {
+							menu.afficheRecupRessource();
+						}
+					}
+					
+				}
+			}
+
+			/*
+			 * When the player clicks on boutonFalseEffet in the menu for using objects
+			 */
+			if (source.equals(menu.boutonFalseEffet())) {
+				play();
+			}
+
+			/*
+			 * When the player clicks on the boutonFalse in the menu for Taking a resource, construction or going into his cabin.
+			 */
+			if (source.equals(menu.boutonFalse())) {
+				if(listJoueurs.get(qui).getSac().containsObjetEffet()) {
+					menu.afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
+				}
+				else {
+					play();
 				}
 			}
 		}
