@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
+import Tool.Tool;
+
 import devintAPI.Preferences;
 import fonctionnement.objet.Joueur;
 import fonctionnement.objet.Objet;
@@ -23,6 +25,8 @@ public class IHMInfoJoueur extends JTextArea{
 	
 	private JTextPane inventaire = new JTextPane();
 	private JTextPane dansLaCabane = new JTextPane();
+	private JTextPane constructible = new JTextPane();
+	
 	private JTextPane nbBois = new JTextPane();
 	private JTextPane nbEau = new JTextPane();
 	private JTextPane nbLiane = new JTextPane();
@@ -35,6 +39,8 @@ public class IHMInfoJoueur extends JTextArea{
 	private JTextPane nbPierreCabane = new JTextPane();
 	private JTextPane nbNourritureCabane = new JTextPane();
 	
+	
+	
 	public IHMInfoJoueur(Joueur joueur) {
 		super(joueur.getNom());
 		this.joueur = joueur;
@@ -42,7 +48,7 @@ public class IHMInfoJoueur extends JTextArea{
 		Preferences pref = Preferences.getData();
 		setLayout(new GridBagLayout());
 		
-		Font font = new Font("Tahoma", 1, 28);
+		Font font = new Font("Tahoma", 1, 26);
 		setPreferredSize(new Dimension(320, 410));
 		setBackground(pref.getCurrentBackgroundColor());
 		setForeground(pref.getCurrentForegroundColor());
@@ -52,8 +58,7 @@ public class IHMInfoJoueur extends JTextArea{
 		setOpaque(true);
 		
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-
-
+		
 		inventaire.setFont(font);
 		inventaire.setText("Inventaire (0/4)");
 		gridBagConstraints.gridx = 0;
@@ -70,6 +75,20 @@ public class IHMInfoJoueur extends JTextArea{
 		gridBagConstraints.gridy = 3;
 		gridBagConstraints.gridwidth = 5;
 		this.add(dansLaCabane, gridBagConstraints);
+		
+		JTextPane constructibleLabel = new JTextPane();
+		constructibleLabel.setFont(font);
+		constructibleLabel.setText("Constructible :");
+		gridBagConstraints.gridy = 6;
+		gridBagConstraints.gridwidth = 5;
+		this.add(constructibleLabel, gridBagConstraints);
+		
+		constructible.setFont(font);
+		constructible.setText("Constructible :");
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 7;
+		gridBagConstraints.gridwidth = 5;
+		this.add(constructible, gridBagConstraints);
 		
 		
 		updateDisplay();
@@ -126,10 +145,16 @@ public class IHMInfoJoueur extends JTextArea{
 		nbLianeCabane.setText(" "+String.valueOf(lianeC));
 		nbPierreCabane.setText(" "+String.valueOf(pierreC));
 		nbNourritureCabane.setText(" "+String.valueOf(nourritureC));
+		
+		String buildable = "";
+		for (String s : Tool.getBuildables(joueur)) {
+			buildable += " "+s;
+		}
+		
+		constructible.setText(buildable);
 	}
 	
 	private void inventoryIcons(int gridy) {
-		Font font = new Font("Tahoma", 1, 28);
 		Dimension preferredSize = new Dimension(55, 55);
 		
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -159,13 +184,11 @@ public class IHMInfoJoueur extends JTextArea{
 		gridBagConstraints.gridx = 4;
 		gridBagConstraints.gridy = gridy;
 		this.add(new JLabel(new ImageIcon("../ressources/images//icons/nourriture.JPG"), JLabel.CENTER), gridBagConstraints);
-		
-		
 	}
 	
 	private void displayInventoryNumbers(int gridy) {
-		Font font = new Font("Tahoma", 1, 28);
-		Dimension preferredSize = new Dimension(55, 55);
+		Font font = new Font("Tahoma", 1, 26);
+		Dimension preferredSize = new Dimension(35, 35);
 		
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.anchor = gridBagConstraints.NORTHWEST;
@@ -202,11 +225,11 @@ public class IHMInfoJoueur extends JTextArea{
 	}
 	
 	private void displayCabinNumbers(int gridy) {
-		Font font = new Font("Tahoma", 1, 28);
-		Dimension preferredSize = new Dimension(55, 55);
+		Font font = new Font("Tahoma", 1, 26);
+		Dimension preferredSize = new Dimension(35, 35);
 		
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.anchor = gridBagConstraints.NORTHWEST;
+		gridBagConstraints.anchor = GridBagConstraints.LINE_START;
 		
 		nbBoisCabane.setFont(font);
 		nbBoisCabane.setPreferredSize(preferredSize);
