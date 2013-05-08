@@ -39,7 +39,7 @@ public class IHMInfoJoueur extends JTextArea{
 		setPreferredSize(new Dimension(320, 410));
 		setBackground(pref.getCurrentBackgroundColor());
 		setForeground(pref.getCurrentForegroundColor());
-		setFont(new Font("Tahoma", 1, 56));
+		setFont(new Font("Tahoma", 1, 36));
 
 		setBorder(BorderFactory.createLineBorder(Color.YELLOW));
 
@@ -50,8 +50,20 @@ public class IHMInfoJoueur extends JTextArea{
 	public void updateDisplay() {
 		this.setText(joueur.getNom());
 		
-		for(int i=0; i<joueur.getSac().getStock().size(); i++) {
-			this.append("\n" + joueur.getSac().getStock().get(i));
+		if(joueur.getSac().getStock().size() > 0) {
+			this.append("\nInventaire :");
+			
+			for(int i=0; i<joueur.getSac().getStock().size(); i++) {
+				this.append("\n" + joueur.getSac().getStock().get(i));
+			}
+		}
+		
+		if(joueur.getCabane().getStock().getStock().size() > 0) {
+			this.append("\nInventaire :");
+			
+			for(int i=0; i<joueur.getCabane().getStock().getStock().size(); i++) {
+				this.append("\n" + joueur.getCabane().getStock().getStock().get(i));
+			}
 		}
 	}
 }

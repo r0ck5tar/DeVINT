@@ -1,6 +1,5 @@
 package ihm;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Tool.Tool;
@@ -17,8 +16,6 @@ import fonctionnement.objet.Ressource;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -614,7 +611,13 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 			setCaseJoueur();
 		}
 	}
-	
+	  
+
+	/*
+	 * Fonctions qui renvoient les sons d'accueil et d'aide. Pour plus
+	 * d'informations, regarder la classe DevintFrameListener (dans le package
+	 * devintAPI)
+	 */
 
 	@Override
 	protected String wavAccueil() { // renvoie le fichier wave contenant le
