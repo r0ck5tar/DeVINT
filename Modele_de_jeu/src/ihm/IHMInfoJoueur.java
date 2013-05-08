@@ -51,7 +51,7 @@ public class IHMInfoJoueur extends JTextArea{
 		this.setText(joueur.getNom());
 		
 		if(joueur.getSac().getStock().size() > 0) {
-			this.append("\nInventaire :");
+			this.append("\n\nInventaire :");
 			
 			for(int i=0; i<joueur.getSac().getStock().size(); i++) {
 				this.append("\n" + joueur.getSac().getStock().get(i));
@@ -59,7 +59,7 @@ public class IHMInfoJoueur extends JTextArea{
 		}
 		
 		if(joueur.getCabane().getStock().getStock().size() > 0) {
-			this.append("\nDans la cabane :");
+			this.append("\n\nDans la cabane :");
 			
 			for(int i=0; i<joueur.getCabane().getStock().getStock().size(); i++) {
 				this.append("\n" + joueur.getCabane().getStock().getStock().get(i));

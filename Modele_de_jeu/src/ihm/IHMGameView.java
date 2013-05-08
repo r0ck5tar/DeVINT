@@ -449,18 +449,23 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		case KeyEvent.VK_SPACE:
 			// change position to the selected case if it's accessible.
 			if (plateau.getIndiceCaseAccessibles().contains(currentButton)) {
-				plateau.getCaseAtIndex(listJoueurs.get(qui).getPosition())
-						.setCouleurCaseNormale();
-				listJoueurs.get(qui).setPosition(
-						plateauJeu.getCase(currentButton));
+				plateau.getCaseAtIndex(listJoueurs.get(qui).getPosition()).setCouleurCaseNormale();
+				listJoueurs.get(qui).setPosition(plateauJeu.getCase(currentButton));
 				setCaseJoueur();
 				plateau.masquerChoixDeplacement(currentButton);
+				
+				System.out.println("pos:"+ listJoueurs.get(qui).getPosition().getNom());
 
 				if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
 						.getCabane().getPosition()) {
 					rentreChezToi();
-				} else {
+				} 
+				
+				else if (!listJoueurs.get(qui).getPosition().getNom().equals("home")) {
 					recupRessource();
+				}
+				else {
+					afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
 				}
 			}
 			break;
