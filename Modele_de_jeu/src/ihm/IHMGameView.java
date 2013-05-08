@@ -34,7 +34,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	private Game game;
 	private Plateau plateauJeu;
 
-	private JButton boutonDe;
 	private JButton boutonTrue;
 	private JButton boutonFalse;
 	private JButton boutonFalseConstruire;
@@ -47,12 +46,12 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	private ArrayList<Joueur> listJoueurs;
 	private Map<Joueur, Color> couleursJoueurs;
 	
-	JDialog menuDe;
-	JDialog menuRessource;
+	private JDialog menuGeneral;
+	private IHMMenu menu;
 
-	JPanel infoJoueurGauche;
-	JPanel infoJoueurDroite;
-	ArrayList<IHMInfoJoueur> infoJoueurs;
+	private JPanel infoJoueurGauche;
+	private JPanel infoJoueurDroite;
+	private ArrayList<IHMInfoJoueur> infoJoueurs;
 
 	private int currentButton = 5;
 	private int qui;
@@ -64,6 +63,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	public IHMGameView(String title, Game game) {
 		super(title);
 		this.game = game;
+		menu = new IHMMenu(voix, this);
 		listJoueurs = game.getJoueurs();
 		listButtonConstruire = new ArrayList<JButton>();
 		listButtonEffet = new ArrayList<JButton>();
@@ -124,6 +124,23 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		this.add(infoJoueurGauche);
 	}
 
+	private void initializePlayerPositions() {
+		ArrayList<Integer> positionJouers = new ArrayList<Integer>();
+		positionJouers.add(5);
+		positionJouers.add(35);
+		positionJouers.add(16);
+		positionJouers.add(26);
+		for (int i = 0; i < listJoueurs.size(); i++) {
+			listJoueurs.get(i).setPosition(
+					game.getPlateau().getCase(positionJouers.get(i)));
+		}
+		for (int i = 0; i < listJoueurs.size(); i++) {
+			listJoueurs.get(i).getCabane()
+					.setPosition(listJoueurs.get(i).getPosition());
+		}
+		setCaseJoueur();
+	}
+	
 	/*
 	 * Fonctions permettant de gï¿½rer les ï¿½vï¿½nements et les actions
 	 */
@@ -132,18 +149,18 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	// des ï¿½vï¿½nements
 	public void actionPerformed(ActionEvent ae) {
 		voix.stop(); // toujours stopper la voix avant de parler
-
+	
 		Object source = ae.getSource(); // on rï¿½cupï¿½re la source de
 										// l'ï¿½vï¿½nement
-
-		if (source.equals(boutonDe)) { // si c'est le bouton "question" on lit
+	
+		if (source.equals(menu.boutonDe())) { // si c'est le bouton "question" on lit
 										// la question
-
+	
 			int de = Tool.lancerDe(listJoueurs.get(qui).getDeplacementMax()) + 1;
 			plateau.afficheChoixDeplacement(listJoueurs.get(qui).getPosition()
 					.getChoixCase(de, null, listJoueurs.get(qui)));
-			menuDe.dispose();
-
+			menu.menuDe().dispose();
+	
 			String text = Integer.toString(de);
 			voix.playText(text); // le contenu des questions est variable donc
 									// on les lit avec SI_VOX
@@ -153,7 +170,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		if (source.equals(boutonTrue)) {
 			if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
 					.getCabane().getPosition()) {
-				menuRessource.dispose();
+				menuGeneral.dispose();
 				System.out
 						.println("Votre inventaire de la cabane avant transfert\n : "
 								+ listJoueurs.get(qui).getCabane().getStock()
@@ -174,7 +191,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 					afficheConstruction(listBuildable);
 				}
 			} else {
-				menuRessource.dispose();
+				menuGeneral.dispose();
 				Objet r = Tool.recupRessource(listJoueurs.get(qui));
 				if (r != null && r instanceof Ressource) {
 					Tool.mettreRessource((Ressource) r, listJoueurs.get(qui));
@@ -182,28 +199,28 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 					System.out.println("Votre inventaire \n : "
 							+ listJoueurs.get(qui).getSac().getStock());
 				}
-
+	
 				afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
 			}
 			
 			infoJoueurs.get(qui).updateDisplay();
 		}
-
+	
 		for(int i = 0; i < listButtonConstruire.size();i++) {
 			if(source.equals(listButtonConstruire.get(i))) {
 				//METTRE IHM INFOJOUEUR
 				Tool.construire(listButtonConstruire.get(i).getText(), listJoueurs.get(qui));
-
-				menuRessource.dispose();
+	
+				menuGeneral.dispose();
 				listButtonConstruire.clear();
 				play();
 			}
 		}
-
+	
 		for(int i = 0; i < listButtonEffet.size();i++) {
 			if(source.equals(listButtonEffet.get(i))) {
 				//METTRE IHM INFOJOUEUR
-				menuRessource.dispose();
+				menuGeneral.dispose();
 				
 				Case positionAvantEffet = listJoueurs.get(qui).getPosition();
 				
@@ -217,22 +234,22 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 					// ICI IL FAUT DESELECTIONNER LA CASE PRECEDENTE
 					if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
 							.getCabane().getPosition()) {
-						rentreChezToi();
+						afficheRentreChezToi();
 						
 					} else {
-						recupRessource();
+						afficheRecupRessource();
 					}
 				}
 			}
 		}
 		
 		if (source.equals(boutonFalse)) {
-			menuRessource.dispose();
+			menuGeneral.dispose();
 			play();
 		}
 		
 		if (source.equals(boutonFalseConstruire) || source.equals(boutonFalseRessource)) {
-			menuRessource.dispose();
+			menuGeneral.dispose();
 			if(listJoueurs.get(qui).getSac().containsObjetEffet()) {
 				afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
 			}
@@ -240,7 +257,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 				play();
 			}
 		}
-
+	
 		if (source.getClass().getSimpleName().equals("IHMCase")) {
 			for (int i = 0; i < 57; i++) {
 				if (plateau.getCase(i).equals(source)) {
@@ -251,21 +268,54 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 				}
 			}
 		}
-
+	
 		this.requestFocus(); // on redonne le focus au JFrame principal (aprï¿½s
 								// un clic, le focus est sur le bouton)
 	}
 
+	public void play() {
+		qui++;
+		if (qui > 3) {
+			qui = 0;
+		}
+		
+		unFocusedButton(currentButton);
+		currentButton = plateau.getIndexOfCase(listJoueurs.get(qui)
+				.getPosition());
+		shiftFocusedButton(currentButton);
+		menu.lancerDe(qui);
+	}
+
+	private void afficheRecupRessource() {
+	
+		menuGeneral = new JDialog(this, "Recupere ressource !");
+		menuGeneral.setLayout(new BorderLayout());
+		menuGeneral.setSize(350, 100);
+	
+		boutonTrue = new JButton("Oui je recupere");
+		boutonTrue.setVisible(true);
+		boutonTrue.addActionListener(this);
+	
+		boutonFalseRessource = new JButton("Non je ne veux pas");
+		boutonFalseRessource.setVisible(true);
+		boutonFalseRessource.addActionListener(this);
+	
+		menuGeneral.add(boutonTrue, BorderLayout.WEST);
+		menuGeneral.add(boutonFalseRessource, BorderLayout.EAST);
+		menuGeneral.setVisible(true);
+	
+	}
+
 	private void afficheConstruction(ArrayList<String> listBuildable) {
 		int nbConstructible = listBuildable.size();
-		menuRessource = new JDialog(this, "Que voulez vous construire ?");
-		menuRessource.setLayout(new GridBagLayout());
+		menuGeneral = new JDialog(this, "Que voulez vous construire ?");
+		menuGeneral.setLayout(new GridBagLayout());
 		GridBagConstraints buttonPos = new GridBagConstraints();
 		buttonPos.fill = GridBagConstraints.BOTH;
 		buttonPos.gridwidth = 1;
 		buttonPos.gridheight = 1;
 		buttonPos.gridy = 0;
-		menuRessource.setSize(350, 100);
+		menuGeneral.setSize(350, 100);
 		
 		for(int i = 0 ; i < nbConstructible; i++) {
 			buttonPos.gridx = i;
@@ -274,13 +324,13 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 			listButtonConstruire.get(i).addActionListener(this);
 			
 			
-			menuRessource.add(listButtonConstruire.get(i), buttonPos);
+			menuGeneral.add(listButtonConstruire.get(i), buttonPos);
 		}
 		
 		buttonPos.gridx = buttonPos.gridx+1; 
-		menuRessource.add(boutonFalseConstruire, buttonPos);
-		menuRessource.setVisible(true);
-		menuRessource.requestFocus();
+		menuGeneral.add(boutonFalseConstruire, buttonPos);
+		menuGeneral.setVisible(true);
+		menuGeneral.requestFocus();
 
 	}
 
@@ -291,14 +341,14 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	private void afficheObjetEffet(ArrayList<ObjetEffet> listObjet) {
 		int nbObjetEffet = listObjet.size();
 		System.out.println("TEST GROSSE PUTE");
-		menuRessource = new JDialog(this,"Quel objet a effet voulez vous utiliser?");
-		menuRessource.setLayout(new GridBagLayout());
+		menuGeneral = new JDialog(this,"Quel objet a effet voulez vous utiliser?");
+		menuGeneral.setLayout(new GridBagLayout());
 		GridBagConstraints buttonPos = new GridBagConstraints();
 		buttonPos.fill = GridBagConstraints.BOTH;
 		buttonPos.gridwidth = 1;
 		buttonPos.gridheight = 1;
 		buttonPos.gridy = 0;
-		menuRessource.setSize(350, 100);
+		menuGeneral.setSize(350, 100);
 
 		listButtonEffet = new ArrayList<JButton>();
 
@@ -308,112 +358,21 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 			listButtonEffet.get(i).setVisible(true);
 			listButtonEffet.get(i).addActionListener(this);
 
-			menuRessource.add(listButtonEffet.get(i), buttonPos);
+			menuGeneral.add(listButtonEffet.get(i), buttonPos);
 		}
 		System.out.println("TEST GROSSE PUTE DEUX");
 		buttonPos.gridx = buttonPos.gridx+1; 
 		boutonFalse = new JButton("Non je ne veux pas");
 		boutonFalse.setVisible(true);
 		boutonFalse.addActionListener(this);
-		menuRessource.add(boutonFalse, buttonPos);
-		menuRessource.setVisible(true);
+		menuGeneral.add(boutonFalse, buttonPos);
+		menuGeneral.setVisible(true);
 	}
 
-	public void deroulementTotalJeu() {
-
-		qui++;
-		if (qui > 3) {
-			qui = 0;
-		}
-		deplacement(qui);
-		/*
-		 * if(this.recupRessource){ Tool.recupR }
-		 */
-	}
-
-	public void play() {
-		qui++;
-		if (qui > 3) {
-			qui = 0;
-		}
-		deplacement(qui);
-	}
-
-	public void initializePlayerPositions() {
-		ArrayList<Integer> positionJouers = new ArrayList<Integer>();
-		positionJouers.add(5);
-		positionJouers.add(35);
-		positionJouers.add(16);
-		positionJouers.add(26);
-		for (int i = 0; i < listJoueurs.size(); i++) {
-			listJoueurs.get(i).setPosition(
-					game.getPlateau().getCase(positionJouers.get(i)));
-		}
-		for (int i = 0; i < listJoueurs.size(); i++) {
-			listJoueurs.get(i).getCabane()
-					.setPosition(listJoueurs.get(i).getPosition());
-		}
-		setCaseJoueur();
-	}
-
-	public void deplacement(int qui) {
-		unFocusedButton(currentButton);
-		currentButton = plateau.getIndexOfCase(listJoueurs.get(qui)
-				.getPosition());
-		shiftFocusedButton(currentButton);
-		lancerDe(qui);
-	}
-
-	public void lancerDe(int qui) {
-		voix.playShortText("joueur" + (qui + 1) + ", lance le dé");
-		menuDe = new JDialog(this, "lancer le dé");
-		menuDe.setLayout(new BorderLayout());
-		menuDe.setSize(200, 100);
-		switch (qui) {
-		case 0:
-			menuDe.setLocation(570, 220);
-			break;
-		case 1:
-			menuDe.setLocation(570, 620);
-			break;
-		case 2:
-			menuDe.setLocation(870, 220);
-			break;
-		case 3:
-			menuDe.setLocation(870, 620);
-			break;
-		}
-		boutonDe = new JButton("lancer le dé");
-		boutonDe.setVisible(true);
-		boutonDe.addActionListener(this);
-		menuDe.add(boutonDe);
-		menuDe.setVisible(true);
-	}
-
-	public void recupRessource() {
-
-		menuRessource = new JDialog(this, "Recupere ressource !");
-		menuRessource.setLayout(new BorderLayout());
-		menuRessource.setSize(350, 100);
-
-		boutonTrue = new JButton("Oui je recupere");
-		boutonTrue.setVisible(true);
-		boutonTrue.addActionListener(this);
-
-		boutonFalseRessource = new JButton("Non je ne veux pas");
-		boutonFalseRessource.setVisible(true);
-		boutonFalseRessource.addActionListener(this);
-
-		menuRessource.add(boutonTrue, BorderLayout.WEST);
-		menuRessource.add(boutonFalseRessource, BorderLayout.EAST);
-		menuRessource.setVisible(true);
-
-	}
-
-	public void rentreChezToi() {
-		menuRessource = new JDialog(this, "Te voilà chez toi !");
-		menuRessource.setLayout(new BorderLayout());
-		menuRessource.setSize(350, 100);
+	public void afficheRentreChezToi() {
+		menuGeneral = new JDialog(this, "Te voilà chez toi !");
+		menuGeneral.setLayout(new BorderLayout());
+		menuGeneral.setSize(350, 100);
 
 		boutonTrue = new JButton("Oui je rentre");
 		boutonTrue.setVisible(true);
@@ -423,9 +382,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		boutonFalseConstruire.setVisible(true);
 		boutonFalseConstruire.addActionListener(this);
 
-		menuRessource.add(boutonTrue, BorderLayout.WEST);
-		menuRessource.add(boutonFalseConstruire, BorderLayout.EAST);
-		menuRessource.setVisible(true);
+		menuGeneral.add(boutonTrue, BorderLayout.WEST);
+		menuGeneral.add(boutonFalseConstruire, BorderLayout.EAST);
+		menuGeneral.setVisible(true);
 
 	}
 
@@ -458,11 +417,11 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 
 				if (listJoueurs.get(qui).getPosition() == listJoueurs.get(qui)
 						.getCabane().getPosition()) {
-					rentreChezToi();
+					afficheRentreChezToi();
 				} 
 				
 				else if (!listJoueurs.get(qui).getPosition().getNom().equals("home")) {
-					recupRessource();
+					afficheRecupRessource();
 				}
 				else {
 					afficheObjetEffet(Tool.recupObjetSpecial(listJoueurs.get(qui)));
