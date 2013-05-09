@@ -1,6 +1,7 @@
 package ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -96,7 +97,7 @@ public class IHMMenu {
 		buttonPos.gridwidth = 1;
 		buttonPos.gridheight = 1;
 		buttonPos.gridy = 0;
-		menuGeneral.setSize(350, 110 * (nbConstructible+1));
+		menuGeneral.setSize(350, 110 +(nbConstructible*50));
 		
 		for(int i = 0 ; i < nbConstructible; i++) {
 			buttonPos.gridy = i;
@@ -121,20 +122,22 @@ public class IHMMenu {
 		voix.playShortText("Te voilà chez toi !");
 		menuGeneral = new JDialog(parent, "Te voilà chez toi!");
 		menuGeneral.setLayout(new BorderLayout());
-		menuGeneral.setSize(350, 220);
+		menuGeneral.setSize(330, 140);
 
 		boutonTrue = new JButton("Oui je rentre");
 		boutonTrue.setFont(font);
+		boutonTrue.setPreferredSize(new Dimension(330, 50));
 		boutonTrue.setVisible(true);
 		boutonTrue.addActionListener((ActionListener) parent);
 
 		boutonFalse = new JButton("Non je ne rentre pas");
 		boutonFalse.setFont(font);
 		boutonFalse.setVisible(true);
+		boutonFalse.setPreferredSize(new Dimension(330, 50));
 		boutonFalse.addActionListener((ActionListener) parent);
 
-		menuGeneral.add(boutonTrue, BorderLayout.WEST);
-		menuGeneral.add(boutonFalse, BorderLayout.EAST);
+		menuGeneral.add(boutonTrue, BorderLayout.NORTH);
+		menuGeneral.add(boutonFalse, BorderLayout.SOUTH);
 		menuGeneral.setVisible(true);
 	}
 	

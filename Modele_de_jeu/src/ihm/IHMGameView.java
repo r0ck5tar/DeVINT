@@ -232,9 +232,10 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 				if(source.equals(menu.listButtonConstruire().get(i))) {
 					//Construct the selected object
 					Tool.construire(menu.listButtonConstruire().get(i).getText(), listJoueurs.get(qui));
-
-					menu.listButtonConstruire().clear();
+				
 					infoJoueurs.get(qui).updateDisplay();
+					plateau.getCabane(qui).updateCabane(menu.listButtonConstruire().get(i).getText());
+					menu.listButtonConstruire().clear();
 					play();
 				}
 			}

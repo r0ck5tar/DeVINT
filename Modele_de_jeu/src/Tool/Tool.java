@@ -88,13 +88,11 @@ public class Tool {
 
 	public static ArrayList<String> getBuildables(Joueur j) {
 		ArrayList<String> buildableThings = new ArrayList<String>();
-		System.out.println("TESTgetBuildable");
 		if (j.getCabane().isBuildableAtelier()){
 			buildableThings.add("atelier");
 		}
 		
 		if (j.getCabane().isBuildableFilet()){
-			System.out.println("TESTgetBuildableFILET");
 			buildableThings.add("filet");
 		}
 		
@@ -103,11 +101,9 @@ public class Tool {
 		}
 		
 		if (j.getCabane().isBuildableToit()){
-			System.out.println("TESTgetBuildableTOIT");
 			buildableThings.add("toit");
 		}
 		if (j.getCabane().isBuildableTonneau()){
-			System.out.println("TESTgetBuildableTONNEAU");
 			buildableThings.add("tonneau");
 		}
 		

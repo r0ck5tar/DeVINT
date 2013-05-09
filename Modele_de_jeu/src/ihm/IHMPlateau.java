@@ -93,8 +93,9 @@ public class IHMPlateau extends JPanel{
 	
 	private void initialiseCabanes(GridBagConstraints cabanePos) {
 		
-		for(int i=0; i<4; i++) {
-			cabanes[i] = new IHMCabane(listCabanes.get(i), parent);
+		for(int i=0; i<4; i+=2) {
+			cabanes[i] = new IHMCabane(listCabanes.get(i), "horizontal", parent);
+			cabanes[i+1] = new IHMCabane(listCabanes.get(i+1), "vertical", parent);
 		}
 		
 		/*
