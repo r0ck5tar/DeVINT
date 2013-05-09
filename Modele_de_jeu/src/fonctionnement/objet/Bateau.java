@@ -35,15 +35,19 @@ public class Bateau {
 	public boolean isVoile() { return this.voile;}
 	
 	public boolean isBuildableCoque() {
-		return (!this.coque && this.cabane.getStock().contains(TypeRessource.BOIS,3) && this.cabane.getStock().contains(TypeRessource.LIANE,1));
+		return (!this.coque && (this.cabane.getStock().getQuantity(TypeRessource.BOIS) + cabane.getJoueur().getSac().getQuantity(TypeRessource.BOIS) >=3)
+				&& this.cabane.getStock().getQuantity(TypeRessource.LIANE) + cabane.getJoueur().getSac().getQuantity(TypeRessource.LIANE) >=1);
 	}
 	
 	public boolean isBuildableMat() {
-		return (!this.mat && this.cabane.getStock().contains(TypeRessource.BOIS,1) && this.cabane.getStock().contains(TypeRessource.LIANE,3));
+		return (!this.mat && (this.cabane.getStock().getQuantity(TypeRessource.BOIS) + cabane.getJoueur().getSac().getQuantity(TypeRessource.BOIS) >=1) 
+				&& (this.cabane.getStock().getQuantity(TypeRessource.LIANE) + cabane.getJoueur().getSac().getQuantity(TypeRessource.LIANE) >=3));
 	}
 	
 	public boolean isBuildableGouvernail() {
-		return (!this.gouvernail && this.cabane.getStock().contains(TypeRessource.PIERRE,3) && this.cabane.getStock().contains(TypeRessource.BOIS,1)&& this.cabane.getStock().contains(TypeRessource.LIANE,1));
+		return (!this.gouvernail && (this.cabane.getStock().getQuantity(TypeRessource.PIERRE) + cabane.getJoueur().getSac().getQuantity(TypeRessource.PIERRE) >=3) 
+				&& (this.cabane.getStock().getQuantity(TypeRessource.BOIS) +cabane.getJoueur().getSac().getQuantity(TypeRessource.BOIS) >=1)
+				&& (this.cabane.getStock().getQuantity(TypeRessource.LIANE) + cabane.getJoueur().getSac().getQuantity(TypeRessource.LIANE) >=1 ));
 	}
 	
 	public boolean isBuildableVoile() {
@@ -53,28 +57,52 @@ public class Bateau {
 	public void construireCoque() {
 		this.coque = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.cabane.getStock().remove(TypeRessource.BOIS,3);
-		this.cabane.getStock().remove(TypeRessource.LIANE,1);
+		int nbBoisInStock = this.cabane.getStock().getQuantity(TypeRessource.BOIS);
+		if(nbBoisInStock<3){
+			this.cabane.getStock().remove(TypeRessource.BOIS,nbBoisInStock);
+			this.cabane.getJoueur().getSac().remove(TypeRessource.BOIS, 3-nbBoisInStock);
+		}
+		else if(nbBoisInStock >= 3) {this.cabane.getStock().remove(TypeRessource.BOIS,3);}
+		
+		if(this.cabane.getStock().getQuantity(TypeRessource.LIANE) >=1) {this.cabane.getStock().remove(TypeRessource.LIANE,1);}
+		else {this.cabane.getJoueur().getSac().remove(TypeRessource.LIANE, 1);}
 	}
 	
 	public void construireMat() {
 		this.coque = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.cabane.getStock().remove(TypeRessource.BOIS,1);
-		this.cabane.getStock().remove(TypeRessource.LIANE,3);
+		if(this.cabane.getStock().getQuantity(TypeRessource.BOIS) >=1) {this.cabane.getStock().remove(TypeRessource.BOIS,1);}
+		else {this.cabane.getJoueur().getSac().remove(TypeRessource.BOIS, 1);}
+		
+		int nbLianeInStock = this.cabane.getStock().getQuantity(TypeRessource.LIANE);
+		if(nbLianeInStock <3) {
+			this.cabane.getStock().remove(TypeRessource.LIANE,nbLianeInStock);
+			this.cabane.getJoueur().getSac().remove(TypeRessource.LIANE, 3-nbLianeInStock);
+		}
+		else if(nbLianeInStock >=3) {this.cabane.getStock().remove(TypeRessource.LIANE,3);} 
 	}
 	
 	public void construireGouvernail() {
 		this.coque = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.cabane.getStock().remove(TypeRessource.PIERRE,3);
-		this.cabane.getStock().remove(TypeRessource.BOIS,1);
-		this.cabane.getStock().remove(TypeRessource.LIANE,1);
+		int nbPierreInStock = this.cabane.getStock().getQuantity(TypeRessource.PIERRE);
+		if(nbPierreInStock <3) {
+			this.cabane.getStock().remove(TypeRessource.PIERRE,nbPierreInStock);
+			this.cabane.getJoueur().getSac().remove(TypeRessource.PIERRE, 3-nbPierreInStock);
+		}
+		else if(nbPierreInStock >=3) {this.cabane.getStock().remove(TypeRessource.PIERRE,3);} 
+		
+		if(this.cabane.getStock().getQuantity(TypeRessource.BOIS) >=1) {this.cabane.getStock().remove(TypeRessource.BOIS,1);}
+		else {this.cabane.getJoueur().getSac().remove(TypeRessource.BOIS, 1);}
+		
+		if(this.cabane.getStock().getQuantity(TypeRessource.LIANE) >=1) {this.cabane.getStock().remove(TypeRessource.LIANE,1);}
+		else {this.cabane.getJoueur().getSac().remove(TypeRessource.LIANE, 1);}
 	}
 	
 	public void construireVoile() {
 		this.coque = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.cabane.getStock().remove(TypeRessource.VOILE,1);
+		if(this.cabane.getStock().getQuantity(TypeRessource.VOILE) >=1) {this.cabane.getStock().remove(TypeRessource.VOILE,1);}
+		else {this.cabane.getJoueur().getSac().remove(TypeRessource.VOILE, 1);}
 	}
 }

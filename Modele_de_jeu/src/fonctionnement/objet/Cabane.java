@@ -91,8 +91,11 @@ public class Cabane {
 		this.tonneau = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
 		int nbBoisInStock = this.stock.getQuantity(TypeRessource.BOIS);
-		if(nbBoisInStock >=1) {this.stock.remove(TypeRessource.BOIS,nbBoisInStock);}
-		if(nbBoisInStock <2) {joueur.getSac().remove(TypeRessource.BOIS, 2-nbBoisInStock);}
+		if(nbBoisInStock <2) {
+			this.stock.remove(TypeRessource.BOIS,nbBoisInStock);
+			joueur.getSac().remove(TypeRessource.BOIS, 2-nbBoisInStock);
+		}
+		else if(nbBoisInStock >=2) {this.stock.remove(TypeRessource.BOIS,2);}
 		
 		if(this.stock.getQuantity(TypeRessource.EAU) >=1) {this.stock.remove(TypeRessource.EAU,1);}
 		else {joueur.getSac().remove(TypeRessource.EAU, 1);}
@@ -109,8 +112,11 @@ public class Cabane {
 		this.atelier = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
 		int nbPierreInStock = this.stock.getQuantity(TypeRessource.PIERRE);
-		if(nbPierreInStock >=1) {this.stock.remove(TypeRessource.PIERRE,nbPierreInStock);}
-		if(nbPierreInStock <2) {joueur.getSac().remove(TypeRessource.PIERRE, 2-nbPierreInStock);}
+		if(nbPierreInStock <2) {
+			this.stock.remove(TypeRessource.PIERRE,nbPierreInStock);
+			joueur.getSac().remove(TypeRessource.PIERRE, 2-nbPierreInStock);
+			}
+		else if (nbPierreInStock >=2) {this.stock.remove(TypeRessource.PIERRE,2);}
 		
 		if(this.stock.getQuantity(TypeRessource.BOIS) >=1) {this.stock.remove(TypeRessource.BOIS,1);}
 		else {joueur.getSac().remove(TypeRessource.BOIS, 1);}
