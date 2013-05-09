@@ -1,12 +1,14 @@
 package fonctionnement.objet;
 
+
+
 public enum TypeRessource
 {
-    PIERRE("pierre"),
     BOIS("bois"),
     EAU("eau"),
-    NOURRITURE("nourriture"),
+    PIERRE("pierre"),
     LIANE("liane"),
+    NOURRITURE("nourriture"),
     VOILE("voile"),
     FILET("filet");
  

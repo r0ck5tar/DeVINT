@@ -20,6 +20,7 @@ import Tool.Tool;
 import devintAPI.Preferences;
 import fonctionnement.objet.Joueur;
 import fonctionnement.objet.Objet;
+import fonctionnement.objet.TypeRessource;
 
 
 public class IHMInfoJoueur extends JTextArea{
@@ -38,10 +39,23 @@ public class IHMInfoJoueur extends JTextArea{
 	private ArrayList<ImageIcon> icones = new ArrayList<ImageIcon>();
 	
 	public enum Objets {
-		BOIS, EAU, PIERRE, LIANE, NOURRITURE, LANCE, CATAPULTE, BOUSSOLE, SAC;
+		BOIS, EAU, PIERRE, LIANE, NOURRITURE, VOILE, FILET, LANCE, CATAPULTE, BOUSSOLE, SAC;
 		
-		public static String getName(int n) {
-			return values()[n].toString();
+		public static Objets atValue(int n) {
+			return values()[n];
+		}
+		
+		public TypeRessource toTypeRessource() {
+			switch(this) {
+			case BOIS: return TypeRessource.BOIS;
+			case EAU: return TypeRessource.EAU;
+			case PIERRE: return TypeRessource.PIERRE;
+			case LIANE: return TypeRessource.LIANE;
+			case NOURRITURE: return TypeRessource.NOURRITURE;
+			case VOILE: return TypeRessource.VOILE;
+			case FILET: return TypeRessource.FILET;
+			default: return null;
+			}
 		}
 	}
 	
@@ -245,5 +259,13 @@ public class IHMInfoJoueur extends JTextArea{
 	
 	public ArrayList<JButton> boutonCabane() {
 		return boutonCabane;
+	}
+	
+	public String nbRessourceSac(int i) {
+		return String.valueOf(joueur.getSac().getQuantity(Objets.atValue(i).toTypeRessource()));
+	}
+	
+	public String nbRessourceCabane(int i) {
+		return String.valueOf(joueur.getCabane().getStock().getQuantity(Objets.atValue(i).toTypeRessource()));
 	}
 }

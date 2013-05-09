@@ -140,15 +140,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	
 		Object source = ae.getSource(); // on recupere la source de l'evenement
 		
-		for(IHMInfoJoueur infoJ :infoJoueurs) {
-			for(int i=0; i<infoJ.boutonSac().size(); i++){
-				if(source.equals(infoJ.boutonSac().get(i))){
-					disposeMenuGeneral = false;
-					System.out.println(Objets.getName(i));
-				}
-			}
-		}
-		
 		if (source.getClass().getSimpleName().equals("IHMCase")) {
 			for (int i = 0; i < 57; i++) {
 				if (plateau.getCase(i).equals(source)) {
@@ -161,6 +152,25 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		}
 		
 		else {
+			for(IHMInfoJoueur infoJ :infoJoueurs) {
+				for(int i=0; i<infoJ.boutonSac().size(); i++){
+					if(source.equals(infoJ.boutonSac().get(i))){
+						disposeMenuGeneral = false;
+						System.out.println(Objets.atValue(i).toTypeRessource().getNom());
+						voix.playShortText(Objets.atValue(i).toTypeRessource().getNom() +"," + infoJ.nbRessourceSac(i));
+						break;
+					}
+					
+					if(source.equals(infoJ.boutonCabane().get(i))){
+						disposeMenuGeneral = false;
+						System.out.println(Objets.atValue(i).toTypeRessource().getNom());
+						voix.playShortText(Objets.atValue(i).toTypeRessource().getNom() +"," + infoJ.nbRessourceCabane(i));
+						break;
+					}
+				}
+			}
+			
+			
 			if(disposeMenuGeneral) {menu.menuGeneral().dispose();}
 			
 			/*
