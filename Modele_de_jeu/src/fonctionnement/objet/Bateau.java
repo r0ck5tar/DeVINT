@@ -46,12 +46,12 @@ public class Bateau {
 	
 	public boolean isBuildableGouvernail() {
 		return (!this.gouvernail && (this.cabane.getStock().getQuantity(TypeRessource.PIERRE) + cabane.getJoueur().getSac().getQuantity(TypeRessource.PIERRE) >=3) 
-				&& (this.cabane.getStock().getQuantity(TypeRessource.BOIS) +cabane.getJoueur().getSac().getQuantity(TypeRessource.BOIS) >=1)
+				&& (this.cabane.getStock().getQuantity(TypeRessource.BOIS) + cabane.getJoueur().getSac().getQuantity(TypeRessource.BOIS) >=1)
 				&& (this.cabane.getStock().getQuantity(TypeRessource.LIANE) + cabane.getJoueur().getSac().getQuantity(TypeRessource.LIANE) >=1 ));
 	}
 	
 	public boolean isBuildableVoile() {
-		return (!this.voile && this.cabane.getStock().contains(TypeRessource.VOILE,1));
+		return (!this.voile && this.cabane.getStock().getQuantity(TypeRessource.VOILE) + cabane.getJoueur().getSac().getQuantity(TypeRessource.VOILE) >=1);
 	}
 	
 	public void construireCoque() {
