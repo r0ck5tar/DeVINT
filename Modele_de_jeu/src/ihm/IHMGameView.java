@@ -9,6 +9,7 @@ import devintAPI.Preferences;
 import fonctionnement.environnement.Case;
 import fonctionnement.environnement.Plateau;
 import fonctionnement.jeu.Game;
+import fonctionnement.objet.Cabane;
 import fonctionnement.objet.Joueur;
 import fonctionnement.objet.Objet;
 import fonctionnement.objet.ObjetEffet;
@@ -81,11 +82,15 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		infoJoueurs = new ArrayList<IHMInfoJoueur>();
 
 		for (int i = 0; i < listJoueurs.size(); i++) {
-			infoJoueurs.add(new IHMInfoJoueur(listJoueurs.get(i)));
+			infoJoueurs.add(new IHMInfoJoueur(listJoueurs.get(i), this));
 		}
 
 		setLayout(new FlowLayout(FlowLayout.CENTER));
-		plateau = new IHMPlateau(plateauJeu, this);
+		ArrayList<Cabane> cabanes = new ArrayList<Cabane>();
+		for(int i=0; i<listJoueurs.size(); i++) {
+			cabanes.add(listJoueurs.get(i).getCabane());
+		}
+		plateau = new IHMPlateau(plateauJeu, cabanes, this);
 
 		infoJoueurGauche = new JPanel();
 		infoJoueurDroite = new JPanel();

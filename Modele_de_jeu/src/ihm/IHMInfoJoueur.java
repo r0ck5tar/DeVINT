@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -22,31 +24,33 @@ import fonctionnement.objet.Objet;
 
 public class IHMInfoJoueur extends JTextArea{
 	private Joueur joueur;
+	private ActionListener parent;
 	
 	private JTextPane inventaire = new JTextPane();
 	private JTextPane dansLaCabane = new JTextPane();
 	private JTextPane constructible = new JTextPane();
 	
-	private JTextPane nbBois = new JTextPane();
-	private JTextPane nbEau = new JTextPane();
-	private JTextPane nbLiane = new JTextPane();
-	private JTextPane nbPierre = new JTextPane();
-	private JTextPane nbNourriture = new JTextPane();
-	
-	private JTextPane nbBoisCabane = new JTextPane();
-	private JTextPane nbEauCabane = new JTextPane();
-	private JTextPane nbLianeCabane = new JTextPane();
-	private JTextPane nbPierreCabane = new JTextPane();
-	private JTextPane nbNourritureCabane = new JTextPane();
+	//0-bois 1-eau 2-pierre 3-liane 4-nourriture
+	private ArrayList<JTextPane> nbRessourceSac = new ArrayList<JTextPane>();
+	private ArrayList<JTextPane> nbRessourceCabane = new ArrayList<JTextPane>();
+	private ArrayList<JButton> boutonCabane = new ArrayList<JButton>();
+	private ArrayList<JButton> boutonSac = new ArrayList<JButton>();
+	private ArrayList<ImageIcon> icones = new ArrayList<ImageIcon>();
 	
 	
-	
-	public IHMInfoJoueur(Joueur joueur) {
+	public IHMInfoJoueur(Joueur joueur, ActionListener parent) {
 		super(joueur.getNom());
 		this.joueur = joueur;
+		this.parent = parent;
 
 		Preferences pref = Preferences.getData();
 		setLayout(new GridBagLayout());
+		
+		icones.add(new ImageIcon("../ressources/images//icons/bois.JPG"));
+		icones.add(new ImageIcon("../ressources/images//icons/eau.JPG"));
+		icones.add(new ImageIcon("../ressources/images//icons/pierre.JPG"));
+		icones.add(new ImageIcon("../ressources/images//icons/liane.JPG"));
+		icones.add(new ImageIcon("../ressources/images//icons/nourriture.JPG"));
 		
 		Font font = new Font("Tahoma", 1, 26);
 		setPreferredSize(new Dimension(320, 410));
@@ -60,7 +64,6 @@ public class IHMInfoJoueur extends JTextArea{
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		
 		inventaire.setFont(font);
-		inventaire.setText("Inventaire (0/4)");
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridwidth = 5;
@@ -70,7 +73,6 @@ public class IHMInfoJoueur extends JTextArea{
 		displayInventoryNumbers(1);
 		
 		dansLaCabane.setFont(font);
-		dansLaCabane.setText("Dans la cabane (0/4)");
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 3;
 		gridBagConstraints.gridwidth = 5;
@@ -84,7 +86,6 @@ public class IHMInfoJoueur extends JTextArea{
 		this.add(constructibleLabel, gridBagConstraints);
 		
 		constructible.setFont(font);
-		constructible.setText("Constructible :");
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 7;
 		gridBagConstraints.gridwidth = 5;
@@ -92,59 +93,64 @@ public class IHMInfoJoueur extends JTextArea{
 		
 		
 		updateDisplay();
-		inventoryIcons(4);
+		cabinIcons(4);
 		displayCabinNumbers(4);
 	}
 	
 	public void updateDisplay() {
 		
-		int bois =0, eau =0, liane =0, pierre = 0, nourriture = 0, lance = 0, boussole = 0, catapulte = 0, sac = 0;
-		int boisC =0, eauC =0, lianeC =0, pierreC = 0, nourritureC = 0, lanceC = 0, boussoleC = 0, catapulteC = 0, sacC = 0;
+		//0-bois 1-eau 2-pierre 3-liane 4-nourriture
+		ArrayList<Integer> quantitySac = new ArrayList<Integer>();
+		ArrayList<Integer> quantityCabane = new ArrayList<Integer>();
+		for(int i=0; i<9; i++) {
+			quantitySac.add(0);
+			quantityCabane.add(0);
+		}
 		
 		inventaire.setText("Inventaire ("+joueur.getSac().getStock().size()  +"/"
 				+joueur.getSac().getLimite()+")");
 		for(Objet objet : joueur.getSac().getStock()) {
+			//0-bois 1-eau 2-pierre 3-liane 4-nourriture
 			switch(objet.toString()) {
-			case "eau" : eau++; break;
-			case "bois" : bois++; break;
-			case "pierre" : pierre++; break;
-			case "nourriture" : nourriture++; break;
-			case "liane" : liane++; break;
-			case "lance" : lance++; break;
-			case "boussole" : boussole++; break;
-			case "catapulte" : catapulte++; break;
-			case "sac" : sac++; break;
+			case "bois" : quantitySac.set(0, quantitySac.get(0)+1); break;
+			case "eau" : quantitySac.set(1, quantitySac.get(1)+1); break;
+			case "pierre" : quantitySac.set(2, quantitySac.get(2)+1); break;
+			case "liane" : quantitySac.set(3, quantitySac.get(3)+1); break;
+			case "nourriture" : quantitySac.set(4, quantitySac.get(4)+1); break;
+			
+			case "lance" : quantitySac.set(5, quantitySac.get(5)+1); break;
+			case "boussole" : quantitySac.set(6, quantitySac.get(6)+1); break;
+			case "catapulte" : quantitySac.set(7, quantitySac.get(7)+1); break;
+			case "sac" : quantitySac.set(8, quantitySac.get(8)+1); break;
 			}
 		}
 		
-		nbBois.setText(" "+String.valueOf(bois));
-		nbEau.setText(" "+String.valueOf(eau));
-		nbLiane.setText(" "+String.valueOf(liane));
-		nbPierre.setText(" "+String.valueOf(pierre));
-		nbNourriture.setText(" "+String.valueOf(nourriture));
+		for(int i=0; i<5; i++) {
+			nbRessourceSac.get(i).setText(" "+String.valueOf(quantitySac.get(i)));
+		}
 		
 		
-		dansLaCabane.setText("DansLaCabane ("+joueur.getCabane().getStock().getStock().size() +"/"
+		dansLaCabane.setText("Dans la cabane ("+joueur.getCabane().getStock().getStock().size() +"/"
 							+joueur.getCabane().getStock().getNiveau()+")");
 		for(Objet objet : joueur.getCabane().getStock().getStock()) {
 			switch(objet.toString()) {
-			case "eau" : eauC++; break;
-			case "bois" : boisC++; break;
-			case "pierre" : pierreC++; break;
-			case "nourriture" : nourritureC++; break;
-			case "liane" : lianeC++; break;
-			case "lance" : lanceC++; break;
-			case "boussole" : boussoleC++; break;
-			case "catapulte" : catapulteC++; break;
-			case "sac" : sacC++; break;
+			case "bois" : quantityCabane.set(0, quantityCabane.get(0)+1); break;
+			case "eau" : quantityCabane.set(1, quantityCabane.get(1)+1); break;
+			case "pierre" : quantityCabane.set(2, quantityCabane.get(2)+1); break;
+			case "liane" : quantityCabane.set(3, quantityCabane.get(3)+1); break;
+			case "nourriture" : quantityCabane.set(4, quantityCabane.get(4)+1); break;
+			
+			case "lance" : quantityCabane.set(5, quantityCabane.get(5)+1); break;
+			case "boussole" : quantityCabane.set(6, quantityCabane.get(6)+1); break;
+			case "catapulte" : quantityCabane.set(7, quantityCabane.get(7)+1); break;
+			case "sac" : quantityCabane.set(8, quantityCabane.get(8)+1); break;
 			}
 		}
 		
-		nbBoisCabane.setText(" "+String.valueOf(boisC));
-		nbEauCabane.setText(" "+String.valueOf(eauC));
-		nbLianeCabane.setText(" "+String.valueOf(lianeC));
-		nbPierreCabane.setText(" "+String.valueOf(pierreC));
-		nbNourritureCabane.setText(" "+String.valueOf(nourritureC));
+		for(int i=0; i<5; i++) {
+			nbRessourceCabane.add(new JTextPane());
+			nbRessourceCabane.get(i).setText(" "+String.valueOf(quantityCabane.get(i)));
+		}
 		
 		String buildable = "";
 		for (String s : Tool.getBuildables(joueur)) {
@@ -158,32 +164,34 @@ public class IHMInfoJoueur extends JTextArea{
 		Dimension preferredSize = new Dimension(55, 55);
 		
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.anchor = gridBagConstraints.NORTHWEST;
+		gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
 		gridBagConstraints.gridwidth = 1;
-		
-		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = gridy;
-		this.add(new JLabel(new ImageIcon("../ressources/images//icons/bois.JPG"), JLabel.CENTER), gridBagConstraints);
 		
+		for(int i=0; i<5; i++) {
+			gridBagConstraints.gridx = i;
+			boutonSac.add(new JButton());
+			boutonSac.get(i).setIcon(icones.get(i));
+			boutonSac.get(i).setPreferredSize(preferredSize);
+			this.add(boutonSac.get(i), gridBagConstraints);
+		}
+	}
 	
-		gridBagConstraints.gridx = 1;
+	private void cabinIcons(int gridy) {
+		Dimension preferredSize = new Dimension(55, 55);
+		
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+		gridBagConstraints.gridwidth = 1;
 		gridBagConstraints.gridy = gridy;
-		this.add(new JLabel(new ImageIcon("../ressources/images//icons/eau.JPG"), JLabel.CENTER), gridBagConstraints);
 		
-		
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = gridy;
-		this.add(new JLabel(new ImageIcon("../ressources/images//icons/pierre.JPG"), JLabel.CENTER), gridBagConstraints);
-		
-		
-		gridBagConstraints.gridx = 3;
-		gridBagConstraints.gridy = gridy;
-		this.add(new JLabel(new ImageIcon("../ressources/images//icons/liane.JPG"), JLabel.CENTER), gridBagConstraints);
-		
-
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = gridy;
-		this.add(new JLabel(new ImageIcon("../ressources/images//icons/nourriture.JPG"), JLabel.CENTER), gridBagConstraints);
+		for(int i=0; i<5; i++) {
+			gridBagConstraints.gridx = i;
+			boutonCabane.add(new JButton());
+			boutonCabane.get(i).setIcon(icones.get(i));
+			boutonCabane.get(i).setPreferredSize(preferredSize);
+			this.add(boutonCabane.get(i), gridBagConstraints);
+		}
 	}
 	
 	private void displayInventoryNumbers(int gridy) {
@@ -191,37 +199,16 @@ public class IHMInfoJoueur extends JTextArea{
 		Dimension preferredSize = new Dimension(35, 35);
 		
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.anchor = gridBagConstraints.NORTHWEST;
-		
-		nbBois.setFont(font);
-		nbBois.setPreferredSize(preferredSize);
-		gridBagConstraints.gridx = 0;
+		gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
 		gridBagConstraints.gridy = gridy+1;
-		this.add(nbBois, gridBagConstraints);
 		
-		nbEau.setFont(font);
-		nbEau.setPreferredSize(preferredSize);
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = gridy+1;
-		this.add(nbEau, gridBagConstraints);
-		
-		nbPierre.setFont(font);
-		nbPierre.setPreferredSize(preferredSize);
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = gridy+1;
-		this.add(nbPierre, gridBagConstraints);
-		
-		nbLiane.setFont(font);
-		nbLiane.setPreferredSize(preferredSize);
-		gridBagConstraints.gridx = 3;
-		gridBagConstraints.gridy = gridy+1;
-		this.add(nbLiane, gridBagConstraints);
-		
-		nbNourriture.setFont(font);
-		nbNourriture.setPreferredSize(preferredSize);
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = gridy+1;
-		this.add(nbNourriture, gridBagConstraints);
+		for(int i=0; i<5; i++) {
+			gridBagConstraints.gridx = i;
+			nbRessourceSac.add(new JTextPane());
+			nbRessourceSac.get(i).setFont(font);
+			nbRessourceSac.get(i).setPreferredSize(preferredSize);
+			this.add(nbRessourceSac.get(i), gridBagConstraints);
+		}
 	}
 	
 	private void displayCabinNumbers(int gridy) {
@@ -229,36 +216,15 @@ public class IHMInfoJoueur extends JTextArea{
 		Dimension preferredSize = new Dimension(35, 35);
 		
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.anchor = GridBagConstraints.LINE_START;
-		
-		nbBoisCabane.setFont(font);
-		nbBoisCabane.setPreferredSize(preferredSize);
-		gridBagConstraints.gridx = 0;
+		gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
 		gridBagConstraints.gridy = gridy+1;
-		this.add(nbBoisCabane, gridBagConstraints);
 		
-		nbEauCabane.setFont(font);
-		nbEauCabane.setPreferredSize(preferredSize);
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = gridy+1;
-		this.add(nbEauCabane, gridBagConstraints);
-		
-		nbPierreCabane.setFont(font);
-		nbPierreCabane.setPreferredSize(preferredSize);
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = gridy+1;
-		this.add(nbPierreCabane, gridBagConstraints);
-		
-		nbLianeCabane.setFont(font);
-		nbLianeCabane.setPreferredSize(preferredSize);
-		gridBagConstraints.gridx = 3;
-		gridBagConstraints.gridy = gridy+1;
-		this.add(nbLianeCabane, gridBagConstraints);
-		
-		nbNourritureCabane.setFont(font);
-		nbNourritureCabane.setPreferredSize(preferredSize);
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = gridy+1;
-		this.add(nbNourritureCabane, gridBagConstraints);
+		for(int i=0; i<5; i++) {
+			gridBagConstraints.gridx = i;
+			nbRessourceCabane.add(new JTextPane());
+			nbRessourceCabane.get(i).setFont(font);
+			nbRessourceCabane.get(i).setPreferredSize(preferredSize);
+			this.add(nbRessourceCabane.get(i), gridBagConstraints);
+		}
 	}
 }

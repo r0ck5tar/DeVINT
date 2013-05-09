@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import fonctionnement.environnement.*;
+import fonctionnement.objet.Cabane;
 
 
 
@@ -18,13 +19,14 @@ public class IHMPlateau extends JPanel{
 	private IHMCase[] cases;
 	private IHMCabane[] cabanes;
 	private ArrayList<Case> listCases;
+	private ArrayList<Cabane> listCabanes;
 	private ArrayList<Integer> indiceCaseAccessibles;
  	private ActionListener parent; 
 	private Plateau plateauJeu;
 	
 	private Image backgroundImage;
 	
-	IHMPlateau(Plateau plateauJeu, ActionListener parent) {
+	IHMPlateau(Plateau plateauJeu, ArrayList<Cabane> cabanes, ActionListener parent) {
 		setLayout(new GridBagLayout());
 		try {
 			backgroundImage = ImageIO.read(new File("../ressources/images/plateau.JPG"));
@@ -43,9 +45,10 @@ public class IHMPlateau extends JPanel{
 		casePos.fill = GridBagConstraints.BOTH;
 		
 		cases = new IHMCase[57];
-		cabanes = new IHMCabane[4];
+		this.cabanes = new IHMCabane[4];
 		
 		listCases = new ArrayList<Case>();
+		listCabanes = cabanes;
 		
 		initialiseCabanes(cabanePos);
 		initialiseCases(casePos);
@@ -91,7 +94,7 @@ public class IHMPlateau extends JPanel{
 	private void initialiseCabanes(GridBagConstraints cabanePos) {
 		
 		for(int i=0; i<4; i++) {
-			cabanes[i] = new IHMCabane();
+			cabanes[i] = new IHMCabane(listCabanes.get(i), parent);
 		}
 		
 		/*
