@@ -108,4 +108,23 @@ public class Sac {
 		return limite;
 	}
 
+	public int getQuantity(TypeRessource type) {
+		int quantity =0;
+		for(Objet r : this.stock) {
+			if(r instanceof Ressource) {
+				if(((Ressource) r).getType() == type) quantity++;
+			}
+		}
+		return quantity;
+	}
+	
+	public void remove(TypeRessource type, int quantite) {
+		for(int i = 0 ; i < this.stock.size() && quantite != 0 ; i++) {
+			if(((Ressource) this.stock.get(i)).getType() == type) {
+				this.stock.remove(i);
+				quantite--;
+				i--;
+			}
+		}
+	}
 }

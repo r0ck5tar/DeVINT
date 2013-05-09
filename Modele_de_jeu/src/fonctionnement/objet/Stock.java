@@ -42,4 +42,12 @@ public class Stock {
 	
 	public boolean isFull() { return this.stock.size() >= niveau;}
 	public boolean isEmpty() { return this.stock.size() == 0;}
+	
+	public int getQuantity(TypeRessource type) {
+		int quantity =0;
+		for(Ressource r : this.stock) {
+			if(r.getType() == type) quantity++;
+		}
+		return quantity;
+	}
 }

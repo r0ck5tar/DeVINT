@@ -46,60 +46,92 @@ public class Cabane {
 
 	public boolean isBuildableToit() {
 		// this.Stock.contains(enum de la ressource , quantite de cette ressource)
-		return (!this.toit && this.stock.contains(TypeRessource.BOIS,1) && this.stock.contains(TypeRessource.LIANE,1) && this.stock.contains(TypeRessource.EAU,1));
+		return (!this.toit && (this.stock.getQuantity(TypeRessource.BOIS) + joueur.getSac().getQuantity(TypeRessource.BOIS) >=1)
+				&& (this.stock.getQuantity(TypeRessource.LIANE) + joueur.getSac().getQuantity(TypeRessource.LIANE) >=1) 
+				&& (this.stock.getQuantity(TypeRessource.EAU) + joueur.getSac().getQuantity(TypeRessource.EAU) >=1));
 	}
 
 	public boolean isBuildableTonneau() {
-		return (!this.tonneau && this.stock.contains(TypeRessource.BOIS,2) && this.stock.contains(TypeRessource.EAU,1));
+		return (!this.tonneau && (this.stock.getQuantity(TypeRessource.BOIS) + joueur.getSac().getQuantity(TypeRessource.BOIS) >=2)
+				&& (this.stock.getQuantity(TypeRessource.EAU) + joueur.getSac().getQuantity(TypeRessource.EAU) >=1));
 	}
 
 	public boolean isBuildableFilet() {
-		return (!this.filet && this.stock.contains(TypeRessource.FILET,1));
+		return (!this.filet && (this.stock.getQuantity(TypeRessource.FILET) + joueur.getSac().getQuantity(TypeRessource.FILET) >=1));
 	}
 
 	public boolean isBuildableAtelier() {
-		return (!this.atelier && this.stock.contains(TypeRessource.PIERRE,2) && this.stock.contains(TypeRessource.BOIS,1)&& this.stock.contains(TypeRessource.LIANE,1) && this.stock.contains(TypeRessource.EAU,1));
+		return (!this.atelier && (this.stock.getQuantity(TypeRessource.PIERRE) + joueur.getSac().getQuantity(TypeRessource.PIERRE) >= 2) 
+				&& (this.stock.getQuantity(TypeRessource.BOIS) + joueur.getSac().getQuantity(TypeRessource.BOIS) >=1)
+				&& (this.stock.getQuantity(TypeRessource.LIANE) + joueur.getSac().getQuantity(TypeRessource.LIANE) >=1) 
+				&& (this.stock.getQuantity(TypeRessource.EAU) + joueur.getSac().getQuantity(TypeRessource.EAU) >=1));
 	}
 	
 	public boolean isBuildableStock() {
-		return (this.stock.getNiveau() < this.stock.getNIVEAUMAX() && this.stock.contains(TypeRessource.PIERRE,1) && this.stock.contains(TypeRessource.BOIS,1) && this.stock.contains(TypeRessource.EAU,1));
+		return (this.stock.getNiveau() < this.stock.getNIVEAUMAX() 
+				&& (this.stock.getQuantity(TypeRessource.PIERRE) + joueur.getSac().getQuantity(TypeRessource.PIERRE) >= 1) 
+				&& (this.stock.getQuantity(TypeRessource.BOIS) + joueur.getSac().getQuantity(TypeRessource.BOIS) >= 1) 
+				&& (this.stock.getQuantity(TypeRessource.EAU) + joueur.getSac().getQuantity(TypeRessource.EAU) >= 1));
 	}
 	
 	public void construireToit() {
 		this.toit = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.stock.remove(TypeRessource.BOIS,1);
-		this.stock.remove(TypeRessource.LIANE,1);
-		this.stock.remove(TypeRessource.EAU,1);
+		if(this.stock.getQuantity(TypeRessource.BOIS) >=1) {this.stock.remove(TypeRessource.BOIS,1);}
+		else {joueur.getSac().remove(TypeRessource.BOIS, 1);}
+		
+		if(this.stock.getQuantity(TypeRessource.LIANE) >=1) {this.stock.remove(TypeRessource.LIANE,1);}
+		else {joueur.getSac().remove(TypeRessource.LIANE, 1);}
+		
+		if(this.stock.getQuantity(TypeRessource.EAU) >=1) {this.stock.remove(TypeRessource.EAU,1);}
+		else {joueur.getSac().remove(TypeRessource.EAU,1);}
 	}
 	
 	public void construireTonneau() {
 		this.tonneau = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.stock.remove(TypeRessource.BOIS,2);
-		this.stock.remove(TypeRessource.EAU,1);
+		int nbBoisInStock = this.stock.getQuantity(TypeRessource.BOIS);
+		if(nbBoisInStock >=1) {this.stock.remove(TypeRessource.BOIS,nbBoisInStock);}
+		if(nbBoisInStock <2) {joueur.getSac().remove(TypeRessource.BOIS, 2-nbBoisInStock);}
+		
+		if(this.stock.getQuantity(TypeRessource.EAU) >=1) {this.stock.remove(TypeRessource.EAU,1);}
+		else {joueur.getSac().remove(TypeRessource.EAU, 1);}
 	}
 	
 	public void construireFilet() {
 		this.filet = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.stock.remove(TypeRessource.FILET,1);
+		if(this.stock.getQuantity(TypeRessource.FILET) >=1) {this.stock.remove(TypeRessource.FILET,1);}
+		else {joueur.getSac().remove(TypeRessource.FILET, 1);}
 	}
 	
 	public void construireAtelier() {
 		this.atelier = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.stock.remove(TypeRessource.PIERRE,2);
-		this.stock.remove(TypeRessource.BOIS,1);
-		this.stock.remove(TypeRessource.LIANE,1);
-		this.stock.remove(TypeRessource.EAU,1);
+		int nbPierreInStock = this.stock.getQuantity(TypeRessource.PIERRE);
+		if(nbPierreInStock >=1) {this.stock.remove(TypeRessource.PIERRE,nbPierreInStock);}
+		if(nbPierreInStock <2) {joueur.getSac().remove(TypeRessource.PIERRE, 2-nbPierreInStock);}
+		
+		if(this.stock.getQuantity(TypeRessource.BOIS) >=1) {this.stock.remove(TypeRessource.BOIS,1);}
+		else {joueur.getSac().remove(TypeRessource.BOIS, 1);}
+		
+		if(this.stock.getQuantity(TypeRessource.LIANE) >=1) {this.stock.remove(TypeRessource.LIANE,1);}
+		else {joueur.getSac().remove(TypeRessource.LIANE, 1);}
+		
+		if(this.stock.getQuantity(TypeRessource.EAU) >=1) {this.stock.remove(TypeRessource.EAU,1);}
+		else {joueur.getSac().remove(TypeRessource.EAU, 1);}
 	}
 	
 	public void construireStock() {
 		this.atelier = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
-		this.stock.remove(TypeRessource.PIERRE,1);
-		this.stock.remove(TypeRessource.BOIS,1);
-		this.stock.remove(TypeRessource.EAU,1);
+		if(this.stock.getQuantity(TypeRessource.PIERRE) >=1) {this.stock.remove(TypeRessource.PIERRE,1);}
+		else {joueur.getSac().remove(TypeRessource.PIERRE, 1);}
+		
+		if(this.stock.getQuantity(TypeRessource.BOIS) >=1) {this.stock.remove(TypeRessource.BOIS,1);}
+		else {joueur.getSac().remove(TypeRessource.BOIS, 1);}
+		
+		if(this.stock.getQuantity(TypeRessource.EAU) >=1) {this.stock.remove(TypeRessource.EAU,1);}
+		else {joueur.getSac().remove(TypeRessource.EAU, 1);}
 	}
 }
