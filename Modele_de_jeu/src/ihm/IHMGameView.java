@@ -1,5 +1,7 @@
 package ihm;
 
+import ihm.IHMInfoJoueur.Objets;
+
 import javax.swing.*;
 
 import Tool.Tool;
@@ -134,8 +136,18 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	// Action performed: defini les actions a effectuer lors de detection des evenements
 	public void actionPerformed(ActionEvent ae) {
 		voix.stop(); // toujours stopper la voix avant de parler
+		boolean disposeMenuGeneral = true;
 	
 		Object source = ae.getSource(); // on recupere la source de l'evenement
+		
+		for(IHMInfoJoueur infoJ :infoJoueurs) {
+			for(int i=0; i<infoJ.boutonSac().size(); i++){
+				if(source.equals(infoJ.boutonSac().get(i))){
+					disposeMenuGeneral = false;
+					System.out.println(Objets.getName(i));
+				}
+			}
+		}
 		
 		if (source.getClass().getSimpleName().equals("IHMCase")) {
 			for (int i = 0; i < 57; i++) {
@@ -149,7 +161,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		}
 		
 		else {
-			menu.menuGeneral().dispose();
+			if(disposeMenuGeneral) {menu.menuGeneral().dispose();}
 			
 			/*
 			 * When the player clicks on boutonDe

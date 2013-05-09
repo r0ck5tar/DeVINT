@@ -37,6 +37,13 @@ public class IHMInfoJoueur extends JTextArea{
 	private ArrayList<JButton> boutonSac = new ArrayList<JButton>();
 	private ArrayList<ImageIcon> icones = new ArrayList<ImageIcon>();
 	
+	public enum Objets {
+		BOIS, EAU, PIERRE, LIANE, NOURRITURE, LANCE, CATAPULTE, BOUSSOLE, SAC;
+		
+		public static String getName(int n) {
+			return values()[n].toString();
+		}
+	}
 	
 	public IHMInfoJoueur(Joueur joueur, ActionListener parent) {
 		super(joueur.getNom());
@@ -173,6 +180,7 @@ public class IHMInfoJoueur extends JTextArea{
 			boutonSac.add(new JButton());
 			boutonSac.get(i).setIcon(icones.get(i));
 			boutonSac.get(i).setPreferredSize(preferredSize);
+			boutonSac.get(i).addActionListener(parent);
 			this.add(boutonSac.get(i), gridBagConstraints);
 		}
 	}
@@ -190,6 +198,7 @@ public class IHMInfoJoueur extends JTextArea{
 			boutonCabane.add(new JButton());
 			boutonCabane.get(i).setIcon(icones.get(i));
 			boutonCabane.get(i).setPreferredSize(preferredSize);
+			boutonCabane.get(i).addActionListener(parent);
 			this.add(boutonCabane.get(i), gridBagConstraints);
 		}
 	}
@@ -226,5 +235,15 @@ public class IHMInfoJoueur extends JTextArea{
 			nbRessourceCabane.get(i).setPreferredSize(preferredSize);
 			this.add(nbRessourceCabane.get(i), gridBagConstraints);
 		}
+	}
+	
+	//0-bois 1-eau 2-pierre 3-liane 4-nourriture
+	
+	public ArrayList<JButton> boutonSac() {
+		return boutonSac;
+	}
+	
+	public ArrayList<JButton> boutonCabane() {
+		return boutonCabane;
 	}
 }
