@@ -28,7 +28,7 @@ public class IHMCabane extends JButton {
 	private ArrayList<JLabel> etatConstruction = new ArrayList<JLabel>();
 	private String orientation;
 	
-	IHMCabane(Cabane cabane, String orientation, ActionListener parent) {
+	IHMCabane(Cabane cabane, String orientation, Color couleur, ActionListener parent) {
 		super();
 		this.cabane = cabane;
 		this.parent = parent;
@@ -49,7 +49,7 @@ public class IHMCabane extends JButton {
 		
 		setLayout(new GridBagLayout());
 		setPreferredSize(new Dimension(110, 110));
-		setBackground(pref.getCurrentBackgroundColor());
+		setBackground(couleur);
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		setOpaque(true);
 

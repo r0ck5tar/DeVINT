@@ -5,10 +5,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import fonctionnement.objet.Joueur;
 import fonctionnement.environnement.*;
 import fonctionnement.objet.Cabane;
 
@@ -21,12 +23,13 @@ public class IHMPlateau extends JPanel{
 	private ArrayList<Case> listCases;
 	private ArrayList<Cabane> listCabanes;
 	private ArrayList<Integer> indiceCaseAccessibles;
+	private Map<Joueur, Color> couleursJoueurs;
  	private ActionListener parent; 
 	private Plateau plateauJeu;
 	
 	private Image backgroundImage;
 	
-	IHMPlateau(Plateau plateauJeu, ArrayList<Cabane> cabanes, ActionListener parent) {
+	IHMPlateau(Plateau plateauJeu, ArrayList<Cabane> cabanes, Map<Joueur, Color> couleursJoueurs, ActionListener parent) {
 		setLayout(new GridBagLayout());
 		try {
 			backgroundImage = ImageIO.read(new File("../ressources/images/plateau.JPG"));
@@ -35,6 +38,7 @@ public class IHMPlateau extends JPanel{
 		}
 		this.parent = parent;
 		this.plateauJeu = plateauJeu;
+		this.couleursJoueurs = couleursJoueurs;
 		GridBagConstraints casePos = new GridBagConstraints();
 		GridBagConstraints cabanePos = new GridBagConstraints();
 		indiceCaseAccessibles = new ArrayList<Integer>();
@@ -94,8 +98,8 @@ public class IHMPlateau extends JPanel{
 	private void initialiseCabanes(GridBagConstraints cabanePos) {
 		
 		for(int i=0; i<4; i+=2) {
-			cabanes[i] = new IHMCabane(listCabanes.get(i), "horizontal", parent);
-			cabanes[i+1] = new IHMCabane(listCabanes.get(i+1), "vertical", parent);
+			cabanes[i] = new IHMCabane(listCabanes.get(i), "horizontal", couleursJoueurs.get(listCabanes.get(i).getJoueur()), parent);
+			cabanes[i+1] = new IHMCabane(listCabanes.get(i+1), "vertical", couleursJoueurs.get(listCabanes.get(i+1).getJoueur()), parent);
 		}
 		
 		/*

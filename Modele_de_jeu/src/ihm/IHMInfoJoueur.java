@@ -28,6 +28,7 @@ public class IHMInfoJoueur extends JTextArea{
 	private ActionListener parent;
 	private Font font;
 	
+	private JTextPane nomJoueur = new JTextPane();
 	private JTextPane inventaire = new JTextPane();
 	private JTextPane dansLaCabane = new JTextPane();
 	private JTextPane constructible = new JTextPane();
@@ -61,8 +62,8 @@ public class IHMInfoJoueur extends JTextArea{
 		}
 	}
 	
-	public IHMInfoJoueur(Joueur joueur, ActionListener parent) {
-		super(joueur.getNom());
+	public IHMInfoJoueur(Joueur joueur, Color couleurJoueur, ActionListener parent) {
+		super();
 		this.joueur = joueur;
 		this.parent = parent;
 
@@ -86,44 +87,58 @@ public class IHMInfoJoueur extends JTextArea{
 		
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		
-		inventaire.setFont(font);
+		nomJoueur.setText(joueur.getNom());
+		nomJoueur.setFont(font);
+		nomJoueur.setPreferredSize(new Dimension(290, 30));
+		nomJoueur.setForeground(couleurJoueur);
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridwidth = 5;
+		this.add(nomJoueur, gridBagConstraints);
+		
+		inventaire.setFont(font);
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 1;
+		gridBagConstraints.gridwidth = 5;
 		this.add(inventaire, gridBagConstraints);
 		
-		inventoryIcons(1);
-		displayInventoryNumbers(1);
+		inventoryIcons(2);
+		displayInventoryNumbers(2);
 		
 		dansLaCabane.setFont(font);
 		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 3;
+		gridBagConstraints.gridy = 4;
 		gridBagConstraints.gridwidth = 5;
 		this.add(dansLaCabane, gridBagConstraints);
+		
+		cabinIcons(5);
+		displayCabinNumbers(5);
 		
 		JTextPane constructibleLabel = new JTextPane();
 		constructibleLabel.setFont(font);
 		constructibleLabel.setText("Constructible :");
-		gridBagConstraints.gridy = 6;
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 7;
 		gridBagConstraints.gridwidth = 5;
 		this.add(constructibleLabel, gridBagConstraints);
 		
 		constructible.setFont(font);
+		constructible.setPreferredSize(new Dimension(290, 40));
 		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 7;
+		gridBagConstraints.gridy = 8;
 		gridBagConstraints.gridwidth = 5;
 		this.add(constructible, gridBagConstraints);
 		
 		constructible2.setFont(font);
+		constructible2.setPreferredSize(new Dimension(290, 40));
 		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 8;
+		gridBagConstraints.gridy = 9;
 		gridBagConstraints.gridwidth = 5;
 		this.add(constructible2, gridBagConstraints);
 		
 		
 		updateDisplay();
-		cabinIcons(4);
-		displayCabinNumbers(4);
+
 	}
 	
 	public void updateDisplay() {

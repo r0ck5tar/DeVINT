@@ -84,7 +84,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		infoJoueurs = new ArrayList<IHMInfoJoueur>();
 
 		for (int i = 0; i < listJoueurs.size(); i++) {
-			infoJoueurs.add(new IHMInfoJoueur(listJoueurs.get(i), this));
+			infoJoueurs.add(new IHMInfoJoueur(listJoueurs.get(i), couleursJoueurs.get(listJoueurs.get(i)), this));
 		}
 
 		setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -92,7 +92,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 		for(int i=0; i<listJoueurs.size(); i++) {
 			cabanes.add(listJoueurs.get(i).getCabane());
 		}
-		plateau = new IHMPlateau(plateauJeu, cabanes, this);
+		plateau = new IHMPlateau(plateauJeu, cabanes,couleursJoueurs, this);
 
 		infoJoueurGauche = new JPanel();
 		infoJoueurDroite = new JPanel();
@@ -114,9 +114,9 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 
 	private void initializePlayerPositions() {
 		ArrayList<Integer> positionJouers = new ArrayList<Integer>();
-		positionJouers.add(5);
-		positionJouers.add(35);
 		positionJouers.add(16);
+		positionJouers.add(35);
+		positionJouers.add(5);
 		positionJouers.add(26);
 		for (int i = 0; i < listJoueurs.size(); i++) {
 			listJoueurs.get(i).setPosition(
