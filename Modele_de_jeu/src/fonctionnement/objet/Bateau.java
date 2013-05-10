@@ -69,7 +69,7 @@ public class Bateau {
 	}
 	
 	public void construireMat() {
-		this.coque = true;
+		this.mat = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
 		if(this.cabane.getStock().getQuantity(TypeRessource.BOIS) >=1) {this.cabane.getStock().remove(TypeRessource.BOIS,1);}
 		else {this.cabane.getJoueur().getSac().remove(TypeRessource.BOIS, 1);}
