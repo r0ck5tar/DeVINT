@@ -49,8 +49,9 @@ public class IHMCabane extends JButton {
 		
 		setLayout(new GridBagLayout());
 		setPreferredSize(new Dimension(110, 110));
-		setBackground(couleur);
-		setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		setBackground(pref.getCurrentBackgroundColor());
+		setBorder(BorderFactory.createLineBorder(couleur, 5));
+		
 		setOpaque(true);
 
 		gridBagConstraints.gridx = 0;
