@@ -83,7 +83,7 @@ public class Bateau {
 	}
 	
 	public void construireGouvernail() {
-		this.coque = true;
+		this.gouvernail = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
 		int nbPierreInStock = this.cabane.getStock().getQuantity(TypeRessource.PIERRE);
 		if(nbPierreInStock <3) {
@@ -100,7 +100,7 @@ public class Bateau {
 	}
 	
 	public void construireVoile() {
-		this.coque = true;
+		this.voile = true;
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
 		if(this.cabane.getStock().getQuantity(TypeRessource.VOILE) >=1) {this.cabane.getStock().remove(TypeRessource.VOILE,1);}
 		else {this.cabane.getJoueur().getSac().remove(TypeRessource.VOILE, 1);}
