@@ -136,6 +136,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 	// Action performed: defini les actions a effectuer lors de detection des evenements
 	public void actionPerformed(ActionEvent ae) {
 		voix.stop(); // toujours stopper la voix avant de parler
+		this.requestFocus(); // on redonne le focus au JFrame principal (apres un clic, le focus est sur le bouton)
 		boolean disposeMenuGeneral = true;
 	
 		Object source = ae.getSource(); // on recupere la source de l'evenement
@@ -290,7 +291,7 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 			}
 		}
 	
-		this.requestFocus(); // on redonne le focus au JFrame principal (apres un clic, le focus est sur le bouton)
+		
 	}
 
 	public void play() {
