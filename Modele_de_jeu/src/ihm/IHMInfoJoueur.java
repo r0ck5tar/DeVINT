@@ -26,10 +26,12 @@ import fonctionnement.objet.TypeRessource;
 public class IHMInfoJoueur extends JTextArea{
 	private Joueur joueur;
 	private ActionListener parent;
+	private Font font;
 	
 	private JTextPane inventaire = new JTextPane();
 	private JTextPane dansLaCabane = new JTextPane();
 	private JTextPane constructible = new JTextPane();
+	private JTextPane constructible2 = new JTextPane();
 	
 	//0-bois 1-eau 2-pierre 3-liane 4-nourriture
 	private ArrayList<JTextPane> nbRessourceSac = new ArrayList<JTextPane>();
@@ -73,7 +75,7 @@ public class IHMInfoJoueur extends JTextArea{
 		icones.add(new ImageIcon("../ressources/images//icons/liane.JPG"));
 		icones.add(new ImageIcon("../ressources/images//icons/nourriture.JPG"));
 		
-		Font font = new Font("Tahoma", 1, 26);
+		font = new Font("Tahoma", 1, 24);
 		setPreferredSize(new Dimension(320, 410));
 		setBackground(pref.getCurrentBackgroundColor());
 		setForeground(pref.getCurrentForegroundColor());
@@ -111,6 +113,12 @@ public class IHMInfoJoueur extends JTextArea{
 		gridBagConstraints.gridy = 7;
 		gridBagConstraints.gridwidth = 5;
 		this.add(constructible, gridBagConstraints);
+		
+		constructible2.setFont(font);
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 8;
+		gridBagConstraints.gridwidth = 5;
+		this.add(constructible2, gridBagConstraints);
 		
 		
 		updateDisplay();
@@ -172,12 +180,34 @@ public class IHMInfoJoueur extends JTextArea{
 			nbRessourceCabane.get(i).setText(" "+String.valueOf(quantityCabane.get(i)));
 		}
 		
-		String buildable = "";
-		for (String s : Tool.getBuildables(joueur)) {
-			buildable += " "+s;
+		String buildable;
+		ArrayList<String> getBuildables = Tool.getBuildables(joueur);
+		
+		if (getBuildables.size() > 3) {			
+			buildable = "";
+			for (int i=0; i<3; i++) {
+				buildable += " "+ getBuildables.get(i);
+			}
+			
+			constructible.setText(buildable);
+
+			buildable = "";
+			for (int i=3; i<getBuildables.size(); i++) {
+				buildable += " "+ getBuildables.get(i);
+			}
+			constructible2.setText(buildable);
+		}
+		else {
+			buildable = "";
+			for (int i=0; i<getBuildables.size(); i++) {
+				buildable += " "+ getBuildables.get(i);
+			}
+			
+			constructible.setText(buildable);
+			constructible2.setText("");
 		}
 		
-		constructible.setText(buildable);
+		this.repaint();
 	}
 	
 	private void inventoryIcons(int gridy) {
@@ -217,7 +247,6 @@ public class IHMInfoJoueur extends JTextArea{
 	}
 	
 	private void displayInventoryNumbers(int gridy) {
-		Font font = new Font("Tahoma", 1, 26);
 		Dimension preferredSize = new Dimension(35, 35);
 		
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -234,7 +263,6 @@ public class IHMInfoJoueur extends JTextArea{
 	}
 	
 	private void displayCabinNumbers(int gridy) {
-		Font font = new Font("Tahoma", 1, 26);
 		Dimension preferredSize = new Dimension(35, 35);
 		
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();

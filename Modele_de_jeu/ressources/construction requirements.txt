@@ -1,0 +1,14 @@
+construction requirements
+
+Cabane
+Toit: Bois x1, Liane x1, Eau x1
+Tonneau: Bois x2, Eau x1
+Filet: Filet x1
+Atelier: Pierre x2, Bois x1, Liane x1, Eau x1
+Stock: Bois x1, Pierre x1, Eau x1
+
+Bateau
+Coque: Bois x3, Liane x1
+Mat: Bois x1, Liane x3
+Gouvernail: Pierre x3, Bois x1, Liane x1
+Voile: Voile x1
