@@ -151,7 +151,7 @@ public class IHMInfoJoueur extends JTextArea{
 			quantityCabane.add(0);
 		}
 		
-		inventaire.setText("Inventaire ("+joueur.getSac().getStock().size()  +"/"+joueur.getSac().getLimite()+")");
+		inventaire.setText("Sac ("+joueur.getSac().getStock().size()  +"/"+joueur.getSac().getLimite()+")");
 		for(Objet objet : joueur.getSac().getStock()) {
 			//0-bois 1-eau 2-pierre 3-liane 4-nourriture
 			switch(objet.toString()) {
@@ -173,7 +173,7 @@ public class IHMInfoJoueur extends JTextArea{
 		}
 		
 		
-		dansLaCabane.setText("Dans la cabane ("+joueur.getCabane().getStock().getStock().size() +"/"
+		dansLaCabane.setText("Cabane ("+joueur.getCabane().getStock().getStock().size() +"/"
 							+joueur.getCabane().getStock().getNiveau()+")");
 		for(Objet objet : joueur.getCabane().getStock().getStock()) {
 			switch(objet.toString()) {
