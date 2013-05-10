@@ -156,7 +156,6 @@ public class IHMGameView extends FenetreAbstraite implements ActionListener {
 				for(int i=0; i<infoJ.boutonSac().size(); i++){
 					if(source.equals(infoJ.boutonSac().get(i))){
 						disposeMenuGeneral = false;
-						System.out.println(Objets.atValue(i).toTypeRessource().getNom());
 						voix.playShortText(Objets.atValue(i).toTypeRessource().getNom() +"," + infoJ.nbRessourceSac(i));
 						break;
 					}

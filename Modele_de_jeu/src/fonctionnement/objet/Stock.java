@@ -50,4 +50,8 @@ public class Stock {
 		}
 		return quantity;
 	}
+	
+	public void augmenterNiveau() {
+		niveau++;
+	}
 }

@@ -128,8 +128,7 @@ public class IHMInfoJoueur extends JTextArea{
 			quantityCabane.add(0);
 		}
 		
-		inventaire.setText("Inventaire ("+joueur.getSac().getStock().size()  +"/"
-				+joueur.getSac().getLimite()+")");
+		inventaire.setText("Inventaire ("+joueur.getSac().getStock().size()  +"/"+joueur.getSac().getLimite()+")");
 		for(Objet objet : joueur.getSac().getStock()) {
 			//0-bois 1-eau 2-pierre 3-liane 4-nourriture
 			switch(objet.toString()) {

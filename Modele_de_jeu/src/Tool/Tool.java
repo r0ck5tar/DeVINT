@@ -68,7 +68,6 @@ public class Tool {
 	
 	
 	public static void viderSac(Joueur j){
-		System.out.println("VIDER LE SAC");
 		Stock stock = j.getCabane().getStock();
 		Sac sac = j.getSac();
 		Boolean b = true;
@@ -81,7 +80,6 @@ public class Tool {
 			}
 			if(b) {
 				stock.ajouterRessource(sac.getFirstRessource());
-				System.out.println("UNE RESSOURCE AJOUTEE");
 			}
 		}
 	}

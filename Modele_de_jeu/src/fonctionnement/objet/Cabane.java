@@ -129,7 +129,7 @@ public class Cabane {
 	}
 	
 	public void construireStock() {
-		this.atelier = true;
+		stock.augmenterNiveau();
 		// this.stock.remove(enum de la ressource , quantite de cette ressource)
 		if(this.stock.getQuantity(TypeRessource.PIERRE) >=1) {this.stock.remove(TypeRessource.PIERRE,1);}
 		else {joueur.getSac().remove(TypeRessource.PIERRE, 1);}
